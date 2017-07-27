@@ -1,4 +1,4 @@
-package com.team.DeskPosable;
+package com.team.deskposable;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
