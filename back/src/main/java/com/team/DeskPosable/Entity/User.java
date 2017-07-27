@@ -2,6 +2,7 @@ package com.team.DeskPosable.entity;
 
 import javax.persistence.*;
 import java.sql.Date;
+
 public class User {
 
     @Id
