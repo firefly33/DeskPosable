@@ -1,4 +1,4 @@
-package com.team.DeskPosable;
+package com.team.deskposable;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

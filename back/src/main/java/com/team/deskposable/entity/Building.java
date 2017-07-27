@@ -1,4 +1,4 @@
-package com.team.DeskPosable.Entity;
+package com.team.deskposable.entity;
 
 import javax.persistence.*;
 
