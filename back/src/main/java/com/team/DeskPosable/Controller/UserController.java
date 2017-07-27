@@ -22,7 +22,7 @@ public class UserController {
             userRepository.save(user);
             return "ok";
         }
-        return "error";
+        return "errors";
     }
 
     @GetMapping("/all")
