@@ -1,4 +1,4 @@
-package com.team.DeskPosable.entity;
+package com.team.DeskPosable.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

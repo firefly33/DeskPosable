@@ -1,7 +1,7 @@
-package com.team.DeskPosable.controller;
+package com.team.DeskPosable.Controller;
 
-import com.team.DeskPosable.entity.User;
-import com.team.DeskPosable.repository.UserRepository;
+import com.team.DeskPosable.Entity.User;
+import com.team.DeskPosable.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
