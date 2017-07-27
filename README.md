@@ -1,7 +1,8 @@
- Application de plans de bureau
+# Application de plans de bureau
 
-MVP (Minimum Viable Product)
-Fonctionalités Basiques
+## MVP (Minimum Viable Product)
+
+### Fonctionalités Basiques
 
 * Ajout de bureaux
 * Ajout/Sortie de collaborateurs
@@ -11,13 +12,13 @@ Fonctionalités Basiques
 * Lecture seule pour tous / Administration pour un panel d’utilisateurs
 * Upload de plans
 
-Fonctionnalités avancées
+### Fonctionnalités avancées
 
 * Prévision d'occupation avec évolution prévisionnalle de l'effectif
 * Statistiques sur l'occupation des bureaux et du matériel
 * Gestion de version des plans
 
-Application Web Desktop
+### Application Web Desktop
 
 * Versionnée (SCM au choix, de pref, GitHub)
 * BDD : Au choix
