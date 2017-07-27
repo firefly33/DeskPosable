@@ -1,6 +1,6 @@
-package com.team.DeskPosable.repository;
+package com.team.deskposable.repository;
 
-import com.team.DeskPosable.entity.Map;
+import com.team.deskposable.entity.Map;
 import org.springframework.data.repository.CrudRepository;
 
 /**
