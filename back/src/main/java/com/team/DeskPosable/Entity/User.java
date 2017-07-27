@@ -1,4 +1,4 @@
-package com.team.DeskPosable.Entity;
+package com.team.DeskPosable.entity;
 
 import javax.persistence.*;
 import java.sql.Date;

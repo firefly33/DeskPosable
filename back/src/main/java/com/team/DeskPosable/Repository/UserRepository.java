@@ -1,6 +1,6 @@
-package com.team.DeskPosable.Repository;
+package com.team.DeskPosable.repository;
 
-import com.team.DeskPosable.Entity.User;
+import com.team.DeskPosable.entity.User;
 import org.springframework.data.repository.CrudRepository;
 
 
