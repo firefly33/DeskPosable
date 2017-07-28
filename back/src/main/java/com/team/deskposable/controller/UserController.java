@@ -15,7 +15,8 @@ public class UserController {
     UserRepository userRepository;
 
     @PostMapping()
-    public @ResponseBody
+    @ResponseBody
+    public
     String addNewAccount(@RequestBody User user) {
 
         if(user != null){
