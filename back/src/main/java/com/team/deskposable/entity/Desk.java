@@ -1,5 +1,6 @@
 package com.team.deskposable.entity;
 
+<<<<<<< HEAD
 import javax.persistence.*;
 
 /**
@@ -14,4 +15,10 @@ public class Desk {
     private Double x;
     private Double y;
     private int orientation;
+=======
+/**
+ * Created by alec_ on 28/07/2017.
+ */
+public class Desk {
+>>>>>>> 218751d5d020efc02b26421941c19e5d45c48ead
 }
