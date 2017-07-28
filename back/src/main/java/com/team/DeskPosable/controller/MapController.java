@@ -1,7 +1,7 @@
-package com.team.DeskPosable.controller;
+package com.team.deskposable.controller;
 
-import com.team.DeskPosable.entity.Map;
-import com.team.DeskPosable.repository.MapRepository;
+import com.team.deskposable.entity.Map;
+import com.team.deskposable.repository.MapRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,8 +20,8 @@ public class MapController {
     @Autowired
     MapRepository mapRepository;
 
-    @GetMapping()
+    /*@GetMapping()
     public List<Map> getAllUsers() {
         return mapRepository.findAll();
-    }
+    }*/
 }

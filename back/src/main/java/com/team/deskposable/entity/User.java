@@ -1,7 +1,8 @@
-package com.team.DeskPosable.Entity;
+package com.team.deskposable.entity;
 
 import javax.persistence.*;
 import java.sql.Date;
+
 @Entity
 public class User {
 
