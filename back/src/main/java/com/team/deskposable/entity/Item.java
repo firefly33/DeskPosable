@@ -12,9 +12,9 @@ public class Item {
     private Long id;
     private String label;
 
-    @OneToMany
+    @ManyToOne
     private Person person;
 
-    @OneToMany
+    @ManyToOne
     private Desk desk;
 }
