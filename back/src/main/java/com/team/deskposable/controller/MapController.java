@@ -1,10 +1,8 @@
 package com.team.deskposable.controller;
 
-import com.team.deskposable.entity.Building;
 import com.team.deskposable.entity.Map;
 import com.team.deskposable.repository.BuildingRepository;
 import com.team.deskposable.repository.MapRepository;
-import org.hibernate.exception.GenericJDBCException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,38 +26,31 @@ public class MapController {
     }
 
     @PostMapping()
-    public String newMap(@RequestBody Map map) {
-
-        try {
-            mapRepository.save(map);
-            return "OK";
-        } catch (GenericJDBCException exception) {
-            return exception.getMessage();
-        }
+    public Map newMap(@RequestBody Map map) {
+        mapRepository.save(map);
+        return map;
     }
 
     @DeleteMapping("/{id}")
-    public String deleteMap(@PathVariable Long id) {
+    public Map deleteMap(@PathVariable Long id) {
+        Map mapToDelete = mapRepository.findOne(id);
 
-        try {
-            mapRepository.delete(id);
-            return "Ok";
-        } catch (GenericJDBCException exception) {
-            return exception.getMessage();
-        }
+        mapRepository.delete(id);
+        return mapToDelete;
     }
 
     @PutMapping("/{id}")
-    public String modifyMap(@PathVariable Long id,@RequestBody Map map){
-        Building building = buildingRepository.findOne(id);
+    public Map modifyMap(@PathVariable Long id, @RequestBody Map map) {
+        Map mapToEdit = mapRepository.findOne(id);
 
-        if(building != null) {
-            return "ERROR : building not found !";
-        }
-        else {
+        if (mapToEdit != null) {
+            mapToEdit.setLabel(map.getLabel());
+            mapToEdit.setImagePath(map.getImagePath());
+            mapToEdit.setBuilding(map.getBuilding());
             mapRepository.save(map);
-            return "ok";
         }
+
+        return mapToEdit;
     }
 
 }

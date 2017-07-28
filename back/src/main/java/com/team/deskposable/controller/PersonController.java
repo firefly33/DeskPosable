@@ -13,15 +13,15 @@ import java.util.ArrayList;
  */
 
 @RestController
-@RequestMapping("/person")
+@RequestMapping("/persons")
 public class PersonController {
 
     @Autowired
     PersonRepository personRepository;
 
     @PostMapping
-    public @ResponseBody
-    String addNewPerson(@RequestBody Person person) {
+    @ResponseBody
+    public String addNewPerson(@RequestBody Person person) {
         if(person != null){
             personRepository.save(person);
             return "ok";
@@ -29,12 +29,13 @@ public class PersonController {
         return "errors";
     }
 
-    @GetMapping("/all")
-    public ArrayList<Person> getAllPerson() {
-        return (ArrayList<Person>) personRepository.findAll();
+    @GetMapping()
+    public Iterable<Person> getAllPerson() {
+        return personRepository.findAll();
     }
 
-    @GetMapping("/id")
+    @GetMapping("/{id}")
+    @ResponseBody
     public Person getPerson (@PathVariable Long id) {
         return personRepository.findOne(id);
     }

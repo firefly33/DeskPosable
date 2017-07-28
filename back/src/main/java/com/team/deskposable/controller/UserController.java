@@ -5,49 +5,49 @@ import com.team.deskposable.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserController {
 
     @Autowired
     UserRepository userRepository;
 
-    @PostMapping()
-    public @ResponseBody
-    String addNewAccount(@RequestBody User user) {
-
-        if(user != null){
-            userRepository.save(user);
-            return "ok";
-        }
-        return "errors";
-    }
-
-    @GetMapping("/all")
-    public ArrayList<User> getAllUsers(){
-        return (ArrayList<User>)userRepository.findAll();
+    @GetMapping
+    public Iterable<User> users(){
+        return userRepository.findAll();
     }
 
     @GetMapping("/{id}")
-    public User getUser(@PathVariable long id){
+    public User user(@PathVariable long id){
         return userRepository.findOne(id);
     }
 
+    @PostMapping()
+    @ResponseBody
+    public User newAccount(@RequestBody User user) {
+            userRepository.save(user);
+            return user;
+    }
+
     @DeleteMapping("/{id}")
-    public String deleteUser(@PathVariable long id){
+    public User deleteUser(@PathVariable long id) {
+        User userToDelete = userRepository.findOne(id);
+
         userRepository.delete(id);
-        return "ok";
+        return userToDelete;
     }
 
     @PutMapping("/{id}")
-    public String modifyUser(@PathVariable long id,@RequestBody User user){
-        User modifyUser = userRepository.findOne(id);
-        modifyUser.setLastName(user.getLastName());
-        modifyUser.setFirstName(user.getFirstName());
-        modifyUser.setBirthday(user.getBirthday());
-        userRepository.save(modifyUser);
-        return "ok";
+    public User modifyUser(@PathVariable long id,@RequestBody User user) {
+        User userToEdit = userRepository.findOne(id);
+
+        if (userToEdit != null) {
+            userToEdit.setLastName(user.getLastName());
+            userToEdit.setFirstName(user.getFirstName());
+            userToEdit.setBirthday(user.getBirthday());
+            userRepository.save(userToEdit);
+        }
+
+        return userToEdit;
     }
 }

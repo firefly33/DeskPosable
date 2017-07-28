@@ -2,6 +2,7 @@ package com.team.deskposable.repository;
 
 import com.team.deskposable.entity.Building;
 import com.team.deskposable.entity.Map;
+import com.team.deskposable.entity.Person;
 import com.team.deskposable.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
@@ -20,6 +21,9 @@ public class DataPopulator {
     private BuildingRepository buildingRepository;
     @Autowired
     private MapRepository mapRepository;
+
+    @Autowired
+    private PersonRepository personRepository;
 
     @PostConstruct
     public void init() {
@@ -42,5 +46,11 @@ public class DataPopulator {
         Map map3 = new Map("map3", "path3", null);
 
         mapRepository.save(Arrays.asList(map1, map2, map3));
+
+        Person person1 = new Person("Ken", "Kaneki", "ICD", null);
+        Person person2 = new Person("Shirou", "Emiya", "CP", null);
+        Person person3 = new Person("Izuku", "Midoriya", "DEV", null);
+
+        personRepository.save(Arrays.asList(person1, person2, person3));
     }
 }
