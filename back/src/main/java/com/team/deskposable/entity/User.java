@@ -1,7 +1,9 @@
 package com.team.deskposable.entity;
 
-import javax.persistence.*;
-import java.sql.Date;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 public class User {
@@ -12,7 +14,17 @@ public class User {
 
     private String lastName;
     private String firstName;
-    private Date birthday;
+    private String birthday;
+
+    public User() {
+        // NOTE : for bean convention
+    }
+
+    public User(String lastName, String firstName, String birthday) {
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.birthday = birthday;
+    }
 
     public long getId() {
         return id;
@@ -38,11 +50,11 @@ public class User {
         this.firstName = firstName;
     }
 
-    public Date getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 
