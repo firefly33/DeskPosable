@@ -20,6 +20,17 @@ public class Person {
     @ManyToOne
     private Desk desk;
 
+    public Person(String firstname, String lastname, String employment, Desk desk) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.employment = employment;
+        this.desk = desk;
+    }
+
+    public Person() {
+        // NOTE : for bean convention
+    }
+
     public Long getId() {
         return id;
     }

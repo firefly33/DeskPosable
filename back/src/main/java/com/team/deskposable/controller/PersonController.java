@@ -21,8 +21,7 @@ public class PersonController {
 
     @PostMapping
     @ResponseBody
-    public
-    String addNewPerson(@RequestBody Person person) {
+    public String addNewPerson(@RequestBody Person person) {
         if(person != null){
             personRepository.save(person);
             return "ok";
@@ -31,11 +30,12 @@ public class PersonController {
     }
 
     @GetMapping()
-    public ArrayList<Person> getAllPerson() {
-        return (ArrayList<Person>) personRepository.findAll();
+    public Iterable<Person> getAllPerson() {
+        return personRepository.findAll();
     }
 
     @GetMapping("/{id}")
+    @ResponseBody
     public Person getPerson (@PathVariable Long id) {
         return personRepository.findOne(id);
     }
