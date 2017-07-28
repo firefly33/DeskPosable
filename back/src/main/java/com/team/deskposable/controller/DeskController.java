@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Created by fx on 28/07/17.
  */
 @RestController
-@RequestMapping("/desk")
+@RequestMapping("/desks")
 public class DeskController {
 
     @Autowired

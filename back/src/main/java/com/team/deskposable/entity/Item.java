@@ -10,6 +10,7 @@ public class Item {
     @Id
     @GeneratedValue
     private Long id;
+
     private String label;
 
     @ManyToOne
@@ -17,4 +18,24 @@ public class Item {
 
     @ManyToOne
     private Desk desk;
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public Desk getDesk() {
+        return desk;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
 }
