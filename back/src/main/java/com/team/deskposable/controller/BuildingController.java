@@ -2,7 +2,6 @@ package com.team.deskposable.controller;
 
 import com.team.deskposable.entity.Building;
 import com.team.deskposable.repository.BuildingRepository;
-import org.hibernate.exception.GenericJDBCException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,36 +20,29 @@ public class BuildingController {
     }
 
     @PostMapping()
-    public String newBuilding(@RequestBody Building building) {
-        try {
+    public Building newBuilding(@RequestBody Building building) {
             buildingRepository.save(building);
-            return "OK";
-        } catch (GenericJDBCException exception) {
-            return exception.getMessage();
-        }
+            return building;
     }
 
     @DeleteMapping("/{id}")
-    public String deleteBuilding(@PathVariable Long id) {
-        try {
-            buildingRepository.delete(id);
-            return "OK";
-        } catch (GenericJDBCException exception) {
-            return exception.getMessage();
-        }
+    public Building deleteBuilding(@PathVariable Long id) {
+        Building buildingToDelete = buildingRepository.findOne(id);
+
+        buildingRepository.delete(id);
+        return buildingToDelete;
     }
 
     @PutMapping("/{id}")
-    public String modifyBuilding(@PathVariable Long id,@RequestBody Building building){
+    public Building modifyBuilding(@PathVariable Long id,@RequestBody Building building){
         Building buildingToEdit = buildingRepository.findOne(id);
 
         if(buildingToEdit != null) {
-            return "ERROR : building not found !";
+            buildingToEdit.setLabel(building.getLabel());
+            buildingToEdit.setMaps(building.getMaps());
         }
-        else {
-            buildingRepository.save(buildingToEdit);
-            return "ok";
-        }
+
+        return buildingToEdit;
     }
 
 }
