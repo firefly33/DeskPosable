@@ -1,0 +1,8 @@
+
+export class DeskComponent {
+    id :    number;
+    label : string;
+    x :     number;
+    x :     number;
+    orientation :     number;
+}
