@@ -12,8 +12,8 @@ public class Item {
     private Long id;
     private String label;
 
-    //@OneToMany
-    //private Person person;
+    @OneToMany
+    private Person person;
 
     @OneToMany
     private Desk desk;
