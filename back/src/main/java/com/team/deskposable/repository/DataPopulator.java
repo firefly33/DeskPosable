@@ -16,7 +16,7 @@ import java.util.Arrays;
 public class DataPopulator {
 
     @Autowired
-    private UserRepository userRepository;
+    private IUserRepository userRepository;
     @Autowired
     private BuildingRepository buildingRepository;
     @Autowired

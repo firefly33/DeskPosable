@@ -1,3 +1,42 @@
-<h1>
-    {{title}}
-</h1>
+<nav>
+    <div class="nav-wrapper app-back-theme-color-1">
+        <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+        <a href="#" class="brand-logo">DeskPosable</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li class="accueil"><a href="">Accueil</a></li>
+            <li class="connexion"><a href="connexion">Se connecter au module d'administration</a></li>
+        </ul>
+    </div>
+</nav>
+<ul id="slide-out" class="side-nav">
+    <li class="active"><a href="">Accueil</a></li>
+    <li><a href="login">Se connecter au module d'administration</a></li>
+</ul>
+<div ng-view></div>
+<router-outlet>
+</router-outlet>
+<footer class="page-footer app-back-theme-color-1">
+    <div class="container">
+        <div class="row">
+            <div class="col l6 s12">
+                <h5 class="white-text">DeskPosable. Managing your workforce.</h5>
+            </div>
+            <div class="col l4 offset-l2 s12">
+                <h5 class="white-text">L'équipe de développement</h5>
+                <ul>
+                    <li><a class="grey-text text-lighten-3" href="#!">Axel ADAINE JEAN PIERRE</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#!">Marc ETOURNEAU</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#!">Alexis ZAWIALOFF</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#!">François Xavier LESSAFRE</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright">
+        <div class="container">
+            © 2017 Copyright
+            <a class="grey-text text-lighten-4 right" href="#!">DeskPosable</a>
+        </div>
+    </div>
+</footer>
+

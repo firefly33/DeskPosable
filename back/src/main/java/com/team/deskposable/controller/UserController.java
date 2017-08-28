@@ -1,7 +1,7 @@
 package com.team.deskposable.controller;
 
 import com.team.deskposable.entity.User;
-import com.team.deskposable.repository.UserRepository;
+import com.team.deskposable.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     @Autowired
-    UserRepository userRepository;
+    IUserRepository userRepository;
 
     @GetMapping
     public Iterable<User> readAllUsers (){
