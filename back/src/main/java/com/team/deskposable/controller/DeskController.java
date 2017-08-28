@@ -55,18 +55,4 @@ public class DeskController {
 
         return deskToUpdate;
     }
-
-    @PutMapping("/{id}")
-    public Map addDesk(@PathVariable Long id, @RequestBody Desk desk) {
-        Map mapToEdit = mapRepository.findOne(id);
-
-        if (mapToEdit != null) {
-            mapToEdit.setLabel(mapToEdit.getLabel());
-            mapToEdit.setImagePath(mapToEdit.getImagePath());
-            mapToEdit.setBuilding(mapToEdit.getBuilding());
-            mapRepository.save(mapToEdit);
-        }
-
-        return mapToEdit;
-    }
 }

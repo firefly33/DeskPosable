@@ -1,9 +1,6 @@
 package com.team.deskposable.repository;
 
-import com.team.deskposable.entity.Building;
-import com.team.deskposable.entity.Map;
-import com.team.deskposable.entity.Person;
-import com.team.deskposable.entity.User;
+import com.team.deskposable.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
@@ -21,7 +18,8 @@ public class DataPopulator {
     private BuildingRepository buildingRepository;
     @Autowired
     private MapRepository mapRepository;
-
+    @Autowired
+    private DeskRepository deskRepository;
     @Autowired
     private PersonRepository personRepository;
 
@@ -46,6 +44,13 @@ public class DataPopulator {
         Map map3 = new Map("map3", "path3", null);
 
         mapRepository.save(Arrays.asList(map1, map2, map3));
+
+        Desk desk1 = new Desk("bureau du patron", 3.0, 2.0, 90);
+        Desk desk2 = new Desk("bureau du patron", 5.0, 7.0, 270);
+        Desk desk3 = new Desk("bureau du patron", 8.0, 2.0, 180);
+        Desk desk4 = new Desk("bureau du patron", 8.0, 12.0, 0);
+
+        deskRepository.save(Arrays.asList(desk1, desk2, desk3, desk4));
 
         Person person1 = new Person("Ken", "Kaneki", "ICD", null);
         Person person2 = new Person("Shirou", "Emiya", "CP", null);

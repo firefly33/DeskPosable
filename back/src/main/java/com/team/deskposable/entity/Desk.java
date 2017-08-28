@@ -15,6 +15,13 @@ public class Desk {
     private Double y;
     private int orientation;
 
+    public Desk(String label, Double x, Double y, int orientation) {
+        this.label = label;
+        this.x = x;
+        this.y = y;
+        this.orientation = orientation;
+    }
+
     public Long getId() {
         return id;
     }
