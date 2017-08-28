@@ -20,21 +20,21 @@ public class DeskController {
     MapRepository mapRepository;
 
     @GetMapping()
-    public Iterable<Desk> desks() { return deskRepository.findAll(); }
+    public Iterable<Desk> readAllDesks () { return deskRepository.findAll(); }
 
     @GetMapping("/{id}")
-    public Desk desk(@PathVariable Long id) {
+    public Desk readDesk (@PathVariable Long id) {
         return deskRepository.findOne(id);
     }
 
     @PostMapping()
-    public Desk newBuilding(@RequestBody Desk desk) {
+    public Desk createDesk(@RequestBody Desk desk) {
         deskRepository.save(desk);
         return desk;
     }
 
     @DeleteMapping("/{id}")
-    public Desk deleteBuilding(@PathVariable Long id) {
+    public Desk deleteDesk (@PathVariable Long id) {
         Desk deskToDelete = deskRepository.findOne(id);
 
         deskRepository.delete(id);
@@ -42,18 +42,18 @@ public class DeskController {
     }
 
     @PutMapping("/{id}")
-    public Desk modifyBuilding(@PathVariable Long id,@RequestBody Desk desk){
-        Desk deskToEdit = deskRepository.findOne(id);
+    public Desk updateDesk(@PathVariable Long id,@RequestBody Desk desk){
+        Desk deskToUpdate = deskRepository.findOne(id);
 
-        if(deskToEdit != null) {
-            deskToEdit.setLabel(desk.getLabel());
-            deskToEdit.setX(desk.getX());
-            deskToEdit.setY(desk.getY());
-            deskToEdit.setOrientation(desk.getOrientation());
+        if(deskToUpdate != null) {
+            deskToUpdate.setLabel(desk.getLabel());
+            deskToUpdate.setX(desk.getX());
+            deskToUpdate.setY(desk.getY());
+            deskToUpdate.setOrientation(desk.getOrientation());
         }
-        deskRepository.save(deskToEdit);
+        deskRepository.save(deskToUpdate);
 
-        return deskToEdit;
+        return deskToUpdate;
     }
 
     @PutMapping("/{id}")
