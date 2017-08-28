@@ -28,10 +28,10 @@ public class DataPopulator {
     @PostConstruct
     public void init() {
 
-        User user1 = new User("Zawialoff", "Alexis", "29/03/1996");
-        User user2 = new User("Adaine-Jean-Pierre", "Axel", "29/03/1996");
-        User user3 = new User("Lesaffre", "FX", "29/03/1996");
-        User user4 = new User("Etourneau", "Marc", "29/03/1996");
+        User user1 = new User("Zawialoff", "Alexis", "29/03/1996", "alexis.zawialoff@viacesi.fr", "azerty");
+        User user2 = new User("Adaine-Jean-Pierre", "Axel", "29/03/1996", "axel.adainejeanpierre@viacesi.fr", "azerty");
+        User user3 = new User("Lesaffre", "FX", "12/09/1982", "francoisxavier.lesaffre@viacesi.fr", "120982");
+        User user4 = new User("Etourneau", "Marc", "29/03/1996", "marc.etourneau@viacesi.fr", "azerty");
 
         userRepository.save(Arrays.asList(user1, user2, user3, user4));
 

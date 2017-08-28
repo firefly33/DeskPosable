@@ -12,18 +12,22 @@ public class User {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private long id;
 
-    private String lastName;
-    private String firstName;
+    private String lastname;
+    private String firstname;
     private String birthday;
+    private String email;
+    private String password;
 
     public User() {
         // NOTE : for bean convention
     }
 
-    public User(String lastName, String firstName, String birthday) {
-        this.lastName = lastName;
-        this.firstName = firstName;
+    public User(String lastName, String firstName, String birthday, String email, String password) {
+        this.lastname = lastName;
+        this.firstname = firstName;
         this.birthday = birthday;
+        this.email = email;
+        this.password = password;
     }
 
     public long getId() {
@@ -35,19 +39,19 @@ public class User {
     }
 
     public String getLastName() {
-        return lastName;
+        return lastname;
     }
 
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        this.lastname = lastName;
     }
 
     public String getFirstName() {
-        return firstName;
+        return firstname;
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        this.firstname = firstName;
     }
 
     public String getBirthday() {
@@ -58,12 +62,28 @@ public class User {
         this.birthday = birthday;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", lastName='" + lastName + '\'' +
-                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastname + '\'' +
+                ", firstName='" + firstname + '\'' +
                 ", birthday=" + birthday +
                 '}';
     }
