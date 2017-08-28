@@ -1,0 +1,14 @@
+section {
+    height: 400px;
+    background-image: url("../image/back_accueil.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: -webkit-flex;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+section h1 {
+    color: white;
+    font-family: 'Skolar Bold',"Roboto Slab","Droid Serif",Cambria,Georgia,"Times New Roman",Times,serif;
+}
