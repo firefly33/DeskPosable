@@ -15,6 +15,10 @@ public class Desk {
     private Double y;
     private int orientation;
 
+    public Desk() {
+
+    }
+
     public Desk(String label, Double x, Double y, int orientation) {
         this.label = label;
         this.x = x;
