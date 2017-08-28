@@ -12,15 +12,15 @@ public class BuildingController {
     BuildingRepository buildingRepository;
 
     @GetMapping()
-    public Iterable<Building> buildings() { return buildingRepository.findAll(); }
+    public Iterable<Building> readAllBuildings() { return buildingRepository.findAll(); }
 
     @GetMapping("/{id}")
-    public Building building(@PathVariable Long id) {
+    public Building readBuilding(@PathVariable Long id) {
         return buildingRepository.findOne(id);
     }
 
     @PostMapping()
-    public Building newBuilding(@RequestBody Building building) {
+    public Building createBuilding(@RequestBody Building building) {
             buildingRepository.save(building);
             return building;
     }
@@ -34,16 +34,16 @@ public class BuildingController {
     }
 
     @PutMapping("/{id}")
-    public Building modifyBuilding(@PathVariable Long id,@RequestBody Building building){
-        Building buildingToEdit = buildingRepository.findOne(id);
+    public Building updateBuilding(@PathVariable Long id,@RequestBody Building building){
+        Building buildingToUpdate = buildingRepository.findOne(id);
 
-        if(buildingToEdit != null) {
-            buildingToEdit.setLabel(building.getLabel());
-            buildingToEdit.setMaps(building.getMaps());
+        if(buildingToUpdate != null) {
+            buildingToUpdate.setLabel(building.getLabel());
+            buildingToUpdate.setMaps(building.getMaps());
         }
-        buildingRepository.save(buildingToEdit);
+        buildingRepository.save(buildingToUpdate);
 
-        return buildingToEdit;
+        return buildingToUpdate;
     }
 
 }

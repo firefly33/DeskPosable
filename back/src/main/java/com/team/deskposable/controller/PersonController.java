@@ -19,42 +19,44 @@ public class PersonController {
     @Autowired
     PersonRepository personRepository;
 
-    @PostMapping
-    @ResponseBody
-    public String addNewPerson(@RequestBody Person person) {
-        if(person != null){
-            personRepository.save(person);
-            return "ok";
-        }
-        return "errors";
-    }
-
     @GetMapping()
-    public Iterable<Person> getAllPerson() {
+    public Iterable<Person> readAllPersons () {
         return personRepository.findAll();
     }
 
     @GetMapping("/{id}")
     @ResponseBody
-    public Person getPerson (@PathVariable Long id) {
+    public Person readPerson (@PathVariable Long id) {
         return personRepository.findOne(id);
     }
 
+    @PostMapping()
+    @ResponseBody
+    public Person createPerson (@RequestBody Person person) {
+        if(person != null){
+            personRepository.save(person);
+            return person;
+        }
+        return null;
+    }
+
     @DeleteMapping("/{id}")
-    public String deletePerson(@PathVariable Long id) {
+    public Person deletePerson (@PathVariable Long id) {
+        Person personToDelete = personRepository.findOne(id);
+
         personRepository.delete(id);
-        return "ok";
+        return personToDelete;
     }
 
     @PutMapping("/{id}")
-    public String modifyPerson(@PathVariable Long id, @RequestBody Person person) {
-        Person modifyPerson = personRepository.findOne(id);
-        modifyPerson.setFirstname(person.getFirstname());
-        modifyPerson.setLastname(person.getLastname());
-        modifyPerson.setEmployment(person.getEmployment());
-        modifyPerson.setDesk(person.getDesk());
-        personRepository.save(modifyPerson);
-        return "ok";
+    public Person updatePerson (@PathVariable Long id, @RequestBody Person person) {
+        Person personToUpdate = personRepository.findOne(id);
+        personToUpdate.setFirstname(person.getFirstname());
+        personToUpdate.setLastname(person.getLastname());
+        personToUpdate.setEmployment(person.getEmployment());
+        personToUpdate.setDesk(person.getDesk());
+        personRepository.save(personToUpdate);
+        return personToUpdate;
     }
 
 
