@@ -16,17 +16,17 @@ public class ItemController {
     ItemRepository itemRepository;
 
     @GetMapping
-    public @ResponseBody Iterable<Item> getAllItems () {
+    public @ResponseBody Iterable<Item> readAllItems () {
         return itemRepository.findAll();
     }
 
     @GetMapping("/{id}")
-    public @ResponseBody Item getItem (@PathVariable("id") String id) {
+    public @ResponseBody Item readItem (@PathVariable("id") String id) {
         return itemRepository.findOne(Long.parseLong(id));
     }
 
     @PostMapping
-    public @ResponseBody Item postItem (@RequestParam String label) {
+    public @ResponseBody Item createItem (@RequestParam String label) {
         Item i = new Item();
         i.setLabel(label);
         itemRepository.save(i);
@@ -34,16 +34,16 @@ public class ItemController {
     }
 
     @DeleteMapping("/{id}")
-    public @ResponseBody Item deleteItem (@PathVariable("id") String id) {
-        Item i = itemRepository.findOne(Long.parseLong(id));
+    public @ResponseBody Item deleteItem (@PathVariable Long id) {
+        Item i = itemRepository.findOne(id);
         itemRepository.delete(i);
         return i;
     }
 
     @PutMapping("/{id}")
-    public @ResponseBody Item putItem (@PathVariable("id") String id, @RequestParam String label) {
-        Item i = itemRepository.findOne(Long.parseLong(id));
-        i.setLabel(label);
+    public @ResponseBody Item updateItem (@PathVariable Long id, @RequestBody Item item) {
+        Item i = itemRepository.findOne(id);
+        i.setLabel(item.getLabel());
         itemRepository.save(i);
         return i;
     }

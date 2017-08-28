@@ -13,41 +13,41 @@ public class UserController {
     UserRepository userRepository;
 
     @GetMapping
-    public Iterable<User> users(){
+    public Iterable<User> readAllUsers (){
         return userRepository.findAll();
     }
 
     @GetMapping("/{id}")
-    public User user(@PathVariable long id){
+    public User readUser (@PathVariable long id){
         return userRepository.findOne(id);
     }
 
     @PostMapping()
     @ResponseBody
-    public User newAccount(@RequestBody User user) {
+    public User createUser (@RequestBody User user) {
             userRepository.save(user);
             return user;
     }
 
     @DeleteMapping("/{id}")
     public User deleteUser(@PathVariable long id) {
-        User userToDelete = userRepository.findOne(id);
+        User u = userRepository.findOne(id);
 
         userRepository.delete(id);
-        return userToDelete;
+        return u;
     }
 
     @PutMapping("/{id}")
-    public User modifyUser(@PathVariable long id,@RequestBody User user) {
-        User userToEdit = userRepository.findOne(id);
+    public User updateUser(@PathVariable long id,@RequestBody User user) {
+        User u = userRepository.findOne(id);
 
-        if (userToEdit != null) {
-            userToEdit.setLastName(user.getLastName());
-            userToEdit.setFirstName(user.getFirstName());
-            userToEdit.setBirthday(user.getBirthday());
-            userRepository.save(userToEdit);
+        if (u != null) {
+            u.setLastName(user.getLastName());
+            u.setFirstName(user.getFirstName());
+            u.setBirthday(user.getBirthday());
+            userRepository.save(u);
         }
 
-        return userToEdit;
+        return u;
     }
 }

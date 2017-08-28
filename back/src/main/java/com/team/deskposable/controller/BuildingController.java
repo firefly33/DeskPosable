@@ -27,23 +27,23 @@ public class BuildingController {
 
     @DeleteMapping("/{id}")
     public Building deleteBuilding(@PathVariable Long id) {
-        Building buildingToDelete = buildingRepository.findOne(id);
+        Building b = buildingRepository.findOne(id);
 
         buildingRepository.delete(id);
-        return buildingToDelete;
+        return b;
     }
 
     @PutMapping("/{id}")
     public Building updateBuilding(@PathVariable Long id,@RequestBody Building building){
-        Building buildingToUpdate = buildingRepository.findOne(id);
+        Building b = buildingRepository.findOne(id);
 
-        if(buildingToUpdate != null) {
-            buildingToUpdate.setLabel(building.getLabel());
-            buildingToUpdate.setMaps(building.getMaps());
+        if(b != null) {
+            b.setLabel(building.getLabel());
+            b.setMaps(building.getMaps());
         }
-        buildingRepository.save(buildingToUpdate);
+        buildingRepository.save(b);
 
-        return buildingToUpdate;
+        return b;
     }
 
 }
