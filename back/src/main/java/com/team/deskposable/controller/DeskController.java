@@ -1,7 +1,6 @@
 package com.team.deskposable.controller;
 
 import com.team.deskposable.entity.Desk;
-import com.team.deskposable.entity.Map;
 import com.team.deskposable.repository.DeskRepository;
 import com.team.deskposable.repository.MapRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,17 +55,4 @@ public class DeskController {
         return deskToUpdate;
     }
 
-    @PutMapping("/{id}")
-    public Map addDesk(@PathVariable Long id, @RequestBody Desk desk) {
-        Map mapToEdit = mapRepository.findOne(id);
-
-        if (mapToEdit != null) {
-            mapToEdit.setLabel(mapToEdit.getLabel());
-            mapToEdit.setImagePath(mapToEdit.getImagePath());
-            mapToEdit.setBuilding(mapToEdit.getBuilding());
-            mapRepository.save(mapToEdit);
-        }
-
-        return mapToEdit;
-    }
 }
