@@ -1,9 +1,6 @@
 package com.team.deskposable.repository;
 
-import com.team.deskposable.entity.Building;
-import com.team.deskposable.entity.Map;
-import com.team.deskposable.entity.Person;
-import com.team.deskposable.entity.User;
+import com.team.deskposable.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
@@ -16,22 +13,23 @@ import java.util.Arrays;
 public class DataPopulator {
 
     @Autowired
-    private UserRepository userRepository;
+    private IUserRepository userRepository;
     @Autowired
     private BuildingRepository buildingRepository;
     @Autowired
     private MapRepository mapRepository;
-
+    @Autowired
+    private DeskRepository deskRepository;
     @Autowired
     private PersonRepository personRepository;
 
     @PostConstruct
     public void init() {
 
-        User user1 = new User("Zawialoff", "Alexis", "29/03/1996");
-        User user2 = new User("Adaine-Jean-Pierre", "Axel", "29/03/1996");
-        User user3 = new User("Lesaffre", "FX", "29/03/1996");
-        User user4 = new User("Etourneau", "Marc", "29/03/1996");
+        User user1 = new User("Zawialoff", "Alexis", "29/03/1996", "alexis.zawialoff@viacesi.fr", "azerty");
+        User user2 = new User("Adaine-Jean-Pierre", "Axel", "29/03/1996", "axel.adainejeanpierre@viacesi.fr", "azerty");
+        User user3 = new User("Lesaffre", "FX", "12/09/1982", "francoisxavier.lesaffre@viacesi.fr", "120982");
+        User user4 = new User("Etourneau", "Marc", "29/03/1996", "marc.etourneau@viacesi.fr", "azerty");
 
         userRepository.save(Arrays.asList(user1, user2, user3, user4));
 
@@ -46,6 +44,13 @@ public class DataPopulator {
         Map map3 = new Map("map3", "path3", null);
 
         mapRepository.save(Arrays.asList(map1, map2, map3));
+
+        Desk desk1 = new Desk("bureau du patron", 3.0, 2.0, 90);
+        Desk desk2 = new Desk("bureau du comptable", 5.0, 7.0, 270);
+        Desk desk3 = new Desk("bureau de la secretaire", 8.0, 2.0, 180);
+        Desk desk4 = new Desk("bureau du concierge", 8.0, 12.0, 0);
+
+        deskRepository.save(Arrays.asList(desk1, desk2, desk3, desk4));
 
         Person person1 = new Person("Ken", "Kaneki", "ICD", null);
         Person person2 = new Person("Shirou", "Emiya", "CP", null);

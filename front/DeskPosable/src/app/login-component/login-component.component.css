@@ -1,0 +1,25 @@
+section {
+    height: 400px;
+    background-image: url("../image/back_accueil.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: -webkit-flex;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.app-back-theme-color-1 {
+    background-color: orangered;
+}
+.login-form {
+    background-color: rgba(0,0,0,0.6);
+    padding: 15px;
+}
+.login-form form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #FFF;
+}

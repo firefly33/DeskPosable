@@ -2,11 +2,8 @@ package com.team.deskposable.controller;
 
 import com.team.deskposable.entity.Person;
 import com.team.deskposable.repository.PersonRepository;
-import com.team.deskposable.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 
 /**
  * Created by alec_ on 28/07/2017.

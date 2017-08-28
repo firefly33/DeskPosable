@@ -1,3 +1,13 @@
-h1 {
-
+html,body {
+    margin: 0;
+    padding: 0;
+}
+.app-back-theme-color-1 {
+    background-color: orangered;
+}
+nav {
+    box-shadow: 0px 0px 15px -3px black;
+}
+footer {
+    box-shadow: 0px 0px 15px -3px black;
 }
