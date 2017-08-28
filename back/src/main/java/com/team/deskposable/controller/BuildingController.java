@@ -41,6 +41,7 @@ public class BuildingController {
             buildingToEdit.setLabel(building.getLabel());
             buildingToEdit.setMaps(building.getMaps());
         }
+        buildingRepository.save(buildingToEdit);
 
         return buildingToEdit;
     }
