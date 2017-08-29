@@ -1,10 +1,13 @@
 package com.team.deskposable.controller;
 
+import com.team.deskposable.entity.Desk;
 import com.team.deskposable.entity.Map;
 import com.team.deskposable.repository.BuildingRepository;
 import com.team.deskposable.repository.MapRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/maps")
@@ -20,7 +23,7 @@ public class MapController {
         return mapRepository.findAll();
     }
 
-    @GetMapping("{/id}")
+    @GetMapping("/{id}")
     public Map map(@PathVariable Long id) {
         return mapRepository.findOne(id);
     }
@@ -48,6 +51,20 @@ public class MapController {
             mapToEdit.setImagePath(map.getImagePath());
             mapToEdit.setBuilding(map.getBuilding());
             mapRepository.save(map);
+        }
+
+        return mapToEdit;
+    }
+
+    @PutMapping("/{id}/addDesk")
+    public Map addDesk(@PathVariable Long id, @RequestBody Desk desk) {
+        Map mapToEdit = mapRepository.findOne(id);
+
+        if (mapToEdit != null) {
+            List<Desk> desksOfMap = mapToEdit.getDesks();
+            desksOfMap.add(desk);
+
+            mapRepository.save(mapToEdit);
         }
 
         return mapToEdit;

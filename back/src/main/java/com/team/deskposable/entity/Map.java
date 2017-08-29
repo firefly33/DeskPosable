@@ -1,6 +1,9 @@
 package com.team.deskposable.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by Marc ETOURNEAU on 27/07/2017.
@@ -17,13 +20,18 @@ public class Map {
     @ManyToOne
     private Building building;
 
+    @JsonIgnore
+    @OneToMany
+    private List<Desk> desks;
+
     public Map() {
         // NOTE : for bean convention
     }
-    public Map(String label, String imagePath, Building building) {
+    public Map(String label, String imagePath, Building building, List<Desk> desks) {
         this.label = label;
         this.imagePath = imagePath;
         this.building = building;
+        this.desks = desks;
     }
 
     public Long getId() {
@@ -49,5 +57,11 @@ public class Map {
     }
     public void setBuilding(Building building) {
         this.building = building;
+    }
+    public List<Desk> getDesks() {
+        return desks;
+    }
+    public void setDesks(List<Desk> desks) {
+        this.desks = desks;
     }
 }

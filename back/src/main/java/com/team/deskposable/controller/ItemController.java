@@ -1,6 +1,8 @@
 package com.team.deskposable.controller;
 
+import com.team.deskposable.entity.Desk;
 import com.team.deskposable.entity.Item;
+import com.team.deskposable.entity.Person;
 import com.team.deskposable.repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -46,5 +48,29 @@ public class ItemController {
         i.setLabel(item.getLabel());
         itemRepository.save(i);
         return i;
+    }
+
+    @PutMapping("/{id}/affectDesk")
+    public Item affectDesk(@PathVariable Long id, @RequestBody Desk desk) {
+        Item itemToEdit = itemRepository.findOne(id);
+
+        if (itemToEdit != null) {
+            itemToEdit.setDesk(desk);
+            itemRepository.save(itemToEdit);
+        }
+
+        return itemToEdit;
+    }
+
+    @PutMapping("/{id}/affectPerson")
+    public Item affectPerson(@PathVariable Long id, @RequestBody Person person) {
+        Item itemToEdit = itemRepository.findOne(id);
+
+        if (itemToEdit != null) {
+            itemToEdit.setPerson(person);
+            itemRepository.save(itemToEdit);
+        }
+
+        return itemToEdit;
     }
 }

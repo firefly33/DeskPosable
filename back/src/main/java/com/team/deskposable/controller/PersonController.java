@@ -1,5 +1,6 @@
 package com.team.deskposable.controller;
 
+import com.team.deskposable.entity.Desk;
 import com.team.deskposable.entity.Person;
 import com.team.deskposable.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +58,17 @@ public class PersonController {
     }
 
 
+    @PutMapping("/{id}/affectDesk")
+    public Person affectDesk (@PathVariable Long id, @RequestBody Desk desk) {
+        Person personToEdit = personRepository.findOne(id);
+
+        if (personToEdit != null) {
+            personToEdit.setDesk(desk);
+            personRepository.save(personToEdit);
+        }
+
+        return personToEdit;
+    }
 }
 
 

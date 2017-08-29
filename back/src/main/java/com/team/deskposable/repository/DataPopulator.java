@@ -39,16 +39,16 @@ public class DataPopulator {
 
         buildingRepository.save(Arrays.asList(building1, building2, building3));
 
-        Map map1 = new Map("map1", "path1", null);
-        Map map2 = new Map("map2", "path2", null);
-        Map map3 = new Map("map3", "path3", null);
+        Map map1 = new Map("map1", "path1", null, null);
+        Map map2 = new Map("map2", "path2", null, null);
+        Map map3 = new Map("map3", "path3", null, null);
 
         mapRepository.save(Arrays.asList(map1, map2, map3));
 
-        Desk desk1 = new Desk("bureau du patron", 3.0, 2.0, 90);
-        Desk desk2 = new Desk("bureau du comptable", 5.0, 7.0, 270);
-        Desk desk3 = new Desk("bureau de la secretaire", 8.0, 2.0, 180);
-        Desk desk4 = new Desk("bureau du concierge", 8.0, 12.0, 0);
+        Desk desk1 = new Desk("bureau du patron", 3.0, 2.0, 90, map1);
+        Desk desk2 = new Desk("bureau du comptable", 5.0, 7.0, 270, map2);
+        Desk desk3 = new Desk("bureau de la secretaire", 8.0, 2.0, 180, map3);
+        Desk desk4 = new Desk("bureau du concierge", 8.0, 12.0, 0, map2);
 
         deskRepository.save(Arrays.asList(desk1, desk2, desk3, desk4));
 
