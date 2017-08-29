@@ -45,7 +45,9 @@ public class ItemController {
     @PutMapping("/{id}")
     public @ResponseBody Item updateItem (@PathVariable Long id, @RequestBody Item item) {
         Item i = itemRepository.findOne(id);
-        i.setLabel(item.getLabel());
+        if (item.getLabel() != null) {
+            i.setLabel(item.getLabel());
+        }
         itemRepository.save(i);
         return i;
     }

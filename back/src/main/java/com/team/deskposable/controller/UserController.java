@@ -1,7 +1,7 @@
 package com.team.deskposable.controller;
 
 import com.team.deskposable.entity.User;
-import com.team.deskposable.repository.IUserRepository;
+import com.team.deskposable.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     @Autowired
-    IUserRepository userRepository;
+    UserRepository userRepository;
 
     @GetMapping
     public Iterable<User> readAllUsers (){
@@ -42,11 +42,21 @@ public class UserController {
         User u = userRepository.findOne(id);
 
         if (u != null) {
-            u.setLastName(user.getLastName());
-            u.setFirstName(user.getFirstName());
-            u.setBirthday(user.getBirthday());
-            u.setEmail(user.getEmail());
-            u.setPassword(user.getPassword());
+            if (user.getLastName() != null) {
+                u.setLastName(user.getLastName());
+            }
+            if (user.getLastName() != null) {
+                u.setFirstName(user.getFirstName());
+            }
+            if (user.getLastName() != null) {
+                u.setBirthday(user.getBirthday());
+            }
+            if (user.getLastName() != null) {
+                u.setEmail(user.getEmail());
+            }
+            if (user.getLastName() != null) {
+                u.setPassword(user.getPassword());
+            }
             userRepository.save(u);
         }
 

@@ -36,24 +36,23 @@ public class MapController {
 
     @DeleteMapping("/{id}")
     public Map deleteMap(@PathVariable Long id) {
-        Map mapToDelete = mapRepository.findOne(id);
-
+        Map m = mapRepository.findOne(id);
         mapRepository.delete(id);
-        return mapToDelete;
+        return m;
     }
 
     @PutMapping("/{id}")
     public Map modifyMap(@PathVariable Long id, @RequestBody Map map) {
-        Map mapToEdit = mapRepository.findOne(id);
+        Map m = mapRepository.findOne(id);
 
-        if (mapToEdit != null) {
-            mapToEdit.setLabel(map.getLabel());
-            mapToEdit.setImagePath(map.getImagePath());
-            mapToEdit.setBuilding(map.getBuilding());
-            mapRepository.save(map);
+        if (m != null) {
+            if (map.getLabel() != null) m.setLabel(map.getLabel());
+            if (map.getBuilding() != null) m.setImagePath(map.getImagePath());
+            if (map.getBuilding() != null) m.setBuilding(map.getBuilding());
+            mapRepository.save(m);
         }
 
-        return mapToEdit;
+        return m;
     }
 
     @PutMapping("/{id}/addDesk")
