@@ -1,7 +1,6 @@
 package com.team.deskposable.controller;
 
 import com.team.deskposable.entity.Desk;
-import com.team.deskposable.entity.Map;
 import com.team.deskposable.repository.DeskRepository;
 import com.team.deskposable.repository.MapRepository;
 import org.springframework.beans.factory.annotation.Autowired;
