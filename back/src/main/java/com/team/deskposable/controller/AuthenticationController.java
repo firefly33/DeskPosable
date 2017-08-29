@@ -24,10 +24,17 @@ public class AuthenticationController {
         User user;
         try {
             user = userRepository.findByEmail(mailParam);
+            if(!user.getPassword().equals(passwordParam)) {
+                return "error";
+            }
+            return createConnection();
         }
         catch(Exception e){
             return e.getMessage();
         }
-        return user.toString();
+    }
+
+    public String createConnection(){
+        return "TOOOOOOOOOOKKKKKKKKENNNNNNNNNNNNNNNNNNN";
     }
 }
