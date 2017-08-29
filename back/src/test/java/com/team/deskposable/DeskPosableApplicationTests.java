@@ -13,4 +13,9 @@ public class DeskPosableApplicationTests {
 	public void contextLoads() {
 	}
 
+	@Test
+	public void getBuilding() {
+
+	}
+
 }

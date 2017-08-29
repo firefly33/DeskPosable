@@ -39,21 +39,29 @@ public class PersonController {
 
     @DeleteMapping("/{id}")
     public Person deletePerson (@PathVariable Long id) {
-        Person personToDelete = personRepository.findOne(id);
+        Person p = personRepository.findOne(id);
 
         personRepository.delete(id);
-        return personToDelete;
+        return p;
     }
 
     @PutMapping("/{id}")
     public Person updatePerson (@PathVariable Long id, @RequestBody Person person) {
-        Person personToUpdate = personRepository.findOne(id);
-        personToUpdate.setFirstname(person.getFirstname());
-        personToUpdate.setLastname(person.getLastname());
-        personToUpdate.setEmployment(person.getEmployment());
-        personToUpdate.setDesk(person.getDesk());
-        personRepository.save(personToUpdate);
-        return personToUpdate;
+        Person p = personRepository.findOne(id);
+        if (person.getFirstname() != null) {
+            p.setFirstname(person.getFirstname());
+        }
+        if (person.getLastname() != null) {
+            p.setLastname(person.getLastname());
+        }
+        if (person.getEmployment() != null) {
+            p.setEmployment(person.getEmployment());
+        }
+        if (person.getDesk() != null) {
+            p.setDesk(person.getDesk());
+        }
+        personRepository.save(p);
+        return p;
     }
 
 

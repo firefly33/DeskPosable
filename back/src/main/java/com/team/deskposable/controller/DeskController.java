@@ -42,17 +42,23 @@ public class DeskController {
 
     @PutMapping("/{id}")
     public Desk updateDesk(@PathVariable Long id,@RequestBody Desk desk){
-        Desk deskToUpdate = deskRepository.findOne(id);
+        Desk d = deskRepository.findOne(id);
 
-        if(deskToUpdate != null) {
-            deskToUpdate.setLabel(desk.getLabel());
-            deskToUpdate.setX(desk.getX());
-            deskToUpdate.setY(desk.getY());
-            deskToUpdate.setOrientation(desk.getOrientation());
+        if(d != null) {
+            if (desk.getLabel() != null) {
+                d.setLabel(desk.getLabel());
+            }
+            if (desk.getX() != null) {
+                d.setX(desk.getX());
+            }
+            if (desk.getY() != null) {
+                d.setY(desk.getY());
+            }
+            d.setOrientation(desk.getOrientation());
         }
-        deskRepository.save(deskToUpdate);
+        deskRepository.save(d);
 
-        return deskToUpdate;
+        return d;
     }
 
 }

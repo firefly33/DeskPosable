@@ -28,7 +28,6 @@ public class BuildingController {
     @DeleteMapping("/{id}")
     public Building deleteBuilding(@PathVariable Long id) {
         Building b = buildingRepository.findOne(id);
-
         buildingRepository.delete(id);
         return b;
     }
@@ -38,8 +37,12 @@ public class BuildingController {
         Building b = buildingRepository.findOne(id);
 
         if(b != null) {
-            b.setLabel(building.getLabel());
-            b.setMaps(building.getMaps());
+            if (building.getLabel() != null) {
+                b.setLabel(building.getLabel());
+            }
+            if (building.getMaps() != null) {
+                b.setMaps(building.getMaps());
+            }
         }
         buildingRepository.save(b);
 
