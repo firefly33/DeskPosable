@@ -13,7 +13,7 @@ import java.util.Arrays;
 public class DataPopulator {
 
     @Autowired
-    private IUserRepository userRepository;
+    private UserRepository userRepository;
     @Autowired
     private BuildingRepository buildingRepository;
     @Autowired
