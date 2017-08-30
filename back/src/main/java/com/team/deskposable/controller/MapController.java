@@ -69,4 +69,8 @@ public class MapController {
         return mapToEdit;
     }
 
+    public String show(Map map) {
+
+        return "";
+    }
 }

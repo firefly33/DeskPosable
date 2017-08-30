@@ -41,8 +41,8 @@ public class DataPopulator {
 
         buildingRepository.save(Arrays.asList(building1, building2, building3));
 
-        Map map1 = new Map("map1", "path1", null, null);
-        Map map2 = new Map("map2", "path2", null, null);
+        Map map1 = new Map("map1", "path1", building1, null);
+        Map map2 = new Map("map2", "path2", building2, null);
         Map map3 = new Map("map3", "path3", null, null);
 
         mapRepository.save(Arrays.asList(map1, map2, map3));

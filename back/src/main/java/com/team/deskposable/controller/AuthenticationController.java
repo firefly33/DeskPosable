@@ -5,8 +5,9 @@ import com.team.deskposable.entity.User;
 import com.team.deskposable.repository.SessionRepository;
 import com.team.deskposable.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 
 import javax.servlet.http.HttpServletResponse;
@@ -20,9 +21,6 @@ public class AuthenticationController {
     private UserRepository userRepository;
     @Autowired
     private SessionRepository sessionRepository;
-
-    @Value("${tokenPath}")
-    private String tokenPath;
 
     @PostMapping()
     public Session authentication(WebRequest request, HttpServletResponse response) {
