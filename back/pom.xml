@@ -9,7 +9,7 @@
 	<packaging>jar</packaging>
 
 	<name>DeskPosable</name>
-	<description>DeskPosableProject with Spring boot</description>
+	<description>DeskPosable Project with Spring boot</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -55,16 +55,6 @@
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<version>1.3.156</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-beans</artifactId>
-			<version>4.3.10.RELEASE</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-core</artifactId>
-			<version>4.3.10.RELEASE</version>
 		</dependency>
 	</dependencies>
 
