@@ -18,7 +18,7 @@ app.config(function($routeProvider, $locationProvider){
             controller: 'connexionController'
         })
         .otherwise(
-            { redirectTo: '/'}
+            { redirectTo: '/home'}
         );
     //$locationProvider.html5Mode(true);
 });
