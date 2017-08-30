@@ -22,6 +22,8 @@ public class DataPopulator {
     private DeskRepository deskRepository;
     @Autowired
     private PersonRepository personRepository;
+    @Autowired
+    private SessionRepository sessionRepository;
 
     @PostConstruct
     public void init() {

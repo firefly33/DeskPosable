@@ -26,3 +26,6 @@ nbdist/
 
 ### Configuration files ###
 application.properties
+
+### Temporary files ###
+tmp
