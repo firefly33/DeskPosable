@@ -5,10 +5,6 @@ app.config(function($routeProvider, $locationProvider){
             templateUrl: '/views/users.html',
             controller: 'usersController'
         })
-        .when('/roles',{
-            templateUrl: '/views/roles.html',
-            controller: 'rolesController'
-        })
         .when('/home',{
             templateUrl: '/views/home.html',
             controller: 'homeController'
@@ -16,6 +12,10 @@ app.config(function($routeProvider, $locationProvider){
         .when('/connexion',{
             templateUrl: '/views/connexion.html',
             controller: 'connexionController'
+        })
+        .when('/personnes',{
+            templateUrl: '/views/person.html',
+            controller: 'personController'
         })
         .otherwise(
             { redirectTo: '/home'}
