@@ -17,6 +17,14 @@ app.config(function($routeProvider, $locationProvider){
             templateUrl: '/views/person.html',
             controller: 'personController'
         })
+        .when('/maps', {
+            templateUrl: '/views/maps.html',
+            controller: 'mapController'
+        })
+        .when('/map',{
+            templateUrl: '/views/map.html',
+            controller: 'mapController'
+        })
         .otherwise(
             { redirectTo: '/home'}
         );

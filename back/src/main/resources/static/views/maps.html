@@ -1,0 +1,28 @@
+<div class="container z-depth-5" style="background-color: whitesmoke;">
+    <div class="row">
+
+        <div class="col s11 offset-s1">
+            <h2>Liste des maps TG</h2>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col s12">
+            <table class="striped bordered">
+                <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Bâtiment</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="map in maps">
+                    <td><a href="#">{{map.label}}</a></td>
+                    <td>{{map.building.label}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
