@@ -29,15 +29,13 @@ public class AuthenticationController {
         String mailParam = request.getParameter("mail");
         String passwordParam = request.getParameter("password");
         if(mailParam == null || passwordParam == null || mailParam.equals("") ||  passwordParam.equals("")){
-            //return "error";
-            response.setStatus(444);
+            response.setStatus(401);
             return null;
         }
         User user;
         try {
             user = userRepository.findByEmail(mailParam);
             if(!user.getPassword().equals(passwordParam)) {
-                //return "error";
                 response.setStatus(401);
                 return null;
             }
@@ -48,7 +46,6 @@ public class AuthenticationController {
         catch(Exception e){
             response.setStatus(500);
             return null;
-            //return e.getMessage();
         }
     }
 

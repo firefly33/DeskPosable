@@ -1,5 +1,7 @@
 package com.team.deskposable.entity;
 
+import org.springframework.data.annotation.Transient;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

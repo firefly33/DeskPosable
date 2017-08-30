@@ -1,16 +1,12 @@
 package com.team.deskposable.entity;
 
-import com.team.deskposable.entity.User;
 import javax.management.timer.Timer;
 import javax.persistence.*;
-import java.io.File;
-import java.io.IOException;
 import java.util.Date;
 import java.util.UUID;
 
-import com.team.deskposable.repository.UserRepository;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Length;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 
@@ -28,6 +24,7 @@ public class Session {
     private String token;
 
     @ManyToOne
+    //@Transient
     private User user;
     private Date expirationDate;
 
@@ -36,28 +33,22 @@ public class Session {
     }
 
     public Session(User user) {
+        String tokenName = UUID.randomUUID().toString();
+        this.token = tokenName;
         this.user = user;
         this.expirationDate = new Date(new Date().getTime() + 24L * Timer.ONE_HOUR);
-
-        String tokenName = UUID.randomUUID().toString();
-        /*
-        try {
-            File token = new File(tokenPath + "/" + tokenName);
-            if (token.createNewFile()) {
-                System.out.println("New session token : " + tokenName);
-            } else {
-                System.out.println("Session token writing error.");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        */
-        this.token = tokenName;
     }
 
+    @JsonProperty("user")
+    public Long getUser() {
+        return user.getId();
+    }
+
+    /*
     public User getUser() {
         return user;
     }
+    */
 
     public void setUser(User user) {
         this.user = user;
@@ -73,5 +64,9 @@ public class Session {
 
     public String getToken() {
         return token;
+    }
+
+    protected boolean isValid() {
+        return this.expirationDate.after(new Date());
     }
 }
