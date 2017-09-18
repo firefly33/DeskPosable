@@ -72,7 +72,7 @@ app.controller('connexionController', function($scope,$http) {
 });
 
 app.controller('buildingController', function($scope, $http, $routeParams) {
-<<<<<<< HEAD
+
     var all = function () {
         $http({
             method: 'GET',
@@ -109,30 +109,6 @@ app.controller('buildingController', function($scope, $http, $routeParams) {
     //    all();
     //else
         getOne($routeParams);
-
-=======
-    var id = $routeParams.id;
-
-
-    $http({
-        method: 'GET',
-        url: '/buildings'
-    }).then(function (data) {
-        $scope.map = data.data;
-    }, function (error) {
-        alert("ça passe pas du tout (building)");
-    });
-
-    $http({
-        method: 'GET',
-        url: '/buildings/'+id
-    }).then(function (data) {
-        // On stock dans persons la liste des personnes que nous renvoi l'api
-        $scope.building = data.data;
-    }, function (error) {
-        alert("ça passe pas");
-    });
->>>>>>> 99a641394881c37e7141f307bc6a995b65adb4ff
 
 });
 
