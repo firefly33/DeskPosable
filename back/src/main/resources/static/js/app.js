@@ -14,8 +14,12 @@ app.config(function($routeProvider, $locationProvider){
             controller: 'connexionController'
         })
         .when('/personnes',{
-            templateUrl: '/views/person.html',
+            templateUrl: '/views/person/person.html',
             controller: 'personController'
+        })
+        .when('/personnes/:id',{
+            templateUrl: '/views/person/updatePerson.html',
+            controller: 'updatePersonController'
         })
         .when('/maps', {
             templateUrl: '/views/maps.html',
