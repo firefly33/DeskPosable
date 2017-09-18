@@ -41,3 +41,7 @@ main h1 {
     align-items: center;
     color: #FFF;
 }
+
+.container {
+    margin-top: 20px;
+}
