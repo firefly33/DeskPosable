@@ -1,10 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<div>TOTO</div>
-</body>
-</html>
+
+<div class="container-boxes" style="width: 70%; height: 500px; background-color: lightblue;">
+
+    <div class="maps-container">
+        <div class="map" ng-repeat="map in maps" style="display: inline-block; width: 20%; height: 150px; background-color: indianred">
+            <a href="/#/plan/{{ map.id }}">
+                <span class="map-title" style="width:100%; text-align: center">{{ map.label }}</span>
+                <img class="map-preview" src="{{ map.imagePath }}">
+            </a>
+        </div>
+    </div>
+</div>
+

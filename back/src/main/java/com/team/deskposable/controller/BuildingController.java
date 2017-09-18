@@ -12,7 +12,10 @@ public class BuildingController {
     BuildingRepository buildingRepository;
 
     @GetMapping()
-    public Iterable<Building> readAllBuildings() { return buildingRepository.findAll(); }
+    public Iterable<Building> readAllBuildings() {
+        Iterable<Building> buildings = buildingRepository.findAll();
+        return buildings;
+    }
 
     @GetMapping("/{id}")
     public Building readBuilding(@PathVariable Long id) {
