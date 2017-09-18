@@ -6,6 +6,9 @@ import com.team.deskposable.repository.MapRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
+
 /**
  * Created by fx on 28/07/17.
  */
@@ -26,10 +29,13 @@ public class DeskController {
         return deskRepository.findOne(id);
     }
 
-    @PostMapping()
-    public Desk createDesk(@RequestBody Desk desk) {
-        deskRepository.save(desk);
-        return desk;
+    @PostMapping("/save")
+    public Desk createDesk(@RequestBody List<Desk> desks,HttpServletResponse response) {
+        for (Desk desk:desks) {
+            deskRepository.save(desk);
+        }
+        response.setStatus(200);
+        return null;
     }
 
     @DeleteMapping("/{id}")

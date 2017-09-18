@@ -64,4 +64,15 @@ public class Map {
     public void setDesks(List<Desk> desks) {
         this.desks = desks;
     }
+
+    @Override
+    public String toString() {
+        return "Map{" +
+                "id=" + id +
+                ", label='" + label + '\'' +
+                ", imagePath='" + imagePath + '\'' +
+                ", building=" + building +
+                ", desks=" + desks +
+                '}';
+    }
 }

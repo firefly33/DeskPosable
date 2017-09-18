@@ -12,7 +12,11 @@ nav {
 footer {
     box-shadow: 0px 0px 15px -3px black;
 }
-
+main,.container,.plan-view {
+    display: flex;
+    justify-content:center;
+    align-items: center;
+}
 main {
     flex: 1 0 auto;
     background-image: url("../images/back_accueil.jpg");
@@ -25,6 +29,7 @@ main h1 {
 }
 
 .login-form {
+    width: 500px;
     background-color: rgba(0,0,0,0.6);
     padding: 15px;
     display: flex;
@@ -44,4 +49,150 @@ main h1 {
 
 .container {
     margin-top: 20px;
+}
+
+.plan-view {
+    flex-direction: column;
+    justify-content: space-around;
+    color: white;
+}
+.plan-img-style {
+    box-shadow: 0px 0px 15px -5px black;
+    border: 5px solid white;
+}
+.corp {
+    width: 100%;
+    display: flex;
+    margin: 15px;
+}
+
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidenav a,.sidenav span {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav a:hover,.sidenav span:hover .offcanvas a:focus{
+    color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+#main {
+    transition: margin-left .5s;
+    padding: 16px;
+}
+.bureaux-container {
+    width: 808px;
+}
+.bureau-style {
+    transition: box-shadow 0.5s;
+}
+.bureau-style:hover {
+    box-shadow: 0px 0px 15px 7px orangered;
+}
+/* menu clique droit pour les bureaux */
+.custom-menu {
+    display: none;
+    z-index: 1000;
+    position: absolute;
+    overflow: hidden;
+    border: 1px solid #CCC;
+    white-space: nowrap;
+    font-family: sans-serif;
+    background: #FFF;
+    color: #333;
+    border-radius: 5px;
+    padding: 0;
+}
+
+/* Each of the items in the list */
+.custom-menu li {
+    padding: 8px 12px;
+    cursor: pointer;
+    list-style-type: none;
+    transition: all .3s ease;
+    user-select: none;
+}
+
+.custom-menu li:hover {
+    background-color: #DEF;
+}
+.sidenav-office {
+    width: 250px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    float: right;
+}
+.selected-office {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 40%;
+    overflow: auto;
+    border-bottom: 1px solid rgba(0,0,0,0.3);
+    margin: 5px;
+}
+.selected-office span {
+    font-size: 17px;
+    color: rgb(120,120,120);
+}
+.all-offices {
+    display:flex;
+    flex-direction: column;
+    height: 60%;
+    overflow: auto;
+}
+
+.add-icons {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+    flex-direction: column;
+    width: 100px;
+}
+.add-icons,.sidenav-office {
+    background-color: rgba(255,255,255,0.8);
+    box-shadow: 0px 0px 15px 2px black;
+}
+.icon-add-img {
+    height: 60px;
+    width: 60px;
+    transition: background 0.5s;
+}
+.icon-add-img:hover {
+    background-color: orangered;
+}
+.selectedOffice {
+    border: 1px solid orangered !important;
+}
+.bureaux-container img {
+    transition: border 0.5s;
+    border: 1px solid black;
 }

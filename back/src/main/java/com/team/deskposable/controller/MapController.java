@@ -34,6 +34,13 @@ public class MapController {
         return map;
     }
 
+    @PostMapping("/save")
+    public String saveMap(@RequestBody Map map) {
+        mapRepository.save(map);
+        System.out.println(map);
+        return map.toString();
+    }
+
     @DeleteMapping("/{id}")
     public Map deleteMap(@PathVariable Long id) {
         Map m = mapRepository.findOne(id);

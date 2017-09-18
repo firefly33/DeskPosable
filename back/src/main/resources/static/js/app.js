@@ -1,5 +1,7 @@
 var app = angular.module('app', ['ngRoute','ngResource']);
 app.config(function($routeProvider, $locationProvider){
+
+    $locationProvider.hashPrefix('');
     $routeProvider
         .when('/accueil',{
             templateUrl: '/views/home.html',
@@ -29,9 +31,12 @@ app.config(function($routeProvider, $locationProvider){
             templateUrl: '/views/building.html',
             controller: 'buildingController'
         })
+        .when('/modification-plan',{
+            templateUrl: '/views/modificationPlan.html',
+            controller: 'modificationPlanController'
+        })
         .otherwise(
-            { redirectTo: '/home'}
+            { redirectTo: '/accueil'}
         );
-    //$locationProvider.html5Mode(true);
 });
 

@@ -6,6 +6,7 @@ import com.team.deskposable.repository.SessionRepository;
 import com.team.deskposable.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
@@ -23,14 +24,13 @@ public class AuthenticationController {
     private SessionRepository sessionRepository;
 
     @PostMapping()
-    public Session authentication(WebRequest request, HttpServletResponse response) {
-        String mailParam = request.getParameter("mail");
-        String passwordParam = request.getParameter("password");
+    public Session authentication(@RequestBody User user, HttpServletResponse response) {
+        String mailParam = user.getEmail();
+        String passwordParam = user.getPassword();
         if(mailParam == null || passwordParam == null || mailParam.equals("") ||  passwordParam.equals("")){
             response.setStatus(401);
             return null;
         }
-        User user;
         try {
             user = userRepository.findByEmail(mailParam);
             if(!user.getPassword().equals(passwordParam)) {
