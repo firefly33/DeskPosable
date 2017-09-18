@@ -1,11 +1,7 @@
 var app = angular.module('app', ['ngRoute','ngResource']);
 app.config(function($routeProvider, $locationProvider){
     $routeProvider
-        .when('/users',{
-            templateUrl: '/views/users.html',
-            controller: 'usersController'
-        })
-        .when('/home',{
+        .when('/accueil',{
             templateUrl: '/views/home.html',
             controller: 'homeController'
         })
@@ -17,15 +13,19 @@ app.config(function($routeProvider, $locationProvider){
             templateUrl: '/views/person.html',
             controller: 'personController'
         })
-        .when('/maps', {
+        .when('/plans', {
             templateUrl: '/views/maps.html',
             controller: 'mapController'
         })
-        .when('/map',{
+        .when('/plan/:id',{
             templateUrl: '/views/map.html',
             controller: 'mapController'
         })
-        .when('/buildings',  {
+        .when('/batiments',  {
+            templateUrl: '/views/building.html',
+            controller: 'buildingController'
+        })
+        .when('/batiment/:id',  {
             templateUrl: '/views/building.html',
             controller: 'buildingController'
         })

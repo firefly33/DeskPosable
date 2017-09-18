@@ -6,10 +6,11 @@ app.controller('connexionController', function($scope) {
 
 });
 
-app.controller('buildingController', function($scope) {
+app.controller('buildingController', function($scope, $http, $routeParams) {
+    var id = $routeParams.id;
     $http({
         method: 'GET',
-        url: '/buildings/{id}'
+        url: '/buildings/'+id
     }).then(function (data) {
         // On stock dans persons la liste des personnes que nous renvoi l'api
         $scope.building = data.data;
@@ -45,19 +46,12 @@ app.controller('mapController', function($scope, $http) {
 
         $http({
             method: 'GET',
-            url: '/map'
+            url: '/maps/{id}'
         }).then(function (data) {
             $scope.map = data.data;
         }, function (error) {
             alert("ça passe pas du tout (map)");
         });
 
-        $http({
-            method: 'GET',
-            url: '/building'
-        }).then(function (data) {
-            $scope.map = data.data;
-        }, function (error) {
-            alert("ça passe pas du tout (building)");
-        });
+
 });
