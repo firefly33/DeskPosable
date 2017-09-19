@@ -53,7 +53,11 @@
         return '<span>Bureau '+idBureau+'</span><button ng-click="ajoutEmploye()" class="waves-effect waves-light btn">Affecter un employé</button>';
     }
     function afficherlistePersonne(data){
-
+        var html = "";
+        data.forEach(function(personne){
+            console.log(personne);
+        });
+        $(".dynalist").html(html);
     }
 </script>
 <div class="add-icons">
@@ -74,7 +78,7 @@
     <div class="selected-office">
         <span>Aucun bureau séléctionné.</span>
     </div>
-    <div class="all-offices">
+    <div class="dynalist">
 
     </div>
 </div>

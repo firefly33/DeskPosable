@@ -162,7 +162,7 @@ main h1 {
     font-size: 17px;
     color: rgb(120,120,120);
 }
-.all-offices {
+.dynalist {
     display:flex;
     flex-direction: column;
     height: 60%;

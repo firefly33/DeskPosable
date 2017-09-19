@@ -11,12 +11,14 @@ import java.util.List;
 
 @Entity
 public class Map {
+
     @Id
     @GeneratedValue
     private Long id;
     private String label;
     private String imagePath;
 
+    @JsonIgnore
     @ManyToOne
     private Building building;
 
