@@ -13,9 +13,9 @@ footer {
     box-shadow: 0px 0px 15px -3px black;
 }
 main,.container,.plan-view {
-    display: flex;
+    /*display: flex;
     justify-content:center;
-    align-items: center;
+    align-items: center;*/
 }
 main {
     flex: 1 0 auto;
