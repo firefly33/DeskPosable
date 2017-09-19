@@ -1,28 +1,86 @@
+<script>
+    $(document).ready(function(){
+        // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
+        $('.modal').modal();
+    });
+</script>
+
 <div class="container">
     <div class="row">
         <div class="card small col s12 m6" ng-repeat="map in maps">
             <div class="card-image">
                 <img src="../images/{{ map.imagePath }}">
-                <span class="card-title">{{ map.label }}</span>
-                <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
             </div>
             <div class="card-content">
-                <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I
-                    require little markup to use effectively.</p>
+                <a class="btn-floating left halfway-fab waves-effect waves-light red modal-trigger"
+                   href="#modal1" onclick="event.preventDefault();"><i class="material-icons">clear</i></a>
+                <a class="btn-floating right halfway-fab waves-effect waves-light orange modal-trigger"
+                   href="#modal1" onclick="event.preventDefault();"><i class="material-icons">mode_edit</i></a>
+                <span class="card-title grey-text text-darken-4">{{ map.label }}</span>
+            </div>
+        </div>
+
+        <div class="card small col s12 m6">
+            <div class="card-image">
+                <img src="../images/Hexagon-2.jpg">
+            </div>
+            <div class="card-content">
+                <a class="btn-floating halfway-fab waves-effect waves-light red modal-trigger"
+                   href="#modal1" onclick="event.preventDefault();"><i class="material-icons">add</i></a>
+                <h4>Nouveau plan</h4>
             </div>
         </div>
     </div>
 </div>
-<!-- <div class="container-boxes" style="width: 70%; height: 500px; background-color: lightblue;">
 
-    <div class="maps-container">
-        <div class="map" ng-repeat="map in maps" style="display: inline-block; width: 20%; height: 150px; background-color: indianred">
-            <a href="/#/plan/{{ map.id }}">
-                <span class="map-title" style="width:100%; text-align: center">{{ map.label }}</span>
-                <img class="map-preview" src="{{ map.imagePath }}">
-            </a>
+<!-- Modal Structure -->
+<div id="modal1" class="modal">
+    <div class="modal-content">
+
+        <div class="row">
+            <form class="col s12">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input placeholder="Placeholder" id="first_name" type="text" class="validate">
+                        <label for="first_name">First Name</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="last_name" type="text" class="validate">
+                        <label for="last_name">Last Name</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input disabled value="I am not editable" id="disabled" type="text" class="validate">
+                        <label for="disabled">Disabled</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="password" type="password" class="validate">
+                        <label for="password">Password</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="email" type="email" class="validate">
+                        <label for="email">Email</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        This is an inline input field:
+                        <div class="input-field inline">
+                            <input id="email" type="email" class="validate">
+                            <label for="email" data-error="wrong" data-success="right">Email</label>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
+
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
     </div>
 </div>
-
--->

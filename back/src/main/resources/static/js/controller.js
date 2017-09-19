@@ -160,7 +160,7 @@ app.controller('updatePersonController', function($scope, $http, $routeParams) {
         });
 
 });
-app.controller('mapController', function($scope, $http) {
+app.controller('mapController', function($scope, $http, $routeParams) {
 
         $http({
             method: 'GET',
@@ -180,4 +180,19 @@ app.controller('mapController', function($scope, $http) {
         }, function (error) {
             alert("ça passe pas du tout (map)");
         });
+});
+
+app.controller('createMapController', function ($scope, $http) {
+    $http({
+        method: 'POST',
+        url: '/buildings',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        transformRequest: function(obj) {
+            var str = [];
+            for(var p in obj)
+                str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+            return str.join("&");
+        },
+        data: {username: $scope.userName, password: $scope.password}
+    }).success(function () {});
 });
