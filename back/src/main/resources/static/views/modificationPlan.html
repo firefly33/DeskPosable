@@ -29,7 +29,7 @@
 
         var leftPositionRelative = -((idBureau-1)*widthOfOfficeImg)+posX-(widthOfOfficeImg/2);
         var topPositionRelative = -heightOfMap+posY-(heightOfOfficeImg/2);
-        var imgBureau= '<img data-id="'+idBureau+'" onclick="setBureau(this)" src="../images/bureau.png" class="bureau-style" id="bureau-'+idBureau+'" style="position: relative;top :'+topPositionRelative+'px;left :'+leftPositionRelative+'px;"/>';
+        var imgBureau= '<img data-id="'+idBureau+'" onclick="setBureau(this)" src="../images/bureau.png" class="bureau-style" id="bureau-'+idBureau+'" style="opacity: 0.9;position: relative;top :'+topPositionRelative+'px;left :'+leftPositionRelative+'px;"/>';
         $(".bureaux-container").html($(".bureaux-container").html()+imgBureau);
     }
 
@@ -67,6 +67,7 @@
             <div class="plan">
                 <img ng-click="addBureau($event)" class="plan-img-style plan-img" src="../images/{{map.imagePath}}" height="578" width="1000">
                 <div class="bureaux-container" style="height: 0px;">
+                    <img ng-repeat="desk in map.desks" style="opacity: 0.9;position: relative;top :{{-578+desk.y-(100/2)}}px;left :{{-(($index)*200)+desk.x-(200/2)}}px;" data-id="{{desk.id}}" onclick="setBureau(this)" src="../images/bureau.png" class="bureau-style" id="bureau-{{desk.id}}" />
                 </div>
             </div>
         </div>
