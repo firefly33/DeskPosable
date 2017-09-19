@@ -12,16 +12,15 @@ nav {
 footer {
     box-shadow: 0px 0px 15px -3px black;
 }
-main,.container,.plan-view {
-    display: flex;
-    justify-content:center;
-    align-items: center;
-}
+
 main {
     flex: 1 0 auto;
     background-image: url("../images/back_accueil.jpg");
     background-repeat: no-repeat;
     background-size: cover;
+    display: flex;
+    justify-content: center;
+
 }
 main h1 {
     color: white;
@@ -50,8 +49,12 @@ main h1 {
 .container {
     margin-top: 20px;
 }
+.container-mod-map {
+    margin-top: 20px;
+}
 
 .plan-view {
+    display: flex;
     flex-direction: column;
     justify-content: space-around;
     color: white;
@@ -143,7 +146,6 @@ main h1 {
 }
 .sidenav-office {
     width: 250px;
-    height: 100%;
     display: flex;
     flex-direction: column;
     float: right;
@@ -173,7 +175,6 @@ main h1 {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    height: 100%;
     flex-direction: column;
     width: 100px;
 }
@@ -195,4 +196,17 @@ main h1 {
 .bureaux-container img {
     transition: border 0.5s;
     border: 1px solid black;
+}
+.main-mod-map {
+    display: flex;
+    background-image: url("../images/back_accueil.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    justify-content: space-between;
+}
+.container-default {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
