@@ -18,7 +18,7 @@
                 <tbody>
                 <tr ng-repeat="map in maps">
                     <td><a href="#">{{map.label}}</a></td>
-                    <td><span ng-show="map.building == null">Pas de bâtiment</span>{{map.building.label}}</td>
+                    <td><span ng-show="map.building == null">Pas de bâtiment</span><a href="#/batiment/{{map.building.id}}">{{map.building.label}}</a></td>
                 </tr>
                 </tbody>
             </table>
