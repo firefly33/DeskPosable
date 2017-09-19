@@ -6,30 +6,31 @@
 </script>
 
 <div class="container">
-    <div class="row">
-        <div class="card small col s12 m6" ng-repeat="map in maps">
+    <div class="container-maps">
+        <a class="card small col s12 m6 maps" ng-repeat="map in maps" href="/#/modification-plan/{{map.id}}">
             <div class="card-image">
                 <img src="../images/{{ map.imagePath }}">
+                <div class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></div>
             </div>
             <div class="card-content">
-                <a class="btn-floating left halfway-fab waves-effect waves-light red modal-trigger"
-                   href="#modal1" onclick="event.preventDefault();"><i class="material-icons">clear</i></a>
-                <a class="btn-floating right halfway-fab waves-effect waves-light orange modal-trigger"
-                   href="#modal1" onclick="event.preventDefault();"><i class="material-icons">mode_edit</i></a>
+                <div class="btn-floating left halfway-fab waves-effect waves-light red modal-trigger"
+                   href="#modal1" onclick="event.preventDefault();"><i class="material-icons">clear</i></div>
+                <div class="btn-floating right halfway-fab waves-effect waves-light orange modal-trigger"
+                   href="#modal1" onclick="event.preventDefault();"><i class="material-icons">mode_edit</i></div>
                 <span class="card-title grey-text text-darken-4">{{ map.label }}</span>
             </div>
-        </div>
+        </a>
 
-        <div class="card small col s12 m6">
+        <a class="card small col s12 m6 maps">
             <div class="card-image">
                 <img src="../images/Hexagon-2.jpg">
             </div>
             <div class="card-content">
-                <a class="btn-floating halfway-fab waves-effect waves-light red modal-trigger"
-                   href="#modal1" onclick="event.preventDefault();"><i class="material-icons">add</i></a>
+                <div class="btn-floating halfway-fab waves-effect waves-light red modal-trigger"
+                   href="#modal1" onclick="event.preventDefault();"><i class="material-icons">add</i></div>
                 <h4>Nouveau plan</h4>
             </div>
-        </div>
+        </a>
     </div>
 </div>
 

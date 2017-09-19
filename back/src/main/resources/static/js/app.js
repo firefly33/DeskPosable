@@ -29,7 +29,7 @@ app.config(function($routeProvider, $locationProvider){
         })
         .when('/batiments',  {
             templateUrl: '/views/buildings.html',
-            controller: 'buildingController'
+            controller: 'buildingsController'
         })
         .when('/batiment/:id',  {
             templateUrl: '/views/building.html',

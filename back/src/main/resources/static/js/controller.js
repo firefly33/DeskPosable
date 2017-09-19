@@ -86,54 +86,36 @@ app.controller('connexionController', function ($scope, $http) {
                 },
                 function (data) {
                     swal("Accès refusé.").setDefaults({confirmButtonColor: '#ff4500'});
-                    ;
                 }
             );
     }
 });
+app.controller('buildingsController', function($scope, $http) {
+    $http({
+        method: 'GET',
+        url: '/buildings'
+    }).then(function (data) {
+        $scope.buildings = data.data;
+    }, function (error) {
+        alert("ça passe pas (GET_ALL)");
+    });
 
-app.controller('buildingController', function ($scope, $http, $routeParams) {
-
-    var all = function () {
-        $http({
-            method: 'GET',
-            url: '/buildings'
-        }).then(function (data) {
-            $scope.buildings = data.data;
-
-            /*$scope.buildings.forEach(function(building) {
-                console.log(building);
-
-                var toto = building.maps.lengh;
-            });
-
-            $scope.count = data.data.length;*/
-        }, function (error) {
-            alert("ça passe pas (GET_ALL)");
-        });
-    }
-
-    var getOne = function ($routeParams) {
-        var id = $routeParams.id;
-        $http({
-            method: 'GET',
-            url: '/buildings/' + id
-        }).then(function (data) {
-            $scope.building = data.data;
-            $scope.maps = $scope.building.maps;
-        }, function (error) {
-            alert("ça passe pas (GET_BY_ID)");
-        });
-    }
-
-    //if ($routeParams == "")
-    //    all();
-    //else
-    getOne($routeParams);
 
 });
+app.controller('buildingController', function($scope, $http, $routeParams) {
+    var id = $routeParams.id;
+    $http({
+        method: 'GET',
+        url: '/buildings/'+id
+    }).then(function (data) {
+        $scope.building = data.data;
+        $scope.maps = $scope.building.maps;
+    }, function (error) {
+        alert("ça passe pas (GET_BY_ID)");
+    });
+});
 
-app.controller('personController', function ($scope, $http) {
+app.controller('personController', function($scope, $http) {
     $http({
         method: 'GET',
         url: '/persons'
