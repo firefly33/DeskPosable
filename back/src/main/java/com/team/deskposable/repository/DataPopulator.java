@@ -44,14 +44,14 @@ public class DataPopulator {
         Map map1 = new Map("Etage 2 - Batiment 1 - Atos Intégration", "plan1.png", building1, null);
         Map map2 = new Map("Etage 4 - Batiment 3 - Atos Intégration", "plan2.jpg", building2, null);
         Map map3 = new Map("map3", "path3", null, null);
-        Map map1 = new Map("Open Space A", "path1", building1, null);
-        Map map2 = new Map("Open Space B", "path2", building2, null);
-        Map map3 = new Map("Open Space C", "path3", building1, null);
-        Map map4 = new Map("Open Space C", "path3", building1, null);
-        Map map5 = new Map("Open Space C", "path3", building1, null);
-        Map map6 = new Map("Open Space C", "path3", building3, null);
+        Map map4 = new Map("Open Space A", "path1", building1, null);
+        Map map5 = new Map("Open Space B", "path2", building2, null);
+        Map map6 = new Map("Open Space C", "path3", building1, null);
+        Map map7 = new Map("Open Space C", "path3", building1, null);
+        Map map8 = new Map("Open Space C", "path3", building1, null);
+        Map map9 = new Map("Open Space C", "path3", building3, null);
 
-        mapRepository.save(Arrays.asList(map1, map2, map3, map4, map5, map6));
+        mapRepository.save(Arrays.asList(map1, map2, map3, map4, map5, map6,map7,map8,map9));
 
         Person person1 = new Person("Ken", "Kaneki", "ICD", null);
         Person person2 = new Person("Shirou", "Emiya", "CP", null);
