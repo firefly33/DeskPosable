@@ -197,6 +197,7 @@ main h1 {
     transition: border 0.5s;
     border: 1px solid black;
 }
+
 .main-mod-map {
     display: flex;
     background-image: url("../images/back_accueil.jpg");
