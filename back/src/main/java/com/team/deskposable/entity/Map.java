@@ -11,6 +11,7 @@ import java.util.List;
 
 @Entity
 public class Map {
+
     @Id
     @GeneratedValue
     private Long id;
