@@ -110,7 +110,7 @@ app.controller('buildingController', function($scope, $http, $routeParams) {
         }, function (error) {
             alert("ça passe pas (GET_ALL)");
         });
-    };
+    }
 
     var getOne = function ($routeParams) {
         var id = $routeParams.id;
@@ -123,7 +123,7 @@ app.controller('buildingController', function($scope, $http, $routeParams) {
         }, function (error) {
             alert("ça passe pas (GET_BY_ID)");
         });
-    };
+    }
 
     //if ($routeParams == "")
     //    all();
