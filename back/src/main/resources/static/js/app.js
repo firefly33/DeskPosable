@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ngRoute','ngResource']);
+var app = angular.module('app', ['ngRoute','ngResource', 'ngToast', 'ngSanitize']);
 app.config(function($routeProvider, $locationProvider){
 
     $locationProvider.hashPrefix('');

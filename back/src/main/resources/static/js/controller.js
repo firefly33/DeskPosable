@@ -90,7 +90,7 @@ app.controller('connexionController', function ($scope, $http) {
             );
     }
 });
-app.controller('buildingsController', function($scope, $http) {
+app.controller('buildingsController', function ($scope, $http) {
     $http({
         method: 'GET',
         url: '/buildings'
@@ -102,11 +102,11 @@ app.controller('buildingsController', function($scope, $http) {
 
 
 });
-app.controller('buildingController', function($scope, $http, $routeParams) {
+app.controller('buildingController', function ($scope, $http, $routeParams) {
     var id = $routeParams.id;
     $http({
         method: 'GET',
-        url: '/buildings/'+id
+        url: '/buildings/' + id
     }).then(function (data) {
         $scope.building = data.data;
         $scope.maps = $scope.building.maps;
@@ -115,16 +115,22 @@ app.controller('buildingController', function($scope, $http, $routeParams) {
     });
 });
 
-app.controller('personController', function($scope, $http) {
-    $http({
-        method: 'GET',
-        url: '/persons'
-    }).then(function (data) {
-        // On stock dans persons la liste des personnes que nous renvoi l'api
-        $scope.persons = data.data;
-    }, function (error) {
-        alert("ça passe pas");
-    });
+app.controller('personController', function ($scope, $http, ngToast) {
+
+    function getAllEmployes() {
+        $http({
+            method: 'GET',
+            url: '/persons'
+        }).then(function (data) {
+            // On stock dans persons la liste des personnes que nous renvoi l'api
+            $scope.persons = data.data;
+        }, function (error) {
+            ngToast.danger("Une erreur est survenue lors de la récupération des employés.");
+        });
+    }
+
+    getAllEmployes();
+
 
     /*
     Méthode servant à définir quel employé est sélectionné pour modification
@@ -137,18 +143,50 @@ app.controller('personController', function($scope, $http) {
     Méthode utilisé pour modifier l'utilisateur
      */
     $scope.updatePerson = function (personToModify) {
-        $http.put("/persons/"+personToModify.id, personToModify)
+        $http.put("/persons/" + personToModify.id, personToModify)
             .then(
-                function (response) {
-                    alert("c'est okkkkkkkkkkkkk");
-
-                },
                 function (data) {
-                    alert("oups c'est pas okkkkkkkkkkkk");
+                    ngToast.success("Modification réussie.");
+                },
+                function (error) {
+                    ngToast.danger("Une erreur est survenue lors de la modification.");
                 }
             );
-    }
+    };
 
+    /*
+    Méthode permettant de supprimer l'employé correspondant
+     */
+    $scope.deletePerson = function (personToDelete) {
+        $http.delete("/persons/" + personToDelete.id)
+            .then(
+                function (data) {
+                    ngToast.success("Suppression réussie.");
+                    getAllEmployes();
+                },
+                function (error) {
+                    ngToast.danger("Une erreur est survenue lors de la suppression.");
+                }
+            )
+
+    };
+
+    $scope.addPerson = function (personToAdd) {
+        $http.post("/persons/", personToAdd)
+            .then(
+                function (data) {
+                    ngToast.success("Employé créé avec succès.");
+                    $scope.addMode = false;
+                    $scope.personToAdd = null;
+                    getAllEmployes();
+                },
+                function (error) {
+                    ngToast.danger("Une erreur est survenue lors de la création de l'employé.")
+                    $scope.addMode = false;
+                }
+            )
+
+    }
 
 });
 
@@ -166,7 +204,8 @@ app.controller('updatePersonController', function ($scope, $http, $routeParams) 
     });
 
 });
-app.controller('mapController', function($scope, $http, $routeParams) {
+
+app.controller('mapController', function ($scope, $http, $routeParams) {
 
     $http({
         method: 'GET',
@@ -183,12 +222,13 @@ app.controller('createMapController', function ($scope, $http) {
         method: 'POST',
         url: '/buildings',
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        transformRequest: function(obj) {
+        transformRequest: function (obj) {
             var str = [];
-            for(var p in obj)
+            for (var p in obj)
                 str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
             return str.join("&");
         },
         data: {username: $scope.userName, password: $scope.password}
-    }).success(function () {});
+    }).success(function () {
+    });
 });
