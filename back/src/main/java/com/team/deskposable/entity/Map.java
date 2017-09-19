@@ -17,6 +17,7 @@ public class Map {
     private String label;
     private String imagePath;
 
+    @JsonIgnore
     @ManyToOne
     private Building building;
 
