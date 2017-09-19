@@ -1,5 +1,7 @@
 package com.team.deskposable.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 /**
@@ -15,6 +17,7 @@ public class Desk {
     private Double y;
     private int orientation;
 
+    @JsonIgnore
     @ManyToOne
     private Map map;
 
@@ -59,5 +62,13 @@ public class Desk {
     }
     public void setOrientation(int orientation) {
         this.orientation = orientation;
+    }
+
+    public Map getMap() {
+        return map;
+    }
+
+    public void setMap(Map map) {
+        this.map = map;
     }
 }
