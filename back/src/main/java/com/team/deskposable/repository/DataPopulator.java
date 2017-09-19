@@ -41,35 +41,11 @@ public class DataPopulator {
 
         buildingRepository.save(Arrays.asList(building1, building2, building3));
 
-<<<<<<< HEAD
-        Map map1 = new Map("Open Space A", "Hexagon-2.jpg", building1, null);
-        Map map2 = new Map("Open Space B", "path2", building2, null);
-        Map map3 = new Map("Open Space C", "path3", building1, null);
-        Map map4 = new Map("Open Space C", "path3", building1, null);
-        Map map5 = new Map("Open Space C", "path3", building1, null);
-        Map map6 = new Map("Open Space C", "path3", building3, null);
-
-        mapRepository.save(Arrays.asList(map1, map2, map3, map4, map5, map6));
-
-        Desk desk1 = new Desk("bureau du patron", 3.0, 2.0, 90, map1);
-        Desk desk2 = new Desk("bureau du comptable", 5.0, 7.0, 270, map2);
-        Desk desk3 = new Desk("bureau de la secretaire", 8.0, 2.0, 180, map3);
-        Desk desk4 = new Desk("bureau du concierge", 8.0, 12.0, 0, map2);
-
-        deskRepository.save(Arrays.asList(desk1, desk2, desk3, desk4));
-=======
         Map map1 = new Map("Etage 2 - Batiment 1 - Atos Intégration", "plan1.png", building1, null);
         Map map2 = new Map("Etage 4 - Batiment 3 - Atos Intégration", "plan2.jpg", building2, null);
-        Map map3 = new Map("map3", "path3", null, null);
-        Map map4 = new Map("Open Space A", "path1", building1, null);
-        Map map5 = new Map("Open Space B", "path2", building2, null);
-        Map map6 = new Map("Open Space C", "path3", building1, null);
-        Map map7 = new Map("Open Space C", "path3", building1, null);
-        Map map8 = new Map("Open Space C", "path3", building1, null);
-        Map map9 = new Map("Open Space C", "path3", building3, null);
+        Map map3 = new Map("Open Space A", "plan2.jpg", building1, null);
 
-        mapRepository.save(Arrays.asList(map1, map2, map3, map4, map5, map6,map7,map8,map9));
->>>>>>> 0c2d75417b9326e282917bd2aa98ef3f8bbdc207
+        mapRepository.save(Arrays.asList(map1, map2, map3));
 
         Person person1 = new Person("Ken", "Kaneki", "ICD", null);
         Person person2 = new Person("Shirou", "Emiya", "CP", null);
