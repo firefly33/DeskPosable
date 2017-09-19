@@ -133,8 +133,7 @@ app.controller('updatePersonController', function($scope, $http, $routeParams) {
             url: '/persons/'+idPerson
         }).then(function (data) {
             // On stock dans person la personne que nous renvoi l'api
-            $scope.maperson = data.data;
-            console.log($scope.maperson);
+            $scope.person = data.data;
         }, function (error) {
             alert("ça passe pas user solo");
         });

@@ -1,4 +1,4 @@
-<div class="container z-depth-5" style="background-color: white;">
+<div class="z-depth-5" style="background-color: white;">
     <h2>Liste de persons</h2>
     <table>
         <thead>
@@ -8,7 +8,7 @@
         </thead>
         <tbody>
             <tr ng-repeat="person in persons">
-                <td><a href="#!/personnes/{{person.id}}">{{person.lastname}}</a></td>
+                <td><a href="#/personnes/{{person.id}}">{{person.lastname}}</a></td>
             </tr>
         </tbody>
     </table>
