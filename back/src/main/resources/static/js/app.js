@@ -36,7 +36,7 @@ app.config(function($routeProvider, $locationProvider){
             templateUrl: '/views/building.html',
             controller: 'buildingController'
         })
-        .when('/modification-plan',{
+        .when('/modification-plan/:id',{
             templateUrl: '/views/modificationPlan.html',
             controller: 'modificationPlanController'
         })

@@ -8,6 +8,10 @@
 
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv='cache-control' content='no-cache'>
+        <meta http-equiv='expires' content='0'>
+        <meta http-equiv='pragma' content='no-cache'>
+
         <link rel="stylesheet" href="css/materialize.min.css">
         <link rel="stylesheet" href="css/sweetalert.css">
         <link rel="stylesheet" href="css/app.css">
@@ -20,54 +24,6 @@
 
         <script src="js/app.js"></script>
         <script src="js/controller.js"></script>
-
-        <script>
-            class Bureau {
-                constructor(id,label,x, y) {
-                    this.id = id;
-                    this.label = label;
-                    this.x = x;
-                    this.y = y;
-                    this.map = 1;
-                }
-                set user(user){
-                    this.user = user;
-                }
-                static addMaterial(material){
-                    this.materials.push(material);
-                }
-            }
-            var typeCreation = 0; //0 : rien, 1 = Bureau
-            var bureaux = [];
-            var idBureau = 0; //s'incrémente à chaque ajout de bureau
-
-            function createViewBureau(idBureau,posX,posY) {
-
-                var heightOfOfficeImg = 100;
-                var widthOfOfficeImg = 200;
-
-                var heightOfMap = 578;
-                var widthOfMap = 1000;
-
-                var leftPositionRelative = -((idBureau-1)*widthOfOfficeImg)+posX-(widthOfOfficeImg/2);
-                var topPositionRelative = -heightOfMap+posY-(heightOfOfficeImg/2);
-                var imgBureau= '<img data-id="'+idBureau+'" onclick="setBureau(this)" src="../images/bureau.png" class="bureau-style" id="bureau-'+idBureau+'" style="position: relative;top :'+topPositionRelative+'px;left :'+leftPositionRelative+'px;"/>';
-                $(".bureaux-container").html($(".bureaux-container").html()+imgBureau);
-            }
-            function selectIconBureau(){
-                $(".add_bureau").css('background-color','orangered');
-            }
-            function mode_bureau() {
-                typeCreation = 1;
-                selectIconBureau();
-            }
-            function setBureau(el) {
-                $(".bureaux-container img").removeClass('selectedOffice');
-                $("#"+el.getAttribute("id")).addClass('selectedOffice');
-                $(".selected-office").html("<span>Bureau "+el.dataset.id+"</span>");
-                console.log( el.dataset.id);
-            }
-        </script>
     </head>
 
     <body ng-app="app">

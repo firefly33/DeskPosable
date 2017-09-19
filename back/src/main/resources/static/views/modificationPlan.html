@@ -1,12 +1,70 @@
+<script>
+    class Bureau {
+        constructor(id,label,x, y) {
+            this.id = id;
+            this.label = label;
+            this.orientation = 0;
+            this.x = x;
+            this.y = y;
+            this.map = null;
+        }
+        set user(user){
+            this.user = user;
+        }
+        static addMaterial(material){
+            this.materials.push(material);
+        }
+    }
+    var typeCreation = 0; //0 : rien, 1 = Bureau
+    var bureaux = [];
+    var idBureau = 0; //s'incrémente à chaque ajout de bureau
+
+    function createViewBureau(idBureau,posX,posY) {
+
+        var heightOfOfficeImg = 100;
+        var widthOfOfficeImg = 200;
+
+        var heightOfMap = 578;
+        var widthOfMap = 1000;
+
+        var leftPositionRelative = -((idBureau-1)*widthOfOfficeImg)+posX-(widthOfOfficeImg/2);
+        var topPositionRelative = -heightOfMap+posY-(heightOfOfficeImg/2);
+        var imgBureau= '<img data-id="'+idBureau+'" onclick="setBureau(this)" src="../images/bureau.png" class="bureau-style" id="bureau-'+idBureau+'" style="position: relative;top :'+topPositionRelative+'px;left :'+leftPositionRelative+'px;"/>';
+        $(".bureaux-container").html($(".bureaux-container").html()+imgBureau);
+    }
+
+    function refreshViewBureaux(){
+
+    }
+
+    function selectIconBureau(){
+        $(".add_bureau").css('background-color','orangered');
+    }
+    function mode_bureau() {
+        typeCreation = 1;
+        selectIconBureau();
+    }
+    function setBureau(el) {
+        $(".bureaux-container img").removeClass('selectedOffice');
+        $("#"+el.getAttribute("id")).addClass('selectedOffice');
+        $(".selected-office").html(getInfosBureau(el.dataset.id));
+    }
+    function getInfosBureau(idBureau){
+        return '<span>Bureau '+idBureau+'</span><button ng-click="ajoutEmploye()" class="waves-effect waves-light btn">Affecter un employé</button>';
+    }
+    function afficherlistePersonne(data){
+
+    }
+</script>
 <div class="add-icons">
     <img ng-click="saveMap()" src="../images/icon_save.png" class="icon-add-img add_bureau"/>
     <img onclick="mode_bureau()" src="../images/icon_new_bureau.png" class="icon-add-img add_bureau"/>
 </div>
 <div class="container plan-view">
-    <h3>Batiment 4 - ATOS - Etage 4</h3>
+    <h3>{{map.label}}</h3>
     <div class="corp">
         <div class="plan">
-            <img ng-click="addBureau($event)" class="plan-img-style plan-img" src="../images/plan1.png" height="578" width="1000">
+            <img ng-click="addBureau($event)" class="plan-img-style plan-img" src="../images/{{map.imagePath}}" height="578" width="1000">
             <div class="bureaux-container" style="height: 0px;">
             </div>
         </div>

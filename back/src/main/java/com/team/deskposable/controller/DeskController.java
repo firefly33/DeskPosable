@@ -1,12 +1,17 @@
 package com.team.deskposable.controller;
 
 import com.team.deskposable.entity.Desk;
+import com.team.deskposable.entity.Map;
 import com.team.deskposable.repository.DeskRepository;
 import com.team.deskposable.repository.MapRepository;
+import com.team.deskposable.repository.SessionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -29,13 +34,17 @@ public class DeskController {
         return deskRepository.findOne(id);
     }
 
-    @PostMapping("/save")
-    public Desk createDesk(@RequestBody List<Desk> desks,HttpServletResponse response) {
-        for (Desk desk:desks) {
-            deskRepository.save(desk);
+    @PostMapping("/save/{idMap}")
+    public List<Desk> createDesk(@RequestBody List<Desk> desks,HttpServletResponse response,@PathVariable Long idMap) {
+        Map map = mapRepository.findOne(idMap);
+        String id = session().getId();
+        for (int i = 0; i < desks.size();i++) {
+            Desk desk = desks.get(i);
+            desk.setMap(map);
+            desk = deskRepository.save(desk);
         }
         response.setStatus(200);
-        return null;
+        return desks;
     }
 
     @DeleteMapping("/{id}")
@@ -65,6 +74,12 @@ public class DeskController {
         deskRepository.save(d);
 
         return d;
+    }
+
+
+    public static HttpSession session() {
+        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        return attr.getRequest().getSession(true);
     }
 
 }

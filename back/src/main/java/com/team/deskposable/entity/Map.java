@@ -20,7 +20,7 @@ public class Map {
     @ManyToOne
     private Building building;
 
-    @JsonIgnore
+    @JoinColumn(name = "map_id", referencedColumnName = "id")
     @OneToMany
     private List<Desk> desks;
 
