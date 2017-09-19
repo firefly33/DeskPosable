@@ -12,7 +12,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <!--<div class="row">
         <div class="col m8 offset-m2">
             <div class="collection">
                 <a ng-repeat="person in persons" href="#modal1" class="collection-item modal-trigger orange-text"
@@ -22,6 +22,35 @@
         </div>
         <div class="col m2" ng-repeat="person in persons" style="margin-top: 10px;">
             <a class="waves-effect waves-light btn red" style="padding: inherit"><i class="material-icons">clear</i></a>
+        </div>
+    </div>-->
+
+    <div class="row">
+        <div class="col m10 offset-m1">
+            <table class="striped">
+                <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Poste</th>
+                    <th>Bureau</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="person in persons">
+                    <td>{{person.lastname}}</td>
+                    <td>{{person.firstname}}</td>
+                    <td>{{person.employment}}</td>
+                    <td>{{person.desk.label}}<span ng-show="person.desk.label == null">Pas de bureau associé</span></td>
+                    <td class="right">
+                        <a class="waves-effect waves-light btn green modal-trigger" href="#modal1"
+                           ng-click="personChoice(person)"
+                           onclick="event.preventDefault();"><i class="material-icons">mode_edit</i></a>
+                        <a class="waves-effect waves-light btn red"><i class="material-icons">clear</i></a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 
@@ -46,7 +75,7 @@
                             <label ng-class="{active: personToModify.employment != null}">Poste</label>
                         </div>
                         <div class="input-field col s6">
-                            <input disabled ng-model="personToModify.desk" placeholder="Pas de bureau associé"
+                            <input disabled ng-model="personToModify.desk.label" placeholder="Pas de bureau associé"
                                    type="text">
                             <label class="active">Bureau</label>
                         </div>
