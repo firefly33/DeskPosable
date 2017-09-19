@@ -1,8 +1,9 @@
 package com.team.deskposable.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.util.List;
 
 @Entity
@@ -13,8 +14,7 @@ public class Building {
     private Long id;
     private String label;
 
-    @JsonIgnore
-    @ManyToMany(mappedBy = "building")
+    @OneToMany(mappedBy="building")
     private List<Map> maps;
 
     public Building() {

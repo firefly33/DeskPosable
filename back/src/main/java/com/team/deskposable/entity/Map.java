@@ -18,9 +18,9 @@ public class Map {
     private String imagePath;
 
     @ManyToOne
+    @JsonIgnore
     private Building building;
 
-    @JsonIgnore
     @OneToMany
     private List<Desk> desks;
 

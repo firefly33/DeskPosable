@@ -72,27 +72,43 @@ app.controller('connexionController', function($scope,$http) {
 });
 
 app.controller('buildingController', function($scope, $http, $routeParams) {
-    var id = $routeParams.id;
 
+    var all = function () {
+        $http({
+            method: 'GET',
+            url: '/buildings'
+        }).then(function (data) {
+            $scope.buildings = data.data;
 
-    $http({
-        method: 'GET',
-        url: '/buildings'
-    }).then(function (data) {
-        $scope.map = data.data;
-    }, function (error) {
-        alert("ça passe pas du tout (building)");
-    });
+            /*$scope.buildings.forEach(function(building) {
+                console.log(building);
 
-    $http({
-        method: 'GET',
-        url: '/buildings/'+id
-    }).then(function (data) {
-        // On stock dans persons la liste des personnes que nous renvoi l'api
-        $scope.building = data.data;
-    }, function (error) {
-        alert("ça passe pas");
-    });
+                var toto = building.maps.lengh;
+            });
+
+            $scope.count = data.data.length;*/
+        }, function (error) {
+            alert("ça passe pas (GET_ALL)");
+        });
+    }
+
+    var getOne = function ($routeParams) {
+        var id = $routeParams.id;
+        $http({
+            method: 'GET',
+            url: '/buildings/'+id
+        }).then(function (data) {
+            $scope.building = data.data;
+            $scope.maps = $scope.building.maps;
+        }, function (error) {
+            alert("ça passe pas (GET_BY_ID)");
+        });
+    }
+
+    //if ($routeParams == "")
+    //    all();
+    //else
+        getOne($routeParams);
 
 });
 
