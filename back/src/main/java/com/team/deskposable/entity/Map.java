@@ -18,9 +18,9 @@ public class Map {
     private String imagePath;
 
     @ManyToOne
-    @JsonIgnore
     private Building building;
 
+    @JoinColumn(name = "map_id", referencedColumnName = "id")
     @OneToMany
     private List<Desk> desks;
 

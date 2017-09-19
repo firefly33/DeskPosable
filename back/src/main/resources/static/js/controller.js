@@ -1,25 +1,34 @@
 app.controller('homeController', function($scope) {
 
 });
-app.controller('modificationPlanController',function($scope,$http){
-    var data = bureaux;
-    console.log(data);
+app.controller('modificationPlanController',function($scope,$http,$routeParams){
+    $scope.idPlan = $routeParams.id;
+    $http({
+        method: 'GET',
+        url: '/maps/'+$scope.idPlan
+    }).then(function (data) {
+        $scope.map = data.data;
+    }, function (error) {
+        swal("Une erreur est survenue, veuillez réessayer plus tard.","error");
+    });
     $scope.saveMap = function() {
-        $http
-            .post("desks/save", data).then(
-            function (response) {
-                swal("Enregistrement", "Sauvegarde réussie!", "success");
-            },
-            function (data) {
-                swal("Echec", "Impossible de contacter le serveur distant, veuillez réessayer ultérieurement.", "error");
-            }
-        );
-    }
+            $http
+                .post("desks/save/"+$scope.idPlan, bureaux)
+                .then(
+                    function(data) {
+                        bureaux = data.data;
+                        swal("Sauvegarde réussie !", "Le plan est enregistré sur le serveur.", "success").setDefaults({ confirmButtonColor: '#ff4500' });
+                    },
+                    function (data) {
+                        swal("Impossible de contacter le serveur distant. Veuillez réesayer plus tard.").setDefaults({ confirmButtonColor: '#ff4500' });
+                    }
+                );
+
+    };
     $scope.addBureau = function (event) {
         var x = event.offsetX;
         var y = event.offsetY;
         if(typeCreation == 1){
-            idBureau++;
             swal({
                     title: "Confirmation",
                     text: "Etes vous sûr de vouloir placer un bureau à cet emplacement ?",
@@ -31,12 +40,23 @@ app.controller('modificationPlanController',function($scope,$http){
                     closeOnConfirm: false
                 },
                 function(){
-                    bureaux[idBureau] = new Bureau(idBureau,"bureau"+idBureau,x,y);
-                    console.log(bureaux);
+                    bureaux[idBureau] = new Bureau(null,"bureau"+idBureau,x,y);
+
+                    idBureau++;
                     createViewBureau(idBureau,x,y);
                     swal("Ajouté !", "Le bureau a bien été ajouté à votre plan.", "success");
                 });
         }
+    }
+    $scope.ajoutEmploye = function(){
+        $http({
+            method: 'GET',
+            url: '/persons'
+        }).then(function (data) {
+            afficherlistePersonne(data.data);
+        }, function (error) {
+            swal("Une erreur est survenue, veuillez réessayer plus tard.","error");
+        });
     }
 });
 
@@ -62,7 +82,7 @@ app.controller('connexionController', function($scope,$http) {
             .post("/auth", data)
             .then(
                 function (response) {
-                    document.location.href="#/modification-plan";
+                    document.location.href="#/modification-plan/1";
                 },
                 function (data) {
                     swal("Accès refusé.").setDefaults({ confirmButtonColor: '#ff4500' });;
@@ -124,7 +144,8 @@ app.controller('personController', function($scope, $http) {
     });
 
 });
-
+app.controller('usersController', function ($scope) {
+});
 app.controller('updatePersonController', function($scope, $http, $routeParams) {
         var idPerson = $routeParams.id;
 
@@ -139,7 +160,6 @@ app.controller('updatePersonController', function($scope, $http, $routeParams) {
         });
 
 });
-
 app.controller('mapController', function($scope, $http) {
 
         $http({
