@@ -35,17 +35,23 @@ public class DataPopulator {
 
         userRepository.save(Arrays.asList(user1, user2, user3, user4));
 
-        Building building1 = new Building("label1", null);
-        Building building2 = new Building("label2", null);
-        Building building3 = new Building("label3", null);
+        Building building1 = new Building("Business Unit", null);
+        Building building2 = new Building("Centre de Services", null);
+        Building building3 = new Building("Centre des Serveurs", null);
 
         buildingRepository.save(Arrays.asList(building1, building2, building3));
 
         Map map1 = new Map("Etage 2 - Batiment 1 - Atos Intégration", "plan1.png", building1, null);
         Map map2 = new Map("Etage 4 - Batiment 3 - Atos Intégration", "plan2.jpg", building2, null);
         Map map3 = new Map("map3", "path3", null, null);
+        Map map1 = new Map("Open Space A", "path1", building1, null);
+        Map map2 = new Map("Open Space B", "path2", building2, null);
+        Map map3 = new Map("Open Space C", "path3", building1, null);
+        Map map4 = new Map("Open Space C", "path3", building1, null);
+        Map map5 = new Map("Open Space C", "path3", building1, null);
+        Map map6 = new Map("Open Space C", "path3", building3, null);
 
-        mapRepository.save(Arrays.asList(map1, map2, map3));
+        mapRepository.save(Arrays.asList(map1, map2, map3, map4, map5, map6));
 
         Person person1 = new Person("Ken", "Kaneki", "ICD", null);
         Person person2 = new Person("Shirou", "Emiya", "CP", null);

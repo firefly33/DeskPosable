@@ -15,7 +15,6 @@ app.config(function($routeProvider, $locationProvider){
             templateUrl: '/views/person/person.html',
             controller: 'personController'
         })
-        .when('/plans', {})
         .when('/personnes/:id',{
             templateUrl: '/views/person/updatePerson.html',
             controller: 'updatePersonController'
@@ -29,7 +28,7 @@ app.config(function($routeProvider, $locationProvider){
             controller: 'mapController'
         })
         .when('/batiments',  {
-            templateUrl: '/views/building.html',
+            templateUrl: '/views/buildings.html',
             controller: 'buildingController'
         })
         .when('/batiment/:id',  {

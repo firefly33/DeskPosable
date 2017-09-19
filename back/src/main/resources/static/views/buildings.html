@@ -1,0 +1,27 @@
+<div class=" z-depth-5" style="background-color: white;">
+    <div class="row">
+
+        <div class="col s11 offset-s1">
+            <h2>Liste des bâtiments</h2>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col s10 offset-s1">
+            <table class="striped bordered">
+                <thead>
+                <tr>
+                    <th>Libellé</th>
+                    <th>Nombre de plans</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="building in buildings">
+                    <td><a href="#">{{ building.label }}</a></td>
+                    <td>{{ building.maps.length }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

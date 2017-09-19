@@ -92,16 +92,44 @@ app.controller('connexionController', function($scope,$http) {
 });
 
 app.controller('buildingController', function($scope, $http, $routeParams) {
-    var id = $routeParams.id;
-    $http({
-        method: 'GET',
-        url: '/buildings/'+id
-    }).then(function (data) {
-        // On stock dans persons la liste des personnes que nous renvoi l'api
-        $scope.building = data.data;
-    }, function (error) {
-        alert("ça passe pas");
-    });
+
+    var all = function () {
+        $http({
+            method: 'GET',
+            url: '/buildings'
+        }).then(function (data) {
+            $scope.buildings = data.data;
+
+            /*$scope.buildings.forEach(function(building) {
+                console.log(building);
+
+                var toto = building.maps.lengh;
+            });
+
+            $scope.count = data.data.length;*/
+        }, function (error) {
+            alert("ça passe pas (GET_ALL)");
+        });
+    }
+
+    var getOne = function ($routeParams) {
+        var id = $routeParams.id;
+        $http({
+            method: 'GET',
+            url: '/buildings/'+id
+        }).then(function (data) {
+            $scope.building = data.data;
+            $scope.maps = $scope.building.maps;
+        }, function (error) {
+            alert("ça passe pas (GET_BY_ID)");
+        });
+    }
+
+    //if ($routeParams == "")
+    //    all();
+    //else
+        getOne($routeParams);
+
 });
 
 app.controller('personController', function($scope, $http) {
@@ -117,6 +145,19 @@ app.controller('personController', function($scope, $http) {
 
 });
 app.controller('usersController', function ($scope) {
+});
+app.controller('updatePersonController', function($scope, $http, $routeParams) {
+        var idPerson = $routeParams.id;
+
+        $http({
+            method: 'GET',
+            url: '/persons/'+idPerson
+        }).then(function (data) {
+            // On stock dans person la personne que nous renvoi l'api
+            $scope.person = data.data;
+        }, function (error) {
+            alert("ça passe pas user solo");
+        });
 
 });
 app.controller('mapController', function($scope, $http) {
@@ -139,6 +180,4 @@ app.controller('mapController', function($scope, $http) {
         }, function (error) {
             alert("ça passe pas du tout (map)");
         });
-
-
 });
