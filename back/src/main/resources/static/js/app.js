@@ -15,7 +15,6 @@ app.config(function($routeProvider, $locationProvider){
             templateUrl: '/views/person/person.html',
             controller: 'personController'
         })
-        .when('/plans', {})
         .when('/personnes/:id',{
             templateUrl: '/views/person/updatePerson.html',
             controller: 'updatePersonController'
