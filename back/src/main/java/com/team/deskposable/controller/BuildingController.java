@@ -52,4 +52,7 @@ public class BuildingController {
         return b;
     }
 
+    /*public int howManyEmployees() {
+        return 0;
+    }*/
 }
