@@ -226,6 +226,10 @@ main h1 {
     flex-wrap: wrap;
 }
 
+.no-highlight:hover {
+    background-color: transparent !important;
+}
+
 /* DEBUT style ngToast */
 
 .alert {

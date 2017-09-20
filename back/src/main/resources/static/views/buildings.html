@@ -12,10 +12,9 @@
         </div>
     </div>
 
-
     <div class="row">
         <div class="col m10 offset-m1">
-            <table class="striped">
+            <table class="bordered">
                 <thead>
                 <tr>
                     <th>Nom</th>
@@ -24,17 +23,19 @@
                 </thead>
                 <tbody>
                 <tr ng-repeat="building in buildings">
-                    <td>{{building.label}}</td>
-                    <td>{{building.maps.length}}</td>
 
-                    <td class="right">
-                        <a class="waves-effect waves-light btn green modal-trigger" href="#modal1"
-                           ng-click="buildingChoice(building)"
-                           onclick="event.preventDefault();"><i class="material-icons">mode_edit</i></a>
-                        <a ng-show="!addMode" class="waves-effect waves-light btn red modal-trigger" href="#deleteModal"
-                           ng-click="buildingChoice(building)"
-                           onclick="event.preventDefault();"><i class="material-icons">clear</i></a>
-                    </td>
+                        <td><a href="/#/batiment/{{building.id}}">{{building.label}}</a></td>
+
+                        <td>{{building.maps.length}}</td>
+
+                        <td class="right">
+                            <a class="waves-effect waves-light btn green modal-trigger" href="#modal1"
+                               ng-click="buildingChoice(building)"
+                               onclick="event.preventDefault();"><i class="material-icons">mode_edit</i></a>
+                            <a ng-show="!addMode" class="waves-effect waves-light btn red modal-trigger" href="#deleteModal"
+                               ng-click="buildingChoice(building)"
+                               onclick="event.preventDefault();"><i class="material-icons">clear</i></a>
+                        </td>
                 </tr>
 
                 <tr ng-show="addMode">
@@ -74,8 +75,7 @@
         </div>
         <div class="modal-footer">
             <button class="btn waves-effect waves-light orange modal-close" type="submit" name="action"
-                    ng-click="updateBuilding(buildingToModify)">Modifier
-                <i class="material-icons right">send</i></button>
+                    ng-click="updateBuilding(buildingToModify)">Modifier</button>
         </div>
     </div>
 
@@ -85,8 +85,7 @@
         </div>
         <div class="modal-footer">
             <button class="btn waves-effect waves-light red modal-close" type="submit" name="action"
-                    ng-click="deleteBuilding(buildingToModify)">Supprimer
-                <i class="material-icons right">send</i></button>
+                    ng-click="deleteBuilding(buildingToModify)">Supprimer</button>
         </div>
     </div>
 
