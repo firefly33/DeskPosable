@@ -1,16 +1,22 @@
 <div class="container">
     <div class="container-new-map">
-        <form class="container-new-map-2">
-            <h3>Nouveau plan : {{building.label}}</h3>
+        <form class="container-new-map-2" >
+            <h3>Bâtiment : {{building.label}}</h3>
+            <h4>Nouveau plan</h4>
             <div class="input-field col s6">
-                <input id="label" type="text" class="validate">
-                <label for="label">Nom de plan (label)</label>
+                <input id="label" type="text" class="validate" ng-model="map.name">
+                <label for="label">Nom</label>
             </div>
-            <div class="input-field col s6">
-                <input id="plan-img" type="file" class="validate">
-                <label for="plan-img">Image du plan</label>
+            <div class="file-field input-field">
+                <div class="btn">
+                    <span>Image du plan</span>
+                    <input type="file" file-model = "imagePlan">
+                </div>
+                <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text">
+                </div>
             </div>
-            <a ng-click="addPlan()" class="waves-effect waves-light btn">Ajouter un plan</a>
+            <a ng-click="addPlan(map)" class="waves-effect waves-light btn">Ajouter un plan</a>
         </form>
     </div>
 </div>

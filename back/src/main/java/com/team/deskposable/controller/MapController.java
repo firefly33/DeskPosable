@@ -10,11 +10,21 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @RestController
 @RequestMapping("/maps")
 public class MapController {
+
+    public static final String UPLOADED_FOLDER = "C:\\Users\\A637191\\Desktop\\CESI\\JAVA_PROJET\\DeskPosable\\DeskPosable\\back\\src\\main\\resources\\static\\images\\";
 
     @Autowired
     MapRepository mapRepository;
@@ -32,38 +42,48 @@ public class MapController {
     }
 
     @PostMapping()
-    public Map newMap(@RequestBody Map map) {
-        mapRepository.save(map);
-        return map;
-    }
-
-    /*@PostMapping("/save")
-    public String saveMap(@RequestParam("label_plan") MultipartFile labelPlan,@RequestParam("myFile") MultipartFile plan) {
-        if (!plan.isEmpty() && plan.getSize() <= 512 * 1024) {
-            if (plan.getOriginalFilename().endsWith(".pdf")) {
-                userService.saveDocumentPapier(user, plan);
-            } else {
-                model.addAttribute("erreurFormat", true);
-                return "front/moncompte";
-            }
-
-            return "redirect:/moncompte";
-        } else {
-            System.out.println("Fichier vide!!");
-            return "redirect:/moncompte";
+    public void newMap(@RequestPart("image") MultipartFile file, @RequestPart("name") String name ,@RequestPart("idBuilding") String idBuilding, HttpServletResponse response){
+        if (file.isEmpty()) {
+            response.setStatus(400);
         }
-        Map map = new Map();
-        mapRepository.save(map);
-        System.out.println(map);
-        return map.toString();
-    }
+        long idBuild = Long.parseLong(idBuilding);
+        try {
+            // Get the file and save it somewhere
+            byte[] bytes = file.getBytes();
+            String filename = file.getOriginalFilename().toLowerCase();
+            String strTab[] = filename.split("\\.");
+            String ext = "";
+            if(strTab.length >= 1){
+                ext = strTab[strTab.length-1];
+            }
+            if(!ext.equals("png") && !ext.equals("jpg")){
+                throw new Exception("Le format du fichier est incorrect");
+            }
+            //clé permettant d'être sûr que 2 images n'auront pas le meme nom
+            String randomKey =String.valueOf((int)(Math.random() * (100000)));
+            SimpleDateFormat formatDate =  new SimpleDateFormat("yyyyMMddHHmmssSSS");
+            Date now = new Date();
+            filename = randomKey+formatDate.format(now)+"."+ext;
+            String imgPath = String.valueOf(this.getClass().getResource(UPLOADED_FOLDER + filename));
+            File newFile = new File(imgPath);
+            if (!newFile.exists()) {
+                newFile.createNewFile();
+            }
+            Path path = Paths.get(UPLOADED_FOLDER + filename);
+            Files.write(path, bytes);
 
-    @DeleteMapping("/{id}")
-    public Map deleteMap(@PathVariable Long id) {
-        Map m = mapRepository.findOne(id);
-        mapRepository.delete(id);
-        return m;
-    }*/
+            Map newMap = new Map();
+            newMap.setLabel(name);
+            newMap.setImagePath(filename);
+            newMap.setBuilding(buildingRepository.findOne(idBuild));
+            newMap.setBuilding(buildingRepository.findOne(idBuild));
+            mapRepository.save(newMap);
+            response.setStatus(200);
+        } catch (Exception e) {
+            System.out.println();
+            response.setStatus(400);
+        }
+    }
 
     @PutMapping("/{id}")
     public Map modifyMap(@PathVariable Long id, @RequestBody Map map) {
