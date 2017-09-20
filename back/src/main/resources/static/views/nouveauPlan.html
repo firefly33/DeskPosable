@@ -1,0 +1,16 @@
+<div class="container">
+    <div class="container-new-map">
+        <form class="container-new-map-2">
+            <h3>Nouveau plan : {{building.label}}</h3>
+            <div class="input-field col s6">
+                <input id="label" type="text" class="validate">
+                <label for="label">Nom de plan (label)</label>
+            </div>
+            <div class="input-field col s6">
+                <input id="plan-img" type="file" class="validate">
+                <label for="plan-img">Image du plan</label>
+            </div>
+            <a ng-click="addPlan()" class="waves-effect waves-light btn">Ajouter un plan</a>
+        </form>
+    </div>
+</div>

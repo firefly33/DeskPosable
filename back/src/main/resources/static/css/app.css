@@ -181,16 +181,17 @@ main h1 {
     background-color: rgba(255,255,255,0.8);
     box-shadow: 0px 0px 15px 2px black;
 }
-.icon-add-img {
-    height: 60px;
-    width: 60px;
-    transition: background 0.5s;
+.icon-mod-map {
+    height: 45px;
+    width: 45px;
+    transition: height 0.5s,width 0.5s;
 }
-.icon-add-img:hover {
-    background-color: #ef6c00;
+.icon-mod-map:hover {
+    height: 80px;
+    width: 80px;
 }
 .selectedOffice {
-    border: 1px solid #ef6c00 !important;
+    box-shadow: 0px 0px 15px 7px #ef6c00;
 }
 .bureaux-container img {
     transition: border 0.5s;
@@ -224,6 +225,24 @@ main h1 {
     justify-content: space-around;
     align-content: center;
     flex-wrap: wrap;
+    width: 100%;
+
+}
+.container-new-map {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.container-new-map-2 {
+    background-color: white;
+    width: 600px;
+    height: 400px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
 }
 
 /* DEBUT style ngToast */
@@ -298,3 +317,35 @@ button.close {
 }
 
 /* FIN du style ngToast*/
+
+.container-building {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+}
+.container-building h3 {
+    color: white;
+}
+@keyframes title-show {
+    from {top:-35px;}
+    to {top:0px;}
+}
+
+.title-page {
+    position: relative;
+     top:0px;
+    color: white;
+    text-align: center;
+    width: 100%;
+    background-color: rgba(0,0,0,0.5);
+    padding: 10px;
+    box-shadow: 0px 0px 13px -5px black;
+    animation-name: title-show;
+    animation-duration: 1s;
+    z-index: 5;
+}
+nav {
+    z-index: 999999;
+}

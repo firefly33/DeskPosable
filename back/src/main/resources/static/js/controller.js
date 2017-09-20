@@ -1,8 +1,10 @@
 app.controller('homeController', function ($scope) {
 
 });
-app.controller('modificationPlanController', function ($scope, $http, $routeParams) {
+app.controller('modificationPlanController', function ($scope, $http, $routeParams,$compile,$timeout) {
     $scope.idPlan = $routeParams.id;
+    $scope.btnOk = false;
+    $scope.outputContainer = "";
     $http({
         method: 'GET',
         url: '/maps/' + $scope.idPlan
@@ -12,6 +14,7 @@ app.controller('modificationPlanController', function ($scope, $http, $routePara
         swal("Une erreur est survenue, veuillez réessayer plus tard.", "error");
     });
     $scope.saveMap = function () {
+        removeStyleOfAllSelectedOffice();
         $http
             .post("desks/save/" + $scope.idPlan, bureaux)
             .then(
@@ -26,6 +29,7 @@ app.controller('modificationPlanController', function ($scope, $http, $routePara
 
     };
     $scope.addBureau = function (event) {
+        removeStyleOfAllSelectedOffice();
         var x = event.offsetX;
         var y = event.offsetY;
         if (typeCreation == 1) {
@@ -43,12 +47,32 @@ app.controller('modificationPlanController', function ($scope, $http, $routePara
                     bureaux[idBureau] = new Bureau(null, "bureau" + idBureau, x, y);
 
                     idBureau++;
-                    createViewBureau(idBureau, x, y);
+
+                    var heightOfOfficeImg = 100;
+                    var widthOfOfficeImg = 200;
+
+                    var heightOfMap = 578;
+
+                    var leftPositionRelative = -((idBureau-1)*widthOfOfficeImg)+x-(widthOfOfficeImg/2);
+                    var topPositionRelative = -heightOfMap+y-(heightOfOfficeImg/2);
+                    var imgBureau= '<img data-id="'+idBureau+'" ng-click="setBureau(this)" src="../images/bureau.png" class="bureau-style" id="bureau-'+idBureau+'" style="opacity: 0.9;position: relative;top :'+topPositionRelative+'px;left :'+leftPositionRelative+'px;"/>';
+                    var content = $compile(imgBureau)($scope);
+                    $timeout(function(){
+                        $scope.outputContainer += content.innerHTML;
+                    });
+                    $(".bureaux-container").html($(".bureaux-container").html()+imgBureau);
                     swal("Ajouté !", "Le bureau a bien été ajouté à votre plan.", "success");
                 });
         }
     };
 
+    }
+    $scope.setBureau = function(el){
+        $scope.btnOk = true;
+        removeStyleOfAllSelectedOffice();
+        $("#"+el.getAttribute("id")).addClass('selectedOffice');
+        $(".selected-office").html(getInfosBureau(el.dataset.id));
+    }
     $scope.ajoutEmploye = function () {
         $http({
             method: 'GET',
@@ -156,11 +180,11 @@ app.controller('buildingsController', function ($scope, $http, ngToast) {
             );
     };
 });
-app.controller('buildingController', function ($scope, $http, $routeParams) {
-    var id = $routeParams.id;
+app.controller('buildingController', function($scope, $http, $routeParams) {
+    $scope.idBatiment = $routeParams.id;
     $http({
         method: 'GET',
-        url: '/buildings/' + id
+        url: '/buildings/'+$scope.idBatiment
     }).then(function (data) {
         $scope.building = data.data;
         $scope.maps = $scope.building.maps;
@@ -210,7 +234,7 @@ app.controller('personController', function ($scope, $http, ngToast) {
     Méthode permettant de supprimer l'employé correspondant
      */
     $scope.deletePerson = function (personToDelete) {
-        $http.delete("/pesons/" + personToDelete.id)
+        $http.delete("/persons/" + personToDelete.id)
             .then(
                 function (data) {
                     ngToast.success("Suppression réussie !");
@@ -268,18 +292,43 @@ app.controller('mapController', function ($scope, $http, $routeParams) {
     });
 });
 
-app.controller('createMapController', function ($scope, $http) {
+app.controller('mapsController', function ($scope, $http) {
     $http({
-        method: 'POST',
-        url: '/buildings',
+        method: 'GET',
+        url: '/buildings'
+    }).then(function (data) {
+        $scope.buildings = data.data;
+    }, function (error) {
+        swal("Une erreur est survenue, Veuillez réessayer plus tard.","error").setDefaults({confirmButtonColor: '#ff4500'});
+    });
+});
+
+app.controller('createMapController', function ($scope, $http,$routeParams) {
+    $http({
+        method: 'GET',
+        url: '/buildings/'+$scope.idBatiment,
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        transformRequest: function (obj) {
+        transformRequest: function(obj) {
             var str = [];
-            for (var p in obj)
+            for(var p in obj)
                 str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
             return str.join("&");
         },
         data: {username: $scope.userName, password: $scope.password}
-    }).success(function () {
+    }).success(function () {});
+});
+app.controller('nouveauPlanController', function ($scope, $http,$routeParams) {
+    $scope.idBatiment = $routeParams.id;
+    $http({
+        method: 'GET',
+        url: '/buildings/'+$routeParams.id
+    }).then(function (data) {
+        // On stock dans persons la liste des personnes que nous renvoi l'api
+        $scope.building = data.data;
+    }, function (error) {
+        swal("Une erreur est survenue, veuillez réessayer plus tard.", "error");
     });
+    $scope.addPlan = function(){
+
+    }
 });
