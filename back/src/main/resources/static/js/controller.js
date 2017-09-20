@@ -1,9 +1,8 @@
 app.controller('homeController', function ($scope) {
-
 });
+
 app.controller('modificationPlanController', function ($scope, $http, $routeParams,$compile,$timeout) {
     $scope.idPlan = $routeParams.id;
-    $scope.btnOk = false;
     $scope.outputContainer = "";
     $http({
         method: 'GET',
@@ -67,10 +66,17 @@ app.controller('modificationPlanController', function ($scope, $http, $routePara
     };
     $scope.setBureau = function(el){
         $scope.btnOk = true;
-        removeStyleOfAllSelectedOffice();
-        $("#"+el.getAttribute("id")).addClass('selectedOffice');
-        $(".selected-office").html(getInfosBureau(el.dataset.id));
+       // var myEl = angular.element( document.querySelector( '#div1' ) );
+        //myEl.addClass('alpha');
+        //removeStyleOfAllSelectedOffice();
+        /*$("#"+el.getAttribute("id")).addClass('selectedOffice');
+        $(".selected-office").html(getInfosBureau(el.dataset.id));*/
     }
+
+    $scope.deskChoice = function (desk) {
+        $scope.deskToModify = desk;
+    };
+
     $scope.ajoutEmploye = function () {
         $http({
             method: 'GET',
@@ -402,7 +408,40 @@ app.controller('createMapController', function ($scope, $http,$routeParams) {
         data: {username: $scope.userName, password: $scope.password}
     }).success(function () {});
 });
-app.controller('nouveauPlanController', function ($scope, $http,$routeParams) {
+app.directive('fileModel',function ($parse) {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            var model = $parse(attrs.fileModel);
+            var modelSetter = model.assign;
+
+            element.bind('change', function(){
+                scope.$apply(function(){
+                    modelSetter(scope, element[0].files[0]);
+                });
+            });
+        }
+    };
+});
+
+app.service('fileUpload',function ($http) {
+    this.uploadFileToUrl = function(file, uploadUrl,name,idBatiment){
+        var fd = new FormData();
+        fd.append('image', file);
+        fd.append('name', name);
+        fd.append('idBuilding',idBatiment);
+
+        $http.post(uploadUrl, fd, {
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined}
+        }).then(function (data) {
+            document.location.href = "#/batiment/"+idBatiment;
+        }, function (error) {
+            swal("Le fichier téléchargé doit être une image de type jpeg ou png.", "error");
+        });
+    }
+});
+app.controller('nouveauPlanController', function ($scope, $http,$routeParams,fileUpload) {
     $scope.idBatiment = $routeParams.id;
     $http({
         method: 'GET',
@@ -413,7 +452,13 @@ app.controller('nouveauPlanController', function ($scope, $http,$routeParams) {
     }, function (error) {
         swal("Une erreur est survenue, veuillez réessayer plus tard.", "error");
     });
-    $scope.addPlan = function(){
+    $scope.addPlan = function(map){
+        var file = $scope.imagePlan;
 
-    }
+        console.log('file is ' );
+        console.dir(file);
+
+        var uploadUrl = "/maps";
+        fileUpload.uploadFileToUrl(file, uploadUrl,map.name,$scope.idBatiment);
+    };
 });
