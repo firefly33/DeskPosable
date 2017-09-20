@@ -23,6 +23,10 @@ app.config(function($routeProvider, $locationProvider){
             templateUrl: '/views/map.html',
             controller: 'mapController'
         })
+        .when('/plans',{
+            templateUrl: '/views/maps.html',
+            controller: 'mapsController'
+        })
         .when('/batiments',  {
             templateUrl: '/views/buildings.html',
             controller: 'buildingsController'
@@ -34,9 +38,13 @@ app.config(function($routeProvider, $locationProvider){
         .when('/modification-plan/:id',{
             templateUrl: '/views/modificationPlan.html',
             controller: 'modificationPlanController'
-        });
-        /*.otherwise(
+        })
+        .when('/plan/nouveau/:id', {
+            templateUrl: '/views/nouveauPlan.html',
+            controller: 'nouveauPlanController'
+        })
+        .otherwise(
             { redirectTo: '/accueil'}
-        );*/
+        );
 });
 

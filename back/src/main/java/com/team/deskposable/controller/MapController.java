@@ -5,8 +5,11 @@ import com.team.deskposable.entity.Map;
 import com.team.deskposable.repository.BuildingRepository;
 import com.team.deskposable.repository.MapRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -34,8 +37,22 @@ public class MapController {
         return map;
     }
 
-    @PostMapping("/save")
-    public String saveMap(@RequestBody Map map) {
+    /*@PostMapping("/save")
+    public String saveMap(@RequestParam("label_plan") MultipartFile labelPlan,@RequestParam("myFile") MultipartFile plan) {
+        if (!plan.isEmpty() && plan.getSize() <= 512 * 1024) {
+            if (plan.getOriginalFilename().endsWith(".pdf")) {
+                userService.saveDocumentPapier(user, plan);
+            } else {
+                model.addAttribute("erreurFormat", true);
+                return "front/moncompte";
+            }
+
+            return "redirect:/moncompte";
+        } else {
+            System.out.println("Fichier vide!!");
+            return "redirect:/moncompte";
+        }
+        Map map = new Map();
         mapRepository.save(map);
         System.out.println(map);
         return map.toString();
@@ -46,7 +63,7 @@ public class MapController {
         Map m = mapRepository.findOne(id);
         mapRepository.delete(id);
         return m;
-    }
+    }*/
 
     @PutMapping("/{id}")
     public Map modifyMap(@PathVariable Long id, @RequestBody Map map) {
