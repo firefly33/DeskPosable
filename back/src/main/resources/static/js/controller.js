@@ -1,9 +1,8 @@
 app.controller('homeController', function ($scope) {
-
 });
+
 app.controller('modificationPlanController', function ($scope, $http, $routeParams,$compile,$timeout) {
     $scope.idPlan = $routeParams.id;
-    $scope.btnOk = false;
     $scope.outputContainer = "";
     $http({
         method: 'GET',
@@ -67,10 +66,17 @@ app.controller('modificationPlanController', function ($scope, $http, $routePara
     };
     $scope.setBureau = function(el){
         $scope.btnOk = true;
-        removeStyleOfAllSelectedOffice();
-        $("#"+el.getAttribute("id")).addClass('selectedOffice');
-        $(".selected-office").html(getInfosBureau(el.dataset.id));
+       // var myEl = angular.element( document.querySelector( '#div1' ) );
+        //myEl.addClass('alpha');
+        //removeStyleOfAllSelectedOffice();
+        /*$("#"+el.getAttribute("id")).addClass('selectedOffice');
+        $(".selected-office").html(getInfosBureau(el.dataset.id));*/
     }
+
+    $scope.deskChoice = function (desk) {
+        $scope.deskToModify = desk;
+    };
+
     $scope.ajoutEmploye = function () {
         $http({
             method: 'GET',

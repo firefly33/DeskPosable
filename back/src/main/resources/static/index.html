@@ -1,93 +1,114 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-        <title>Desk Posable. Change your life.</title>
+    <title>Desk Posable. Change your life.</title>
 
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta http-equiv='cache-control' content='no-cache'>
-        <meta http-equiv='expires' content='0'>
-        <meta http-equiv='pragma' content='no-cache'>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv='cache-control' content='no-cache'>
+    <meta http-equiv='expires' content='0'>
+    <meta http-equiv='pragma' content='no-cache'>
 
-        <link rel="stylesheet" href="css/materialize.min.css">
-        <link rel="stylesheet" href="css/sweetalert.css">
-        <link rel="stylesheet" href="css/app.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata" type="text/css">
-        <link rel="stylesheet" href="css/ngToast/ngToast-animations.css" type="text/css">
-        <link rel="stylesheet" href="css/ngToast/ngToast.css" type="text/css">
+    <link rel="stylesheet" href="css/materialize.min.css">
+    <link rel="stylesheet" href="css/sweetalert.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata" type="text/css">
+    <link rel="stylesheet" href="css/ngToast/ngToast-animations.css" type="text/css">
+    <link rel="stylesheet" href="css/ngToast/ngToast.css" type="text/css">
 
-        <script src="js/angularjs/jquery-3.2.1.min.js"></script>
-        <script src="js/sweetalert.min.js"> </script>
-        <script src="js/angularjs/angular/angular.js"></script>
-        <script src="js/angularjs/angular-route/angular-route.js"></script>
-        <script src="js/angularjs/angular-resource/angular-resource.js"></script>
-        <script src="js/angularjs/angular/angular-sanitize.min.js"></script>
+    <script src="js/angularjs/jquery-3.2.1.min.js"></script>
+    <script src="js/sweetalert.min.js"></script>
+    <script src="js/angularjs/angular/angular.js"></script>
+    <script src="js/angularjs/angular-route/angular-route.js"></script>
+    <script src="js/angularjs/angular-resource/angular-resource.js"></script>
+    <script src="js/angularjs/angular/angular-sanitize.min.js"></script>
 
-        <script src="js/app.js"></script>
-        <script src="js/controller.js"></script>
-        <script src="js/materialize.min.js"></script>
-        <script src="js/ngToast.min.js"></script>
-        <script src="js/config/toast.js"></script>
+    <script src="js/konami-code.js"></script>
 
-    </head>
+    <script src="js/app.js"></script>
+    <script src="js/controller.js"></script>
+    <script src="js/materialize.min.js"></script>
+    <script src="js/ngToast.min.js"></script>
+    <script src="js/config/toast.js"></script>
 
-    <body ng-app="app">
+</head>
 
-    <toast style="margin-top: 62px;"></toast>
+<body ng-app="app">
 
-        <nav>
-            <div class="nav-wrapper orange darken-3">
-                <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
-                <a href="#" class="brand-logo">DeskPosable</a>
-                <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li class="accueil"><a href="#/accueil">Accueil</a></li>
-                    <li class="plan"><a href="#/plans">Les Plans</a></li>
-                    <li class="building"><a href="#/batiments">Les bâtiments</a></li>
-                    <li class="personne"><a href="#/personnes">Les employés</a></li>
-                    <li class="connexion"><a href="#/connexion">Se connecter au module d'administration</a></li>
-                </ul>
-            </div>
-        </nav>
-        <ul id="slide-out" class="side-nav">
+<!-- such wow -->
+<script>
+
+    body = document.getElementsByTagName("body")[0];
+    toggle = false;
+
+    new KonamiCode(function () {
+        if (toggle)   {
+            toggle = false;
+            body.style = "overflow-x: hidden;transition: transform 2s ease;transform: rotate(0deg); background-image: url(../images/doge_ice_cream.jpg);"
+        } else {
+            toggle = true;
+            body.style = "overflow-x: hidden;transition: transform 2s ease;transform: rotate(360deg); background-image: url(../images/doge_ice_cream.jpg";
+        }
+    });
+</script>
+
+<toast style="margin-top: 62px;"></toast>
+
+<nav>
+    <div class="nav-wrapper orange darken-3">
+        <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+        <a href="#" class="brand-logo">DeskPosable</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li class="accueil"><a href="#/accueil">Accueil</a></li>
             <li class="plan"><a href="#/plans">Les Plans</a></li>
             <li class="building"><a href="#/batiments">Les bâtiments</a></li>
             <li class="personne"><a href="#/personnes">Les employés</a></li>
-            <li class="connexion"><a href="#/connexion">Se connecter</a></li>
+            <li class="connexion"><a href="#/connexion">Se connecter au module d'administration</a></li>
         </ul>
+    </div>
+</nav>
+<ul id="slide-out" class="side-nav">
+    <li class="accueil"><a href="#/accueil">Accueil</a></li>
+    <li class="plan"><a href="#/plans">Les Plans</a></li>
+    <li class="building"><a href="#/batiments">Les bâtiments</a></li>
+    <li class="personne"><a href="#/personnes">Les employés</a></li>
+    <li class="connexion"><a href="#/connexion">Se connecter</a></li>
+</ul>
 
-        <main ng-view></main>
+<hero konami-code="life++"></hero>
 
-        <footer class="page-footer orange darken-3">
-            <div class="container">
-                <div class="row">
-                    <div class="col l6 s12">
-                        <h5 class="white-text">DeskPosable. Managing your workforce.</h5>
-                    </div>
-                    <div class="col l4 offset-l2 s12">
-                        <h5 class="white-text">L'équipe de développement</h5>
-                        <ul>
-                            <li><a class="grey-text text-lighten-3" href="#!">Axel ADAINE JEAN PIERRE</a></li>
-                            <li><a class="grey-text text-lighten-3" href="#!">Marc ETOURNEAU</a></li>
-                            <li><a class="grey-text text-lighten-3" href="#!">Alexis ZAWIALOFF</a></li>
-                            <li><a class="grey-text text-lighten-3" href="#!">François Xavier LESSA</a></li>
-                        </ul>
-                    </div>
-                </div>
+<main ng-view></main>
+
+<footer class="page-footer orange darken-3">
+    <div class="container">
+        <div class="row">
+            <div class="col l6 s12">
+                <h5 class="white-text">DeskPosable. Managing your workforce.</h5>
             </div>
-            <div class="footer-copyright">
-                <div class="container">
-                    © 2017 Copyright
-                    <a class="grey-text text-lighten-4 right" href="#!">DeskPosable</a>
-                </div>
+            <div class="col l4 offset-l2 s12">
+                <h5 class="white-text">L'équipe de développement</h5>
+                <ul>
+                    <li><a class="grey-text text-lighten-3" href="#!">Axel ADAINE JEAN PIERRE</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#!">Marc ETOURNEAU</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#!">Alexis ZAWIALOFF</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#!">François Xavier LESSA</a></li>
+                </ul>
             </div>
-        </footer>
+        </div>
+    </div>
+    <div class="footer-copyright">
+        <div class="container">
+            © 2017 Copyright
+            <a class="grey-text text-lighten-4 right" href="#!">DeskPosable</a>
+        </div>
+    </div>
+</footer>
 
-    </body>
+</body>
 
 
 </html>

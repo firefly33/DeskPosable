@@ -210,6 +210,7 @@ main h1 {
     display: flex;
     justify-content: center;
     align-items: center;
+    background-image: url();
 }
 .maps {
     transition: opacity 0.5s,box-shadow 0.5s;
@@ -278,8 +279,8 @@ main h1 {
 
 .alert-danger {
     color: #ffffff;
-    background-color: #f44336; /* red */
-    border-color: #b71c1c ; /*darken 4*/
+    background-color: #f44336;
+    border-color: #b71c1c ;
 }
 
 .alert-dismissable, .alert-dismissible {

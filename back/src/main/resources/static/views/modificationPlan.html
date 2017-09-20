@@ -1,6 +1,7 @@
 <script>
+
     class Bureau {
-        constructor(id,label,x, y) {
+        constructor(id, label, x, y) {
             this.id = id;
             this.label = label;
             this.orientation = 0;
@@ -8,32 +9,37 @@
             this.y = y;
             this.map = null;
         }
-        set user(user){
+
+        set user(user) {
             this.user = user;
         }
-        static addMaterial(material){
+
+        static addMaterial(material) {
             this.materials.push(material);
         }
     }
+
     var typeCreation = 0; //0 : rien, 1 = Bureau
     var bureaux = [];
     var idBureau = 0; //s'incrémente à chaque ajout de bureau
-    
 
-    function refreshViewBureaux(){
+
+    function refreshViewBureaux() {
 
     }
 
-    function selectIconBureau(){
-        $(".add-bureau-btn").css('height','80px');
-        $(".add-bureau-btn").css('width','80px');
+    function selectIconBureau() {
+        $(".add-bureau-btn").css('height', '80px');
+        $(".add-bureau-btn").css('width', '80px');
     }
-    function unselectIconBureau(){
-        $(".add-bureau-btn").css('height','45px');
-        $(".add-bureau-btn").css('width','45px');
+
+    function unselectIconBureau() {
+        $(".add-bureau-btn").css('height', '45px');
+        $(".add-bureau-btn").css('width', '45px');
     }
+
     function mode_bureau() {
-        if(typeCreation==0){
+        if (typeCreation == 0) {
             typeCreation = 1;
             selectIconBureau();
         }
@@ -42,17 +48,28 @@
             unselectIconBureau();
         }
     }
-    function removeStyleOfAllSelectedOffice(){
-        $(".bureaux-container img").removeClass('selectedOffice');
-        $(".selected-office").html('');
+
+    function removeStyleOfAllSelectedOffice() {
+        // $(".bureaux-container img").removeClass('selectedOffice');
+        //$(".selected-office").html('');
     }
-    function getInfosBureau(idBureau){
+
+    function getInfosBureau(idBureau) {
         return "";
     }
-    function getListePersonnne(){
+
+    function getListePersonnne() {
         alert("ok");
     }
 </script>
+
+<script>
+    $(document).ready(function () {
+        // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
+        $('.modal').modal();
+    });
+</script>
+
 <section class="main-mod-map">
     <div class="add-icons">
         <img ng-click="saveMap()" src="../images/icon_save.png" class="icon-mod-map save-btn"/>
@@ -62,9 +79,18 @@
         <h3>{{map.label}}</h3>
         <div class="corp">
             <div class="plan">
-                <img ng-click="addBureau($event)" class="plan-img-style plan-img" src="../images/{{map.imagePath}}" height="578" width="1000">
-                <div class="bureaux-container" style="height: 0px;">
-                    <img ng-repeat="desk in map.desks" style="opacity: 0.9;position: relative;top :{{-578+desk.y-(100/2)}}px;left :{{-(($index)*200)+desk.x-(200/2)}}px;" data-id="{{desk.id}}" onclick="setBureau(this)" src="../images/bureau.png" class="bureau-style" id="bureau-{{desk.id}}" />
+                <img ng-click="addBureau($event)" class="plan-img-style plan-img" src="../images/{{map.imagePath}}"
+                     height="578" width="1000">
+                <div class="bureaux-container" style="height: 0px;" ng-click="setBureau(this)">
+                    <a href="#updateDesk" class="modal-trigger"
+                       ng-click="deskChoice(desk)" ng-repeat="desk in map.desks"
+                       style="position: relative;top :{{-578+desk.y-(100/2)}}px;left :{{-(($index)*200)+desk.x-(200/2)}}px;"
+                       onclick="event.preventDefault();">
+                        <img
+                                style="opacity: 0.9;position: relative;top :{{-578+desk.y-(100/2)}}px;left :{{-(($index)*200)+desk.x-(200/2)}}px;"
+                                data-id="{{desk.id}}" src="../images/bureau.png" class="bureau-style"
+                                id="bureau-{{desk.id}}"/>
+                    </a>
                 </div>
             </div>
         </div>
@@ -80,4 +106,20 @@
 
         </div>
     </div>
+
+    <div id="updateDesk" class="modal">
+        <div class="modal-content">
+            <h4>Modification de bureau lol</h4>
+            <div class="row">
+                <form class="col s12">
+                    test
+                </form>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn waves-effect waves-light orange modal-close" type="submit" name="action">Modifier
+            </button>
+        </div>
+    </div>
+
 </section>
