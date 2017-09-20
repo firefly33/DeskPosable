@@ -232,42 +232,42 @@ main h1 {
     padding: 15px;
     margin-bottom: 20px;
     border: 1px solid transparent;
-    border-radius: 4px
+    border-radius: 4px;
 }
 
 .alert-success {
-    color: #3c763d;
-    background-color: #dff0d8;
-    border-color: #d6e9c6
+    color: #FFFFFF;
+    background-color: #4caf50 ;
+    border-color: #1b5e20;
 }
 
 .alert-info {
-    color: #31708f;
-    background-color: #d9edf7;
-    border-color: #bce8f1
+    color: #FFFFFF;
+    background-color: #039be5;
+    border-color: #01579b;
 }
 
 .alert-warning {
-    color: #8a6d3b;
-    background-color: #fcf8e3;
-    border-color: #faebcc
+    color: #000000;
+    background-color: #ffeb3b;
+    border-color: #fbc02d;
 }
 
 .alert-danger {
-    color: #a94442;
-    background-color: #f2dede;
-    border-color: #ebccd1
+    color: #ffffff;
+    background-color: #f44336; /* red */
+    border-color: #b71c1c ; /*darken 4*/
 }
 
 .alert-dismissable, .alert-dismissible {
-    padding-right: 35px
+    padding-right: 35px;
 }
 
 .alert-dismissable .close, .alert-dismissible .close {
     position: relative;
     top: -2px;
     right: -21px;
-    color: inherit
+    color: inherit;
 }
 
 .close {
@@ -278,7 +278,7 @@ main h1 {
     color: #000;
     text-shadow: 0 1px 0 #fff;
     filter: alpha(opacity=20);
-    opacity: .2
+    opacity: .2;
 }
 
 .close:focus, .close:hover {
@@ -286,7 +286,7 @@ main h1 {
     text-decoration: none;
     cursor: pointer;
     filter: alpha(opacity=50);
-    opacity: .5
+    opacity: .5;
 }
 
 button.close {
@@ -294,7 +294,7 @@ button.close {
     padding: 0;
     cursor: pointer;
     background: 0 0;
-    border: 0
+    border: 0;
 }
 
 /* FIN du style ngToast*/

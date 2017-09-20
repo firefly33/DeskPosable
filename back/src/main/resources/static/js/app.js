@@ -34,9 +34,9 @@ app.config(function($routeProvider, $locationProvider){
         .when('/modification-plan/:id',{
             templateUrl: '/views/modificationPlan.html',
             controller: 'modificationPlanController'
-        });
-        /*.otherwise(
+        })
+        .otherwise(
             { redirectTo: '/accueil'}
-        );*/
+        );
 });
 

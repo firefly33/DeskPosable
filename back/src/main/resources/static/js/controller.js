@@ -47,7 +47,8 @@ app.controller('modificationPlanController', function ($scope, $http, $routePara
                     swal("Ajouté !", "Le bureau a bien été ajouté à votre plan.", "success");
                 });
         }
-    }
+    };
+
     $scope.ajoutEmploye = function () {
         $http({
             method: 'GET',
@@ -77,11 +78,16 @@ app.controller('connexionController', function ($scope, $http) {
             email: email,
             password: password
         };
-        console.log(data);
+
         $http
             .post("/auth", data)
             .then(
                 function (response) {
+                    $scope.user = response.data;
+                    console.log($scope.user);
+
+                    var d = new Date($scope.user.expirationDate);
+                    console.log(d);
                     document.location.href = "#/modification-plan/1";
                 },
                 function (data) {
@@ -90,6 +96,7 @@ app.controller('connexionController', function ($scope, $http) {
             );
     }
 });
+
 app.controller('buildingsController', function ($scope, $http) {
     $http({
         method: 'GET',
@@ -158,7 +165,7 @@ app.controller('personController', function ($scope, $http, ngToast) {
     Méthode permettant de supprimer l'employé correspondant
      */
     $scope.deletePerson = function (personToDelete) {
-        $http.delete("/persons/" + personToDelete.id)
+        $http.delete("/pesons/" + personToDelete.id)
             .then(
                 function (data) {
                     ngToast.success("Suppression réussie.");
