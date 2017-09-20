@@ -65,8 +65,6 @@ app.controller('modificationPlanController', function ($scope, $http, $routePara
                 });
         }
     };
-
-    }
     $scope.setBureau = function(el){
         $scope.btnOk = true;
         removeStyleOfAllSelectedOffice();
