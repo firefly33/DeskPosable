@@ -90,17 +90,64 @@ app.controller('connexionController', function ($scope, $http) {
             );
     }
 });
-app.controller('buildingsController', function ($scope, $http) {
-    $http({
-        method: 'GET',
-        url: '/buildings'
-    }).then(function (data) {
-        $scope.buildings = data.data;
-    }, function (error) {
-        alert("ça passe pas (GET_ALL)");
-    });
+app.controller('buildingsController', function ($scope, $http, ngToast) {
 
+    function getAllBuildings() {
+        $http({
+            method: 'GET',
+            url: '/buildings'
+        }).then(function (data) {
+            $scope.buildings = data.data;
+        }, function (error) {
+            ngToast.danger("Une erreur est survenue lors de la récupération des batiments");
+        });
+    }
+    getAllBuildings();
 
+    $scope.buildingChoice = function (building) {
+        $scope.buildingToModify = building;
+    };
+
+    $scope.updateBuilding = function (buildingToModify) {
+        $http.put("/buildings/" + buildingToModify.id, buildingToModify)
+            .then(
+                function (data) {
+                    ngToast.success("Modification réussie !");
+                },
+                function (error) {
+                    ngToast.danger("Une erreur est suvenue lors de la modification.");
+                }
+            );
+    };
+
+    $scope.deleteBuilding = function (buildingToDelete) {
+      $http.delete("/buildings/" + buildingToDelete.id)
+          .then(
+              function (data) {
+                  ngToast.success("Suppression réussie !");
+                  getAllBuildings();
+              },
+              function (error) {
+                  ngToast.danger("Impossible de supprimer le batiment, des plans liés à celui-ci existent toujours.");
+              }
+          );
+    };
+
+    $scope.addBuilding = function (buildingToAdd) {
+        $http.post("/buildings/", buildingToAdd)
+            .then(
+                function (data) {
+                    ngToast.success("Batiment créé avec succès !");
+                    $scope.addMode = false;
+                    $scope.buildingToAdd = null;
+                    getAllBuildings();
+                },
+                function (error) {
+                    ngToast.danger("Une erreur est survenue lors de la création du batiment.")
+                    $scope.addMode = false;
+                }
+            );
+    };
 });
 app.controller('buildingController', function ($scope, $http, $routeParams) {
     var id = $routeParams.id;
@@ -128,9 +175,7 @@ app.controller('personController', function ($scope, $http, ngToast) {
             ngToast.danger("Une erreur est survenue lors de la récupération des employés.");
         });
     }
-
     getAllEmployes();
-
 
     /*
     Méthode servant à définir quel employé est sélectionné pour modification
@@ -142,11 +187,11 @@ app.controller('personController', function ($scope, $http, ngToast) {
     /*
     Méthode utilisé pour modifier l'utilisateur
      */
-    $scope.updatePerson = function (personToModify) {
+    $scope.updatePerson = function  (personToModify) {
         $http.put("/persons/" + personToModify.id, personToModify)
             .then(
                 function (data) {
-                    ngToast.success("Modification réussie.");
+                    ngToast.success("Modification réussie !");
                 },
                 function (error) {
                     ngToast.danger("Une erreur est survenue lors de la modification.");
@@ -161,13 +206,13 @@ app.controller('personController', function ($scope, $http, ngToast) {
         $http.delete("/persons/" + personToDelete.id)
             .then(
                 function (data) {
-                    ngToast.success("Suppression réussie.");
+                    ngToast.success("Suppression réussie !");
                     getAllEmployes();
                 },
                 function (error) {
                     ngToast.danger("Une erreur est survenue lors de la suppression.");
                 }
-            )
+            );
 
     };
 
@@ -175,7 +220,7 @@ app.controller('personController', function ($scope, $http, ngToast) {
         $http.post("/persons/", personToAdd)
             .then(
                 function (data) {
-                    ngToast.success("Employé créé avec succès.");
+                    ngToast.success("Employé créé avec succès !");
                     $scope.addMode = false;
                     $scope.personToAdd = null;
                     getAllEmployes();
@@ -184,9 +229,8 @@ app.controller('personController', function ($scope, $http, ngToast) {
                     ngToast.danger("Une erreur est survenue lors de la création de l'employé.")
                     $scope.addMode = false;
                 }
-            )
-
-    }
+            );
+    };
 
 });
 

@@ -12,18 +12,6 @@
         </div>
     </div>
 
-    <!--<div class="row">
-        <div class="col m8 offset-m2">
-            <div class="collection">
-                <a ng-repeat="person in persons" href="#modal1" class="collection-item modal-trigger orange-text"
-                   ng-click="personChoice(person)"
-                   onclick="event.preventDefault();">{{person.lastname}} {{person.firstname}}</a>
-            </div>
-        </div>
-        <div class="col m2" ng-repeat="person in persons" style="margin-top: 10px;">
-            <a class="waves-effect waves-light btn red" style="padding: inherit"><i class="material-icons">clear</i></a>
-        </div>
-    </div>-->
 
     <div class="row">
         <div class="col m10 offset-m1">
@@ -41,9 +29,22 @@
 
                     <td class="right">
                         <a class="waves-effect waves-light btn green modal-trigger" href="#modal1"
-                           ng-click="personChoice(person)"
+                           ng-click="buildingChoice(building)"
                            onclick="event.preventDefault();"><i class="material-icons">mode_edit</i></a>
-                        <a class="waves-effect waves-light btn red"><i class="material-icons">clear</i></a>
+                        <a ng-show="!addMode" class="waves-effect waves-light btn red modal-trigger disabled" href="#deleteModal"
+                           ng-click="buildingChoice(building)"
+                           onclick="event.preventDefault();"><i class="material-icons">clear</i></a>
+                    </td>
+                </tr>
+
+                <tr ng-show="addMode">
+                    <td><input class="validate" ng-model="buildingToAdd.label" placeholder="Nom" type="text" required></td>
+                    <td></td>
+                    <td class="right">
+                        <a class="waves-effect waves-light btn blue" type="submit"
+                           ng-click="addBuilding(buildingToAdd)"><i class="material-icons">check</i></a>
+                        <a class="waves-effect waves-light btn red" ng-click="addMode = false"><i
+                                class="material-icons">cancel</i></a>
                     </td>
                 </tr>
                 </tbody>
@@ -51,30 +52,21 @@
         </div>
     </div>
 
+    <div class="row">
+        <div class="col m1 offset-m10">
+            <a class="btn-floating green right" ng-show="!addMode" ng-click="addMode = true"><i class="material-icons">add</i></a>
+        </div>
+    </div>
+
     <div id="modal1" class="modal">
         <div class="modal-content">
-            <h4>Modification de {{personToModify.lastname}} {{personToModify.firstname}}</h4>
+            <h4>Modification de {{buildingToModify.label}}</h4>
             <div class="row">
                 <form class="col s12">
                     <div clas="row">
                         <div class="input-field col s6">
-                            <input ng-model="personToModify.lastname" type="text">
-                            <label ng-class="{active: personToModify.lastname != null}">Nom</label>
-                        </div>
-                        <div class="input-field col s6">
-                            <input ng-model="personToModify.firstname" type="text">
-                            <label ng-class="{active: personToModify.firstname != null}">Prénom</label>
-                        </div>
-                    </div>
-                    <div clas="row">
-                        <div class="input-field col s6">
-                            <input ng-model="personToModify.employment" type="text">
-                            <label ng-class="{active: personToModify.employment != null}">Poste</label>
-                        </div>
-                        <div class="input-field col s6">
-                            <input disabled ng-model="personToModify.desk.label" placeholder="Pas de bureau associé"
-                                   type="text">
-                            <label class="active">Bureau</label>
+                            <input ng-model="buildingToModify.label" type="text">
+                            <label ng-class="{active: buildingToModify.label != null}">Nom</label>
                         </div>
                     </div>
                 </form>
@@ -82,7 +74,18 @@
         </div>
         <div class="modal-footer">
             <button class="btn waves-effect waves-light orange modal-close" type="submit" name="action"
-                    ng-click="updatePerson(personToModify)">Modifier
+                    ng-click="updateBuilding(buildingToModify)">Modifier
+                <i class="material-icons right">send</i></button>
+        </div>
+    </div>
+
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <h4>Êtes vous sûr de vouloir supprimer le batiment : {{ buildingToModify.label }} ?</h4>
+        </div>
+        <div class="modal-footer">
+            <button class="btn waves-effect waves-light red modal-close" type="submit" name="action"
+                    ng-click="deleteBuilding(buildingToModify)">Supprimer
                 <i class="material-icons right">send</i></button>
         </div>
     </div>

@@ -29,10 +29,10 @@ public class BuildingController {
     }
 
     @DeleteMapping("/{id}")
-    public Building deleteBuilding(@PathVariable Long id) {
+    public void deleteBuilding(@PathVariable Long id) {
         Building b = buildingRepository.findOne(id);
+
         buildingRepository.delete(id);
-        return b;
     }
 
     @PutMapping("/{id}")
