@@ -191,6 +191,93 @@ app.controller('buildingController', function($scope, $http, $routeParams) {
     });
 });
 
+app.controller('desksController', function ($scope, $http, ngToast) {
+
+    function getAllDesks() {
+        $http({
+            method: 'GET',
+            url: '/desks'
+        }).then(function (data) {
+            $scope.desks = data.data;
+        }, function (error) {
+            ngToast.danger("Une erreur est survenue lors de la récupération des bureaux");
+        });
+    }
+    getAllDesks();
+
+    $scope.deskChoice = function (desk) {
+        $scope.deskToModify = desk;
+    };
+
+    $scope.updatedesk = function (deskToModify) {
+        $http.put("/desks/" + deskToModify.id, deskToModify)
+            .then(
+                function (data) {
+                    ngToast.success("Modification réussie !");
+                },
+                function (error) {
+                    ngToast.danger("Une erreur est suvenue lors de la modification.");
+                }
+            );
+    };
+
+    $scope.deleteDesk = function (deskToDelete) {
+
+        // LA ON MET LA DELETION EN CASACADE
+
+        var idPersonne = $routeParams.id;
+        $http({
+            method: 'GET',
+            url: '/persons/' + idPersonne
+        }).then(function (data) {
+            var personne = data.data;
+        }, function (error) {
+            alert("ça passe pas (GET_BY_ID)");
+        });
+
+        $http.delete("/desks/" + deskToDelete.id)
+            .then(
+                function (data) {
+                    ngToast.success("Suppression réussie !");
+                    getAllDesks();
+                },
+                function (error) {
+                    ngToast.danger("Impossible de supprimer le batiment, des plans liés à celui-ci existent toujours.");
+                }
+            );
+    };
+
+    $scope.adddesk = function (deskToAdd) {
+        $http.post("/desks/", deskToAdd)
+            .then(
+                function (data) {
+                    ngToast.success("Batiment créé avec succès !");
+                    $scope.addMode = false;
+                    $scope.deskToAdd = null;
+                    getAllDesks();
+                },
+                function (error) {
+                    ngToast.danger("Une erreur est survenue lors de la création du batiment.")
+                    $scope.addMode = false;
+                }
+            );
+    };
+});
+
+app.controller('deskController', function($scope, $http, $routeParams) {
+    $scope.idDesk = $routeParams.id;
+    $http({
+        method: 'GET',
+        url: '/desks/'+$scope.idDesk
+    }).then(function (data) {
+        $scope.desk = data.data;
+        $scope.person = $scope.desk.person;
+        $scope.items = $scope.desk.items;
+    }, function (error) {
+        alert("ça passe pas (GET_BY_ID)");
+    });
+});
+
 app.controller('personController', function ($scope, $http, ngToast) {
 
     function getAllEmployes() {

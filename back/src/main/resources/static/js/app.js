@@ -19,6 +19,13 @@ app.config(function($routeProvider, $locationProvider){
             templateUrl: '/views/person/updatePerson.html',
             controller: 'updatePersonController'
         })
+        .when('/bureaux', {
+            templateUrl: '/views/desk/desks.html',
+            controller: 'desksController'
+        })
+        .when('/bureau:id', {
+
+        })
         .when('/plan/:id',{
             templateUrl: '/views/map.html',
             controller: 'mapController'
