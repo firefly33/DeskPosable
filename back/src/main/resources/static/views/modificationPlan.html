@@ -67,6 +67,8 @@
     $(document).ready(function () {
         // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
         $('.modal').modal();
+
+        $('select').material_select();
     });
 </script>
 
@@ -87,7 +89,7 @@
                        style="position: relative;top :{{-578+desk.y-(100/2)}}px;left :{{-(($index)*200)+desk.x-(200/2)}}px;"
                        onclick="event.preventDefault();">
                         <img
-                                style="opacity: 0.9;position: relative;top :{{-578+desk.y-(100/2)}}px;left :{{-(($index)*200)+desk.x-(200/2)}}px;"
+                                style="opacity: 0.9;"
                                 data-id="{{desk.id}}" src="../images/bureau.png" class="bureau-style"
                                 id="bureau-{{desk.id}}"/>
                     </a>
@@ -109,15 +111,80 @@
 
     <div id="updateDesk" class="modal">
         <div class="modal-content">
-            <h4>Modification de bureau lol</h4>
-            <div class="row">
-                <form class="col s12">
-                    test
-                </form>
-            </div>
+            <h4>Modification du bureau : {{deskToModify.label}}</h4>
+            <form>
+                <div class="row">
+                    <div class="col s12">
+                        <div clas="row">
+                            <div class="input-field col s4">
+                                <input ng-model="deskToModify.label" type="text">
+                                <label ng-class="{active: deskToModify.label != null}">Nom</label>
+                            </div>
+                            <div class="col s8">
+                                <label>Employé</label>
+                                <select class="browser-default"
+                                        ng-model="person"
+                                        ng-options="person as (person.lastname +' '+ person.firstname) for person in persons track by person.id">
+                                    <option value="" disabled selected>Choisir un employé</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <h4>Ajout de matériel</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s10">
+                        <table class="bordered">
+                            <thead>
+                            <tr>
+                                <th>Label</th>
+                                <th>Appartient à</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="item in items">
+                                <td>{{item.label}}</td>
+                                <td>{{item.person.lastname}} {{item.person.firstname}}<span ng-show="item.person == null" style="font-style: italic">personne...</span></td>
+                                <td class="right">
+                                    <a ng-show="!addMode" class="waves-effect waves-light btn green modal-trigger"
+                                       href="#"
+                                       ng-click=""
+                                       onclick="event.preventDefault();"><i class="material-icons">mode_edit</i></a>
+                                    <a ng-show="!addMode" class="waves-effect waves-light btn red modal-trigger"
+                                       href="#"
+                                       ng-click="deleteItem(item)"
+                                       onclick="event.preventDefault();"><i class="material-icons">clear</i></a>
+                                </td>
+                            </tr>
+                            <tr ng-show="addMode">
+                                <td><input class="validate" ng-model="itemToAdd.label" placeholder="Nom" type="text"
+                                           required>
+                                </td>
+                                <td class="right">
+                                    <a class="waves-effect waves-light btn blue" type="submit"
+                                       ng-click="addItem(itemToAdd)"><i class="material-icons">check</i></a>
+                                    <a class="waves-effect waves-light btn red" ng-click="addMode = false"><i
+                                            class="material-icons">cancel</i></a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s1">
+                        <a class="btn-floating green left" ng-show="!addMode" ng-click="addMode = true"><i
+                                class="material-icons">add</i></a>
+                    </div>
+                </div>
+            </form>
         </div>
         <div class="modal-footer">
-            <button class="btn waves-effect waves-light orange modal-close" type="submit" name="action">Modifier
+            <button class="btn waves-effect waves-light orange modal-close" type="submit" name="action" ng-click="updateDesk(deskToModify)">Modifier
             </button>
         </div>
     </div>

@@ -7,6 +7,8 @@ import com.team.deskposable.repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * Created by fx on 28/07/17.
  */
@@ -22,17 +24,24 @@ public class ItemController {
         return itemRepository.findAll();
     }
 
+    @GetMapping("/byDesk/{idDesk}")
+    public @ResponseBody Iterable<Item> readAllItemsByDesk(@PathVariable Long idDesk) {
+        Iterable<Item> items = itemRepository.findItemsByDesk_Id(idDesk);
+        return items;
+    }
+
     @GetMapping("/{id}")
     public @ResponseBody Item readItem (@PathVariable("id") String id) {
         return itemRepository.findOne(Long.parseLong(id));
     }
 
     @PostMapping
-    public @ResponseBody Item createItem (@RequestParam String label) {
-        Item i = new Item();
-        i.setLabel(label);
-        itemRepository.save(i);
-        return i;
+    public @ResponseBody Item createItem (@RequestBody Item item) {
+        if (item != null){
+            itemRepository.save(item);
+            return item;
+        }
+        return null;
     }
 
     @DeleteMapping("/{id}")

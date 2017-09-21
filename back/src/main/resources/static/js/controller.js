@@ -1,17 +1,37 @@
 app.controller('homeController', function ($scope) {
 });
 
-app.controller('modificationPlanController', function ($scope, $http, $routeParams,$compile,$timeout) {
+app.controller('modificationPlanController', function ($scope, $http, $routeParams, $compile, $timeout, ngToast) {
     $scope.idPlan = $routeParams.id;
     $scope.outputContainer = "";
-    $http({
-        method: 'GET',
-        url: '/maps/' + $scope.idPlan
-    }).then(function (data) {
-        $scope.map = data.data;
-    }, function (error) {
-        swal("Une erreur est survenue, veuillez réessayer plus tard.", "error");
-    });
+
+    function getCurrentMap() {
+        $http({
+            method: 'GET',
+            url: '/maps/' + $scope.idPlan
+        }).then(function (data) {
+            $scope.map = data.data;
+        }, function (error) {
+            swal("Une erreur est survenue, veuillez réessayer plus tard.", "error");
+        });
+    }
+
+    getCurrentMap();
+
+    function getAllPersons() {
+        $http({
+            method: 'GET',
+            url: '/persons'
+        }).then(function (data) {
+            // On stock dans persons la liste des personnes que nous renvoi l'api
+            $scope.persons = data.data;
+        }, function (error) {
+            ngToast.danger("Une erreur est survenue lors de la récupération des employés.");
+        });
+    }
+
+    getAllPersons();
+
     $scope.saveMap = function () {
         removeStyleOfAllSelectedOffice();
         $http
@@ -19,6 +39,7 @@ app.controller('modificationPlanController', function ($scope, $http, $routePara
             .then(
                 function (data) {
                     bureaux = data.data;
+                    getCurrentMap();
                     swal("Sauvegarde réussie !", "Le plan est enregistré sur le serveur.", "success").setDefaults({confirmButtonColor: '#ff4500'});
                 },
                 function (data) {
@@ -43,7 +64,7 @@ app.controller('modificationPlanController', function ($scope, $http, $routePara
                     closeOnConfirm: false
                 },
                 function () {
-                    bureaux[idBureau] = new Bureau(null, "bureau" + idBureau, x, y);
+                    bureaux[idBureau] = new Bureau(null, "bureau " + idBureau, x, y);
 
                     idBureau++;
 
@@ -52,29 +73,102 @@ app.controller('modificationPlanController', function ($scope, $http, $routePara
 
                     var heightOfMap = 578;
 
-                    var leftPositionRelative = -((idBureau-1)*widthOfOfficeImg)+x-(widthOfOfficeImg/2);
-                    var topPositionRelative = -heightOfMap+y-(heightOfOfficeImg/2);
-                    var imgBureau= '<img data-id="'+idBureau+'" ng-click="setBureau(this)" src="../images/bureau.png" class="bureau-style" id="bureau-'+idBureau+'" style="opacity: 0.9;position: relative;top :'+topPositionRelative+'px;left :'+leftPositionRelative+'px;"/>';
+                    var leftPositionRelative = -((idBureau - 1) * widthOfOfficeImg) + x - (widthOfOfficeImg / 2);
+                    var topPositionRelative = -heightOfMap + y - (heightOfOfficeImg / 2);
+                    var imgBureau = '<a href="#updateDesk" ng-click="deskChoice(desk)" class="modal-trigger" style="position: relative; top: ' + topPositionRelative + 'px; left: ' + leftPositionRelative + 'px;" onclick="event.preventDefault();">' +
+                        '           <img data-id="' + idBureau + '" ng-click="setBureau(this)" src="../images/bureau.png" class="bureau-style" id="bureau-' + idBureau + '" style="opacity: 0.9;"/>' +
+                        '           </a>';
                     var content = $compile(imgBureau)($scope);
-                    $timeout(function(){
+                    $timeout(function () {
                         $scope.outputContainer += content.innerHTML;
                     });
-                    $(".bureaux-container").html($(".bureaux-container").html()+imgBureau);
+                    $(".bureaux-container").html($(".bureaux-container").html() + imgBureau);
                     swal("Ajouté !", "Le bureau a bien été ajouté à votre plan.", "success");
                 });
         }
     };
-    $scope.setBureau = function(el){
+    $scope.setBureau = function (el) {
         $scope.btnOk = true;
-       // var myEl = angular.element( document.querySelector( '#div1' ) );
+        // var myEl = angular.element( document.querySelector( '#div1' ) );
         //myEl.addClass('alpha');
         //removeStyleOfAllSelectedOffice();
         /*$("#"+el.getAttribute("id")).addClass('selectedOffice');
         $(".selected-office").html(getInfosBureau(el.dataset.id));*/
+    };
+
+    function getItemsByDesk(desk) {
+        $http({
+            method: 'GET',
+            url: '/items/byDesk/' + desk.id
+        }).then(function (data) {
+            $scope.items = data.data;
+        }, function (error) {
+            ngToast.danger("Une erreur est survenue lors de la récupération des items du bureau.");
+        });
+    }
+
+    function getPersonByDesk(desk) {
+        $http({
+            method: 'GET',
+            url: '/persons/byDesk/' + desk.id
+        }).then(function (data) {
+            $scope.person = data.data;
+        }, function (error) {
+            ngToast.danger("Une erreur est survenue lors de la récupération de l'employé.");
+        });
+    }
+
+    function affectPersonToDesk(person, desk) {
+        person.desk = desk;
+
+        $http.put("/persons/" + person.id, person)
+            .then(
+                function (data) {
+                },
+                function (error) {
+                    ngToast.danger("Une erreur est survenue lors de l'attribution du bureau à un collaborateur.");
+                }
+            );
     }
 
     $scope.deskChoice = function (desk) {
         $scope.deskToModify = desk;
+        getItemsByDesk(desk);
+        getPersonByDesk(desk);
+    };
+
+    $scope.updateDesk = function (deskToModify) {
+        $http.put("/desks/" + deskToModify.id, deskToModify)
+            .then(
+                function (data) {
+                    ngToast.success("Modification réussie !");
+                },
+                function (error) {
+                    ngToast.danger("Une erreur est survenue lors de la modification.");
+                }
+            );
+
+        // Contournement pour enlever l'ancien propriétaire du bureau
+        var personToDelete = null;
+        $http({
+            method: 'GET',
+            url: '/persons/byDesk/' + deskToModify.id
+        }).then(function (data) {
+            personToDelete = data.data;
+            personToDelete.desk = null;
+            $http.put("/persons/" + personToDelete.id, personToDelete)
+                .then(
+                    function (data) {
+                        affectPersonToDesk($scope.person, deskToModify);
+                    },
+                    function (error) {
+                        ngToast.danger("Une erreur est survenue lors de la désafectation.");
+                    }
+                );
+        }, function (error) {
+            ngToast.danger("Une erreur est survenue lors de la récupération de l'employé.");
+        });
+
     };
 
     $scope.ajoutEmploye = function () {
@@ -86,6 +180,41 @@ app.controller('modificationPlanController', function ($scope, $http, $routePara
         }, function (error) {
             swal("Une erreur est survenue, veuillez réessayer plus tard.", "error");
         });
+    };
+
+    $scope.addItem = function (itemToAdd) {
+
+        itemToAdd.desk = $scope.deskToModify;
+        if ($scope.person != null) {
+            itemToAdd.person = $scope.person;
+        }
+
+        $http.post("/items/", itemToAdd)
+            .then(
+                function (data) {
+                    ngToast.success("Item ajouté avec succès !");
+                    $scope.addMode = false;
+                    $scope.personToAdd = null;
+                    getItemsByDesk($scope.deskToModify);
+                },
+                function (error) {
+                    ngToast.danger("Une erreur est survenue lors de la création de l'item.");
+                    $scope.addMode = false;
+                }
+            );
+    };
+
+    $scope.deleteItem = function (itemToDelete) {
+        $http.delete("/items/" + itemToDelete.id)
+            .then(
+                function (data) {
+                    ngToast.success("Suppression réussie !");
+                    getItemsByDesk($scope.deskToModify);
+                },
+                function (error) {
+                    ngToast.danger("Une erreur est survenue lors de la suppression.");
+                }
+            );
     }
 });
 
@@ -137,6 +266,7 @@ app.controller('buildingsController', function ($scope, $http, ngToast) {
             ngToast.danger("Une erreur est survenue lors de la récupération des batiments");
         });
     }
+
     getAllBuildings();
 
     $scope.buildingChoice = function (building) {
@@ -156,16 +286,16 @@ app.controller('buildingsController', function ($scope, $http, ngToast) {
     };
 
     $scope.deleteBuilding = function (buildingToDelete) {
-      $http.delete("/buildings/" + buildingToDelete.id)
-          .then(
-              function (data) {
-                  ngToast.success("Suppression réussie !");
-                  getAllBuildings();
-              },
-              function (error) {
-                  ngToast.danger("Impossible de supprimer le batiment, des plans liés à celui-ci existent toujours.");
-              }
-          );
+        $http.delete("/buildings/" + buildingToDelete.id)
+            .then(
+                function (data) {
+                    ngToast.success("Suppression réussie !");
+                    getAllBuildings();
+                },
+                function (error) {
+                    ngToast.danger("Impossible de supprimer le batiment, des plans liés à celui-ci existent toujours.");
+                }
+            );
     };
 
     $scope.addBuilding = function (buildingToAdd) {
@@ -184,11 +314,11 @@ app.controller('buildingsController', function ($scope, $http, ngToast) {
             );
     };
 });
-app.controller('buildingController', function($scope, $http, $routeParams) {
+app.controller('buildingController', function ($scope, $http, $routeParams) {
     $scope.idBatiment = $routeParams.id;
     $http({
         method: 'GET',
-        url: '/buildings/'+$scope.idBatiment
+        url: '/buildings/' + $scope.idBatiment
     }).then(function (data) {
         $scope.building = data.data;
         $scope.maps = $scope.building.maps;
@@ -206,9 +336,10 @@ app.controller('desksController', function ($scope, $http, ngToast) {
         }).then(function (data) {
             $scope.desks = data.data;
         }, function (error) {
-            ngToast.danger("Une erreur est survenue lors de la récupération des bureaux");
+            ngToast.danger("Une erreur est survenue lors de la récupération des bureaux.");
         });
     }
+
     getAllDesks();
 
     $scope.deskChoice = function (desk) {
@@ -270,11 +401,11 @@ app.controller('desksController', function ($scope, $http, ngToast) {
     };
 });
 
-app.controller('deskController', function($scope, $http, $routeParams) {
+app.controller('deskController', function ($scope, $http, $routeParams) {
     $scope.idDesk = $routeParams.id;
     $http({
         method: 'GET',
-        url: '/desks/'+$scope.idDesk
+        url: '/desks/' + $scope.idDesk
     }).then(function (data) {
         $scope.desk = data.data;
         $scope.person = $scope.desk.person;
@@ -297,6 +428,7 @@ app.controller('personController', function ($scope, $http, ngToast) {
             ngToast.danger("Une erreur est survenue lors de la récupération des employés.");
         });
     }
+
     getAllEmployes();
 
     /*
@@ -309,7 +441,7 @@ app.controller('personController', function ($scope, $http, ngToast) {
     /*
     Méthode utilisé pour modifier l'utilisateur
      */
-    $scope.updatePerson = function  (personToModify) {
+    $scope.updatePerson = function (personToModify) {
         $http.put("/persons/" + personToModify.id, personToModify)
             .then(
                 function (data) {
@@ -390,33 +522,34 @@ app.controller('mapsController', function ($scope, $http) {
     }).then(function (data) {
         $scope.buildings = data.data;
     }, function (error) {
-        swal("Une erreur est survenue, Veuillez réessayer plus tard.","error").setDefaults({confirmButtonColor: '#ff4500'});
+        swal("Une erreur est survenue, Veuillez réessayer plus tard.", "error").setDefaults({confirmButtonColor: '#ff4500'});
     });
 });
 
-app.controller('createMapController', function ($scope, $http,$routeParams) {
+app.controller('createMapController', function ($scope, $http, $routeParams) {
     $http({
         method: 'GET',
-        url: '/buildings/'+$scope.idBatiment,
+        url: '/buildings/' + $scope.idBatiment,
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        transformRequest: function(obj) {
+        transformRequest: function (obj) {
             var str = [];
-            for(var p in obj)
+            for (var p in obj)
                 str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
             return str.join("&");
         },
         data: {username: $scope.userName, password: $scope.password}
-    }).success(function () {});
+    }).success(function () {
+    });
 });
-app.directive('fileModel',function ($parse) {
+app.directive('fileModel', function ($parse) {
     return {
         restrict: 'A',
-        link: function(scope, element, attrs) {
+        link: function (scope, element, attrs) {
             var model = $parse(attrs.fileModel);
             var modelSetter = model.assign;
 
-            element.bind('change', function(){
-                scope.$apply(function(){
+            element.bind('change', function () {
+                scope.$apply(function () {
                     modelSetter(scope, element[0].files[0]);
                 });
             });
@@ -424,41 +557,41 @@ app.directive('fileModel',function ($parse) {
     };
 });
 
-app.service('fileUpload',function ($http) {
-    this.uploadFileToUrl = function(file, uploadUrl,name,idBatiment){
+app.service('fileUpload', function ($http) {
+    this.uploadFileToUrl = function (file, uploadUrl, name, idBatiment) {
         var fd = new FormData();
         fd.append('image', file);
         fd.append('name', name);
-        fd.append('idBuilding',idBatiment);
+        fd.append('idBuilding', idBatiment);
 
         $http.post(uploadUrl, fd, {
             transformRequest: angular.identity,
             headers: {'Content-Type': undefined}
         }).then(function (data) {
-            document.location.href = "#/batiment/"+idBatiment;
+            document.location.href = "#/batiment/" + idBatiment;
         }, function (error) {
             swal("Le fichier téléchargé doit être une image de type jpeg ou png.", "error");
         });
     }
 });
-app.controller('nouveauPlanController', function ($scope, $http,$routeParams,fileUpload) {
+app.controller('nouveauPlanController', function ($scope, $http, $routeParams, fileUpload) {
     $scope.idBatiment = $routeParams.id;
     $http({
         method: 'GET',
-        url: '/buildings/'+$routeParams.id
+        url: '/buildings/' + $routeParams.id
     }).then(function (data) {
         // On stock dans persons la liste des personnes que nous renvoi l'api
         $scope.building = data.data;
     }, function (error) {
         swal("Une erreur est survenue, veuillez réessayer plus tard.", "error");
     });
-    $scope.addPlan = function(map){
+    $scope.addPlan = function (map) {
         var file = $scope.imagePlan;
 
-        console.log('file is ' );
+        console.log('file is ');
         console.dir(file);
 
         var uploadUrl = "/maps";
-        fileUpload.uploadFileToUrl(file, uploadUrl,map.name,$scope.idBatiment);
+        fileUpload.uploadFileToUrl(file, uploadUrl, map.name, $scope.idBatiment);
     };
 });

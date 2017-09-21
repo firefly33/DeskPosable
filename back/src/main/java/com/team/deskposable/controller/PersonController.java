@@ -28,6 +28,12 @@ public class PersonController {
         return personRepository.findOne(id);
     }
 
+    @GetMapping("/byDesk/{idDesk}")
+    public @ResponseBody Person readAllItemsByDesk(@PathVariable Long idDesk) {
+        Person person = personRepository.findOneByDesk_Id(idDesk);
+        return person;
+    }
+
     @PostMapping()
     @ResponseBody
     public Person createPerson (@RequestBody Person person) {
@@ -58,9 +64,7 @@ public class PersonController {
         if (person.getEmployment() != null) {
             p.setEmployment(person.getEmployment());
         }
-        if (person.getDesk() != null) {
-            p.setDesk(person.getDesk());
-        }
+        p.setDesk(person.getDesk());
         personRepository.save(p);
         return p;
     }

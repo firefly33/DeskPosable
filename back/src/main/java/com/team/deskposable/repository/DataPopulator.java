@@ -24,6 +24,8 @@ public class DataPopulator {
     private PersonRepository personRepository;
     @Autowired
     private SessionRepository sessionRepository;
+    @Autowired
+    private ItemRepository itemRepository;
 
     @PostConstruct
     public void init() {
@@ -61,6 +63,13 @@ public class DataPopulator {
         Person person8 = new Person("Toto", "Tata", "DEV", null);
 
         personRepository.save(Arrays.asList(person1, person2, person3, person4, person5, person6, person7, person8));
+
+        Item item1 = new Item("Telephone", person6, desk1);
+        Item item2 = new Item("Imprimante", null, desk1);
+        Item item3 = new Item("EcranYBC1", null, null);
+        Item item4 = new Item("EcranYBC2", null, null);
+
+        itemRepository.save(Arrays.asList(item1, item2, item3, item4));
 
     }
 }

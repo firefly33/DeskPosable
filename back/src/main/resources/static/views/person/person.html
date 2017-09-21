@@ -16,41 +16,44 @@
         <div class="col m10 offset-m1">
             <table class="bordered">
                 <thead>
-                    <tr>
-                        <th>Nom</th>
-                        <th>Prénom</th>
-                        <th>Poste</th>
-                        <th>Bureau</th>
-                    </tr>
+                <tr>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Poste</th>
+                    <th>Bureau</th>
+                </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="person in persons">
-                        <td>{{person.lastname}}</td>
-                        <td>{{person.firstname}}</td>
-                        <td>{{person.employment}}</td>
-                        <td>{{person.desk.label}}<span ng-show="person.desk.label == null">Pas de bureau associé</span></td>
-                        <td class="right">
-                            <a ng-show="!addMode" class="waves-effect waves-light btn green modal-trigger"
-                               href="#updateModal"
-                               ng-click="personChoice(person)"
-                               onclick="event.preventDefault();"><i class="material-icons">mode_edit</i></a>
-                            <a ng-show="!addMode" class="waves-effect waves-light btn red modal-trigger" href="#deleteModal"
-                               ng-click="personChoice(person)"
-                               onclick="event.preventDefault();"><i class="material-icons">clear</i></a>
-                        </td>
-                    </tr>
-                    <tr ng-show="addMode">
-                        <td><input class="validate" ng-model="personToAdd.lastname" placeholder="Nom" type="text" required></td>
-                        <td><input class="validate" ng-model="personToAdd.firstname" placeholder="Prénom" type="text" required></td>
-                        <td><input class="validate" ng-model="personToAdd.employment" placeholder="Poste" type="text" required></td>
-                        <td>desk?</td>
-                        <td class="right">
-                            <a class="waves-effect waves-light btn blue" type="submit"
-                               ng-click="addPerson(personToAdd)"><i class="material-icons">check</i></a>
-                            <a class="waves-effect waves-light btn red" ng-click="addMode = false"><i
-                                    class="material-icons">cancel</i></a>
-                        </td>
-                    </tr>
+                <tr ng-repeat="person in persons">
+                    <td>{{person.lastname}}</td>
+                    <td>{{person.firstname}}</td>
+                    <td>{{person.employment}}</td>
+                    <td>{{person.desk.label}}<span ng-show="person.desk.label == null">Pas de bureau associé</span></td>
+                    <td class="right">
+                        <a ng-show="!addMode" class="waves-effect waves-light btn green modal-trigger"
+                           href="#updateModal"
+                           ng-click="personChoice(person)"
+                           onclick="event.preventDefault();"><i class="material-icons">mode_edit</i></a>
+                        <a ng-show="!addMode" class="waves-effect waves-light btn red modal-trigger" href="#deleteModal"
+                           ng-click="personChoice(person)"
+                           onclick="event.preventDefault();"><i class="material-icons">clear</i></a>
+                    </td>
+                </tr>
+                <tr ng-show="addMode">
+                    <td><input class="validate" ng-model="personToAdd.lastname" placeholder="Nom" type="text" required>
+                    </td>
+                    <td><input class="validate" ng-model="personToAdd.firstname" placeholder="Prénom" type="text"
+                               required></td>
+                    <td><input class="validate" ng-model="personToAdd.employment" placeholder="Poste" type="text"
+                               required></td>
+                    <td></td>
+                    <td class="right">
+                        <a class="waves-effect waves-light btn blue" type="submit"
+                           ng-click="addPerson(personToAdd)"><i class="material-icons">check</i></a>
+                        <a class="waves-effect waves-light btn red" ng-click="addMode = false"><i
+                                class="material-icons">cancel</i></a>
+                    </td>
+                </tr>
                 </tbody>
             </table>
         </div>
@@ -95,7 +98,8 @@
         </div>
         <div class="modal-footer">
             <button class="btn waves-effect waves-light orange modal-close" type="submit" name="action"
-                    ng-click="updatePerson(personToModify)">Modifier</button>
+                    ng-click="updatePerson(personToModify)">Modifier
+            </button>
         </div>
     </div>
 
@@ -105,7 +109,8 @@
         </div>
         <div class="modal-footer">
             <button class="btn waves-effect waves-light red modal-close" type="submit" name="action"
-                    ng-click="deletePerson(personToModify)">Supprimer</button>
+                    ng-click="deletePerson(personToModify)">Supprimer
+            </button>
         </div>
     </div>
 

@@ -210,7 +210,6 @@ main h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: url();
 }
 .maps {
     transition: opacity 0.5s,box-shadow 0.5s;
@@ -250,6 +249,7 @@ main h1 {
     background-color: transparent !important;
 }
 
+select {}
 /* DEBUT style ngToast */
 
 .alert {
