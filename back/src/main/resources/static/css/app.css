@@ -194,6 +194,11 @@ main h1 {
 .selectedOffice {
     box-shadow: 0px 0px 15px 7px #ef6c00;
 }
+
+.createdOffice {
+    box-shadow: 0px 0px 15px 7px #4caf50 ;
+}
+
 .bureaux-container img {
     transition: border 0.5s;
     border: 1px solid black;
