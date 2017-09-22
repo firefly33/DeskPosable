@@ -25,7 +25,7 @@ import java.util.List;
 public class MapController {
 
     //  AXEL PATH :  public static final String UPLOADED_FOLDER = "C:\\Users\\A637191\\Desktop\\CESI\\JAVA_PROJET\\DeskPosable\\DeskPosable\\back\\src\\main\\resources\\static\\images\\";
-    public static final String UPLOADED_FOLDER = "C:\\Users\\alec_\\Documents\\JavaProject\\DeskPosable\\src\\main\\resources\\static\\images\\";
+    public static final String UPLOADED_FOLDER = "C:\\Users\\alec_\\Documents\\JavaProject\\DeskPosable\\back\\src\\main\\resources\\static\\images\\";
 
     @Autowired
     MapRepository mapRepository;
