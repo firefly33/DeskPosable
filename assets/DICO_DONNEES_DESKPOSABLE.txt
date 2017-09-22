@@ -1,0 +1,100 @@
+Dictionnaire de données 
+
+
+
+Nom : id
+
+Type : BigInt
+
+Taille : 19,0
+
+
+
+Nom : label
+
+Type : Varchar
+
+Taille : 255,0
+
+
+
+Nom : orientation
+
+Type : Int
+
+Taille : 10,0
+
+
+
+
+Nom : x
+
+Type : Double
+
+Taille : 22,0
+
+
+
+Nom : y
+
+Type : Double
+
+Taille : 22,0
+
+
+
+
+Nom : image_path
+
+Type : Varchar
+
+Taille : 255,0
+ 
+
+
+Nom : employment
+
+Type : Varchar
+
+Taille : 255,0
+
+
+
+Nom : firstname
+
+Type : Varchar
+
+Taille : 255,0
+
+
+
+Nom : lastname
+
+Type : Varchar
+
+Taille : 255,0
+
+
+
+Nom : birthday
+
+Type : Varchar
+
+Taille : 255,0
+
+
+
+Nom : email
+
+Type : Varchar
+
+Taille : 255,0
+
+
+
+Nom : password
+
+Type : Varchar
+
+Taille : 255,0
+
