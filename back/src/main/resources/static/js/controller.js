@@ -5,6 +5,7 @@ app.controller('modificationPlanController', function ($scope, $http, $routePara
     $scope.idPlan = $routeParams.id;
     $scope.outputContainer = "";
     $scope.bureaux = [];
+
     function getCurrentMap() {
         $http({
             method: 'GET',
@@ -39,12 +40,14 @@ app.controller('modificationPlanController', function ($scope, $http, $routePara
             .post("desks/save/" + $scope.idPlan, $scope.bureaux)
             .then(
                 function (data) {
-                    $scope.bureaux = data.data;
-                    getCurrentMap();
-                    swal("Sauvegarde réussie !", "Le plan est enregistré sur le serveur.", "success").setDefaults({confirmButtonColor: '#ff4500'});
+                    ngToast.success("Sauvegarde réussi !");
+                    setTimeout(function(){
+                        location.reload();
+                    }, 1000);
+
                 },
                 function (data) {
-                    swal("Impossible de contacter le serveur distant. Veuillez réesayer plus tard.").setDefaults({confirmButtonColor: '#ff4500'});
+                    swal("Impossible de contacter le serveur distant. Veuillez réesayer plus tard.");
                 }
             );
 
@@ -74,8 +77,8 @@ app.controller('modificationPlanController', function ($scope, $http, $routePara
 
                     var leftPositionRelative = -(($scope.cmpBureaux) * widthOfOfficeImg) + x - (widthOfOfficeImg / 2);
                     var topPositionRelative = -heightOfMap + y - (heightOfOfficeImg / 2);
-                    var imgBureau = '<a href="#updateDesk" ng-click="deskChoice(desk)" class="modal-trigger" style="position: relative; top: ' + topPositionRelative + 'px; left: ' + leftPositionRelative + 'px;" onclick="event.preventDefault();">' +
-                        '           <img data-id="' + $scope.cmpBureaux + '" ng-click="setBureau(this)" src="../images/bureau.png" class="bureau-style" id="bureau-' + $scope.cmpBureaux + '" style="opacity: 0.9;"/>' +
+                    var imgBureau = '<a href="#"  class="modal-trigger" style="position: relative; top: ' + topPositionRelative + 'px; left: ' + leftPositionRelative + 'px;" onclick="event.preventDefault();">' +
+                        '           <img data-id="' + $scope.cmpBureaux + '" src="../images/bureau.png" class="bureau-style createdOffice" id="bureau-' + $scope.cmpBureaux + '" style="opacity: 0.9;"/>' +
                         '           </a>';
                     var content = $compile(imgBureau)($scope);
                     $scope.cmpBureaux++;
@@ -86,14 +89,6 @@ app.controller('modificationPlanController', function ($scope, $http, $routePara
                     swal("Ajouté !", "Le bureau a bien été ajouté à votre plan.", "success");
                 });
         }
-    };
-    $scope.setBureau = function (el) {
-        $scope.btnOk = true;
-        // var myEl = angular.element( document.querySelector( '#div1' ) );
-        //myEl.addClass('alpha');
-        //removeStyleOfAllSelectedOffice();
-        /*$("#"+el.getAttribute("id")).addClass('selectedOffice');
-        $(".selected-office").html(getInfosBureau(el.dataset.id));*/
     };
 
     function getItemsByDesk(desk) {
@@ -156,19 +151,27 @@ app.controller('modificationPlanController', function ($scope, $http, $routePara
         }).then(function (data) {
             personToDelete = data.data;
             personToDelete.desk = null;
-            $http.put("/persons/" + personToDelete.id, personToDelete)
-                .then(
-                    function (data) {
-                        affectPersonToDesk($scope.person, deskToModify);
-                    },
-                    function (error) {
-                        ngToast.danger("Une erreur est survenue lors de la désafectation.");
-                    }
-                );
+            if (data.data !== "") {
+                $http.put("/persons/" + personToDelete.id, personToDelete)
+                    .then(
+                        function (data) {
+                            affectPersonToDesk($scope.person, deskToModify);
+                        },
+                        function (error) {
+                            ngToast.danger("Une erreur est survenue lors de la désafectation.");
+                        }
+                    );
+            } else {
+                affectPersonToDesk($scope.person, deskToModify);
+            }
         }, function (error) {
             ngToast.danger("Une erreur est survenue lors de la récupération de l'employé.");
         });
 
+    };
+
+    $scope.deleteDesk = function (deskToDelete) {
+        ngToast.info("Fonctionnalité en cours de développement...");
     };
 
     $scope.ajoutEmploye = function () {
@@ -185,7 +188,7 @@ app.controller('modificationPlanController', function ($scope, $http, $routePara
     $scope.addItem = function (itemToAdd) {
 
         itemToAdd.desk = $scope.deskToModify;
-        if ($scope.person != null) {
+        if ($scope.person !== "") {
             itemToAdd.person = $scope.person;
         }
 
@@ -401,11 +404,11 @@ app.controller('desksController', function ($scope, $http, ngToast) {
     };
 });
 
-app.controller('desksPerMapController', function($scope, $http, $routeParams) {
+app.controller('desksPerMapController', function ($scope, $http, $routeParams) {
     $scope.idMap = $routeParams.id;
     $http({
         method: 'GET',
-        url: '/maps/'+$scope.idMap
+        url: '/maps/' + $scope.idMap
     }).then(function (data) {
         $scope.map = data.data;
     }, function (error) {
@@ -515,7 +518,7 @@ app.controller('mapController', function ($scope, $http, $routeParams) {
 
 app.controller('mapsController', function ($scope, $http, fileUpload, ngToast) {
 
-    function  getAllBuildings() {
+    function getAllBuildings() {
         $http({
             method: 'GET',
             url: '/buildings'
@@ -581,10 +584,10 @@ app.service('fileUpload', function ($http) {
             transformRequest: angular.identity,
             headers: {'Content-Type': undefined}
         }).then(function (data) {
-           console.log("upload ok");
+            console.log("upload ok");
         }, function (error) {
             console.log("Le fichier téléchargé doit être une image de type jpeg ou png.");
-           // ngToast("Le fichier téléchargé doit être une image de type jpeg ou png.");
+            // ngToast("Le fichier téléchargé doit être une image de type jpeg ou png.");
         });
     }
 });

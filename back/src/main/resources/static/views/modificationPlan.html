@@ -82,7 +82,7 @@
             <div class="plan">
                 <img ng-click="addBureau($event)" class="plan-img-style plan-img" src="../images/{{map.imagePath}}"
                      height="750" width="1300">
-                <div class="bureaux-container" style="height: 0px;" ng-click="setBureau(this)">
+                <div class="bureaux-container" style="height: 0px;">
                     <a href="#updateDesk" class="modal-trigger"
                        ng-click="deskChoice(desk)" ng-repeat="desk in map.desks"
                        style="position: relative;top :{{-750+desk.y-(100/2)}}px;left :{{-(($index)*200)+desk.x-(200/2)}}px;"
@@ -172,6 +172,8 @@
             </form>
         </div>
         <div class="modal-footer">
+            <button class="btn waves-effect waves-light red modal-close" type="submit" name="action" ng-click="deleteDesk(deskToModify)">Supprimer
+            </button>
             <button class="btn waves-effect waves-light orange modal-close" type="submit" name="action" ng-click="updateDesk(deskToModify)">Modifier
             </button>
         </div>
