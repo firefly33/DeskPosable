@@ -536,6 +536,8 @@ app.controller('mapsController', function ($scope, $http, fileUpload, ngToast) {
 
         var uploadUrl = "/maps";
         fileUpload.uploadFileToUrl(file, uploadUrl, mapToAdd.name, mapToAdd.building.id);
+
+        getAllBuildings();
     }
 });
 
@@ -581,15 +583,7 @@ app.service('fileUpload', function ($http) {
             transformRequest: angular.identity,
             headers: {'Content-Type': undefined}
         }).then(function (data) {
-            $http({
-                method: 'GET',
-                url: '/buildings'
-            }).then(function (data) {
-                $scope.buildings = data.data;
-            }, function (error) {
-                console.log("Une erreur est survenue lors de la récupération des bâtiments.");
-               // ngToast.danger("Une erreur est survenue lors de la récupération des bâtiments.");
-            });
+           console.log("upload ok");
         }, function (error) {
             console.log("Le fichier téléchargé doit être une image de type jpeg ou png.");
            // ngToast("Le fichier téléchargé doit être une image de type jpeg ou png.");

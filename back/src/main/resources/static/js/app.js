@@ -51,8 +51,8 @@ app.config(function($routeProvider, $locationProvider){
             templateUrl: '/views/nouveauPlan.html',
             controller: 'nouveauPlanController'
         })
-        .otherwise(
+        /*.otherwise(
             { redirectTo: '/accueil'}
-        );
+        );*/
 });
 
