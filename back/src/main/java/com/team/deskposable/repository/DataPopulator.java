@@ -49,20 +49,19 @@ public class DataPopulator {
 
         mapRepository.save(Arrays.asList(map1, map2, map3));
 
-        Desk desk1 = new Desk("Bureau d'EL JEFFE", 179.0, 201.0, 0, map1);
+        Desk desk1 = new Desk("Bureau du CP", 282.0, 293.0, 0, map1);
 
         deskRepository.save(Arrays.asList(desk1));
 
         Person person1 = new Person("Ken", "Kaneki", "ICD", null);
         Person person2 = new Person("Shirou", "Emiya", "CP", null);
         Person person3 = new Person("Izuku", "Midoriya", "DEV", null);
-        Person person4 = new Person("ETOURNEAU", "Marc", "DEV", null);
-        Person person5 = new Person("ZAWIALOFF", "Alexis", "DEV", null);
-        Person person6 = new Person("ADAINEJP", "Axel", "EL JEFFE", desk1);
-        Person person7 = new Person("LESAFFRE", "FX", "DEV", null);
-        Person person8 = new Person("Toto", "Tata", "DEV", null);
+        Person person4 = new Person("Marc", "ETOURNEAU", "DEV", null);
+        Person person5 = new Person("Alexis", "ZAWIALOFF", "DEV", null);
+        Person person6 = new Person("Axel", "ADAINEJP", "Chef de Projet", desk1);
+        Person person7 = new Person("FX", "LESAFFRE", "DEV", null);
 
-        personRepository.save(Arrays.asList(person1, person2, person3, person4, person5, person6, person7, person8));
+        personRepository.save(Arrays.asList(person1, person2, person3, person4, person5, person6, person7));
 
         Item item1 = new Item("Telephone", person6, desk1);
         Item item2 = new Item("Imprimante", null, desk1);
