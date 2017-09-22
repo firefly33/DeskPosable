@@ -1,5 +1,5 @@
 <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
         // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
         $('.modal').modal();
     });
@@ -10,14 +10,16 @@
         <div ng-repeat="building in buildings" class="container-building">
             <h3>{{building.label}}</h3>
             <div class="container-maps">
-                <a class="card small col s12 m6 maps" ng-repeat="map in building.maps" href="/#/modification-plan/{{map.id}}">
+                <a class="card small col s12 m6 maps" ng-repeat="map in building.maps"
+                   href="/#/modification-plan/{{map.id}}">
                     <div class="card-image">
                         <img src="../images/{{ map.imagePath }}">
                     </div>
                     <div class="card-content">
                         <!--<div class="btn-floating left halfway-fab waves-effect waves-light red modal-trigger"
                              href="#modal1" onclick="event.preventDefault();"><i class="material-icons">clear</i></div>-->
-                        <div class="btn-floating right halfway-fab waves-effect waves-light modal-trigger" style="background-color: #006989;"
+                        <div class="btn-floating right halfway-fab waves-effect waves-light modal-trigger disabled"
+                             style="background-color: #006989;"
                              href="#modal1" onclick="event.preventDefault();"><i class="material-icons">menu</i></div>
                         <span class="card-title grey-text text-darken-4">{{ map.label }}</span>
                     </div>
@@ -25,57 +27,56 @@
             </div>
         </div>
 
+        <div class="fixed-action-btn">
+            <a href="#addMap" class="btn-floating btn-large waves-effect waves-light green modal-trigger"
+               onclick="event.preventDefault();"><i class="material-icons">add</i></a>
+        </div>
+
     </div>
 
     <!-- Modal Structure -->
-    <div id="modal1" class="modal">
+    <div id="addMap" class="modal">
         <div class="modal-content">
 
-            <div class="row">
-                <form class="col s12">
-                    <div class="row">
-                        <div class="input-field col s6">
-                            <input placeholder="Placeholder" id="first_name" type="text" class="validate">
-                            <label for="first_name">First Name</label>
+            <h4>Ajout d'un plan</h4>
+            <form class="col s12">
+                <div class="row">
+
+                    <div clas="row">
+                        <div class="input-field col s4">
+                            <input ng-model="mapToAdd.name" type="text">
+                            <label>Nom</label>
                         </div>
-                        <div class="input-field col s6">
-                            <input id="last_name" type="text" class="validate">
-                            <label for="last_name">Last Name</label>
+                        <div class="col s8">
+                            <label>Bâtiment</label>
+                            <select class="browser-default"
+                                    ng-model="mapToAdd.building"
+                                    ng-options="building as building.label for building in buildings track by building.id">
+                                <option value="" disabled selected>Choisir un bâtiment</option>
+                            </select>
+                        </div>
+
+                    </div>
+                </div>
+                <div clas="row">
+                    <div class="col s4 file-field input-field">
+                        <div class="btn orange">
+                            <span>Image du plan</span>
+                            <input type="file" file-model="imagePlan">
+                        </div>
+                        <div class="file-path-wrapper">
+                            <input class="file-path validate" type="text" placeholder="Choisissez votre plan">
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <input disabled value="I am not editable" id="disabled" type="text" class="validate">
-                            <label for="disabled">Disabled</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <input id="password" type="password" class="validate">
-                            <label for="password">Password</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <input id="email" type="email" class="validate">
-                            <label for="email">Email</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col s12">
-                            This is an inline input field:
-                            <div class="input-field inline">
-                                <input id="email" type="email" class="validate">
-                                <label for="email" data-error="wrong" data-success="right">Email</label>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
+                </div>
+
+            </form>
 
         </div>
         <div class="modal-footer">
-            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+            <button class="btn waves-effect waves-light orange modal-close" type="submit" name="action"
+                    ng-click="createMap(mapToAdd)">Créer
+            </button>
         </div>
     </div>
 </section>

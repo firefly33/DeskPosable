@@ -515,15 +515,28 @@ app.controller('mapController', function ($scope, $http, $routeParams) {
     });
 });
 
-app.controller('mapsController', function ($scope, $http) {
-    $http({
-        method: 'GET',
-        url: '/buildings'
-    }).then(function (data) {
-        $scope.buildings = data.data;
-    }, function (error) {
-        swal("Une erreur est survenue, Veuillez réessayer plus tard.", "error").setDefaults({confirmButtonColor: '#ff4500'});
-    });
+app.controller('mapsController', function ($scope, $http, fileUpload, ngToast) {
+
+    function  getAllBuildings() {
+        $http({
+            method: 'GET',
+            url: '/buildings'
+        }).then(function (data) {
+            $scope.buildings = data.data;
+        }, function (error) {
+            ngToast.danger("Une erreur est survenue lors de la récupération des bâtiments.");
+            // swal("Une erreur est survenue, Veuillez réessayer plus tard.", "error").setDefaults({confirmButtonColor: '#ff4500'});
+        });
+    }
+
+    getAllBuildings();
+
+    $scope.createMap = function (mapToAdd) {
+        var file = $scope.imagePlan;
+
+        var uploadUrl = "/maps";
+        fileUpload.uploadFileToUrl(file, uploadUrl, mapToAdd.name, mapToAdd.building.id);
+    }
 });
 
 app.controller('createMapController', function ($scope, $http, $routeParams) {
@@ -568,12 +581,22 @@ app.service('fileUpload', function ($http) {
             transformRequest: angular.identity,
             headers: {'Content-Type': undefined}
         }).then(function (data) {
-            document.location.href = "#/batiment/" + idBatiment;
+            $http({
+                method: 'GET',
+                url: '/buildings'
+            }).then(function (data) {
+                $scope.buildings = data.data;
+            }, function (error) {
+                console.log("Une erreur est survenue lors de la récupération des bâtiments.");
+               // ngToast.danger("Une erreur est survenue lors de la récupération des bâtiments.");
+            });
         }, function (error) {
-            swal("Le fichier téléchargé doit être une image de type jpeg ou png.", "error");
+            console.log("Le fichier téléchargé doit être une image de type jpeg ou png.");
+           // ngToast("Le fichier téléchargé doit être une image de type jpeg ou png.");
         });
     }
 });
+
 app.controller('nouveauPlanController', function ($scope, $http, $routeParams, fileUpload) {
     $scope.idBatiment = $routeParams.id;
     $http({

@@ -24,7 +24,8 @@ import java.util.List;
 @RequestMapping("/maps")
 public class MapController {
 
-    public static final String UPLOADED_FOLDER = "C:\\Users\\A637191\\Desktop\\CESI\\JAVA_PROJET\\DeskPosable\\DeskPosable\\back\\src\\main\\resources\\static\\images\\";
+    //  AXEL PATH :  public static final String UPLOADED_FOLDER = "C:\\Users\\A637191\\Desktop\\CESI\\JAVA_PROJET\\DeskPosable\\DeskPosable\\back\\src\\main\\resources\\static\\images\\";
+    public static final String UPLOADED_FOLDER = "C:\\Users\\alec_\\Documents\\JavaProject\\DeskPosable\\src\\main\\resources\\static\\images\\";
 
     @Autowired
     MapRepository mapRepository;
@@ -42,7 +43,7 @@ public class MapController {
     }
 
     @PostMapping()
-    public void newMap(@RequestPart("image") MultipartFile file, @RequestPart("name") String name ,@RequestPart("idBuilding") String idBuilding, HttpServletResponse response){
+    public void newMap(@RequestPart("image") MultipartFile file, @RequestPart("name") String name, @RequestPart("idBuilding") String idBuilding, HttpServletResponse response) {
         if (file.isEmpty()) {
             response.setStatus(400);
         }
@@ -53,17 +54,17 @@ public class MapController {
             String filename = file.getOriginalFilename().toLowerCase();
             String strTab[] = filename.split("\\.");
             String ext = "";
-            if(strTab.length >= 1){
-                ext = strTab[strTab.length-1];
+            if (strTab.length >= 1) {
+                ext = strTab[strTab.length - 1];
             }
-            if(!ext.equals("png") && !ext.equals("jpg")){
+            if (!ext.equals("png") && !ext.equals("jpg")) {
                 throw new Exception("Le format du fichier est incorrect");
             }
             //clé permettant d'être sûr que 2 images n'auront pas le meme nom
-            String randomKey =String.valueOf((int)(Math.random() * (100000)));
-            SimpleDateFormat formatDate =  new SimpleDateFormat("yyyyMMddHHmmssSSS");
+            String randomKey = String.valueOf((int) (Math.random() * (100000)));
+            SimpleDateFormat formatDate = new SimpleDateFormat("yyyyMMddHHmmssSSS");
             Date now = new Date();
-            filename = randomKey+formatDate.format(now)+"."+ext;
+            filename = randomKey + formatDate.format(now) + "." + ext;
             String imgPath = String.valueOf(this.getClass().getResource(UPLOADED_FOLDER + filename));
             File newFile = new File(imgPath);
             if (!newFile.exists()) {
