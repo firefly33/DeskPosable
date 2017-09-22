@@ -4,13 +4,14 @@ app.controller('homeController', function ($scope) {
 app.controller('modificationPlanController', function ($scope, $http, $routeParams, $compile, $timeout, ngToast) {
     $scope.idPlan = $routeParams.id;
     $scope.outputContainer = "";
-
+    $scope.bureaux = [];
     function getCurrentMap() {
         $http({
             method: 'GET',
             url: '/maps/' + $scope.idPlan
         }).then(function (data) {
             $scope.map = data.data;
+            $scope.cmpBureaux = $scope.map.desks.length;
         }, function (error) {
             swal("Une erreur est survenue, veuillez réessayer plus tard.", "error");
         });
@@ -35,10 +36,10 @@ app.controller('modificationPlanController', function ($scope, $http, $routePara
     $scope.saveMap = function () {
         removeStyleOfAllSelectedOffice();
         $http
-            .post("desks/save/" + $scope.idPlan, bureaux)
+            .post("desks/save/" + $scope.idPlan, $scope.bureaux)
             .then(
                 function (data) {
-                    bureaux = data.data;
+                    $scope.bureaux = data.data;
                     getCurrentMap();
                     swal("Sauvegarde réussie !", "Le plan est enregistré sur le serveur.", "success").setDefaults({confirmButtonColor: '#ff4500'});
                 },
@@ -64,21 +65,20 @@ app.controller('modificationPlanController', function ($scope, $http, $routePara
                     closeOnConfirm: false
                 },
                 function () {
-                    bureaux[idBureau] = new Bureau(null, "bureau " + idBureau, x, y);
-
-                    idBureau++;
+                    $scope.bureaux.push(new Bureau(null, "bureau", x, y));
 
                     var heightOfOfficeImg = 100;
                     var widthOfOfficeImg = 200;
 
-                    var heightOfMap = 578;
+                    var heightOfMap = 750;
 
-                    var leftPositionRelative = -((idBureau - 1) * widthOfOfficeImg) + x - (widthOfOfficeImg / 2);
+                    var leftPositionRelative = -(($scope.cmpBureaux) * widthOfOfficeImg) + x - (widthOfOfficeImg / 2);
                     var topPositionRelative = -heightOfMap + y - (heightOfOfficeImg / 2);
                     var imgBureau = '<a href="#updateDesk" ng-click="deskChoice(desk)" class="modal-trigger" style="position: relative; top: ' + topPositionRelative + 'px; left: ' + leftPositionRelative + 'px;" onclick="event.preventDefault();">' +
-                        '           <img data-id="' + idBureau + '" ng-click="setBureau(this)" src="../images/bureau.png" class="bureau-style" id="bureau-' + idBureau + '" style="opacity: 0.9;"/>' +
+                        '           <img data-id="' + $scope.cmpBureaux + '" ng-click="setBureau(this)" src="../images/bureau.png" class="bureau-style" id="bureau-' + $scope.cmpBureaux + '" style="opacity: 0.9;"/>' +
                         '           </a>';
                     var content = $compile(imgBureau)($scope);
+                    $scope.cmpBureaux++;
                     $timeout(function () {
                         $scope.outputContainer += content.innerHTML;
                     });
@@ -401,17 +401,15 @@ app.controller('desksController', function ($scope, $http, ngToast) {
     };
 });
 
-app.controller('deskController', function ($scope, $http, $routeParams) {
-    $scope.idDesk = $routeParams.id;
+app.controller('desksPerMapController', function($scope, $http, $routeParams) {
+    $scope.idMap = $routeParams.id;
     $http({
         method: 'GET',
-        url: '/desks/' + $scope.idDesk
+        url: '/maps/'+$scope.idMap
     }).then(function (data) {
-        $scope.desk = data.data;
-        $scope.person = $scope.desk.person;
-        $scope.items = $scope.desk.items;
+        $scope.map = data.data;
     }, function (error) {
-        alert("ça passe pas (GET_BY_ID)");
+        swal("Une erreur est survenue, veuillez réessayer plus tard.", "error");
     });
 });
 

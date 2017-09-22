@@ -20,6 +20,10 @@ app.config(function($routeProvider, $locationProvider){
             templateUrl: '/views/person/updatePerson.html',
             controller: 'updatePersonController'
         })
+        .when('/bureau/:id', {
+            templateUrl: '/views/desk/desksPerMap.html',
+            controller: 'desksPerMapController'
+        })
         .when('/bureaux', {
             templateUrl: '/views/desk/desks.html',
             controller: 'desksController'

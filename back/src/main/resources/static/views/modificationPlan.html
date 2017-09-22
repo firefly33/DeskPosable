@@ -20,8 +20,7 @@
     }
 
     var typeCreation = 0; //0 : rien, 1 = Bureau
-    var bureaux = [];
-    var idBureau = 0; //s'incrémente à chaque ajout de bureau
+
 
 
     function refreshViewBureaux() {
@@ -82,11 +81,11 @@
         <div class="corp">
             <div class="plan">
                 <img ng-click="addBureau($event)" class="plan-img-style plan-img" src="../images/{{map.imagePath}}"
-                     height="578" width="1000">
+                     height="750" width="1300">
                 <div class="bureaux-container" style="height: 0px;" ng-click="setBureau(this)">
                     <a href="#updateDesk" class="modal-trigger"
                        ng-click="deskChoice(desk)" ng-repeat="desk in map.desks"
-                       style="position: relative;top :{{-578+desk.y-(100/2)}}px;left :{{-(($index)*200)+desk.x-(200/2)}}px;"
+                       style="position: relative;top :{{-750+desk.y-(100/2)}}px;left :{{-(($index)*200)+desk.x-(200/2)}}px;"
                        onclick="event.preventDefault();">
                         <img
                                 style="opacity: 0.9;"
@@ -95,17 +94,6 @@
                     </a>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="sidenav-office">
-        <div class="selected-office">
-            <span ng-show="!btnOk">Aucun bureau séléctionné.</span>
-            <div ng-show="btnOk">
-                <span ng-show="btnOk"><button ng-click='getListePersonnne()'>Affecter un employé</button></span>
-            </div>
-        </div>
-        <div class="all-offices">
-
         </div>
     </div>
 

@@ -55,15 +55,16 @@ main h1 {
 .plan-view {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: center;
     color: white;
+    width: 100%;
+    align-items: center;
 }
 .plan-img-style {
     box-shadow: 0px 0px 15px -5px black;
     border: 5px solid white;
 }
 .corp {
-    width: 100%;
     display: flex;
     margin: 15px;
 }
@@ -108,7 +109,7 @@ main h1 {
     padding: 16px;
 }
 .bureaux-container {
-    width: 808px;
+    width: 1300px;
 }
 .bureau-style {
     transition: box-shadow 0.5s;
@@ -353,4 +354,11 @@ button.close {
 }
 nav {
     z-index: 999999;
+}
+.btn-card {
+    transition: background 0.5s,opacity 0.5s;
+}
+.btn-card:hover {
+    background-color: orange !important;
+    opacity: 1 !important;
 }
