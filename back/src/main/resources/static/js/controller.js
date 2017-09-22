@@ -54,26 +54,27 @@ app.controller('modificationPlanController', function ($scope, $http, $routePara
     };
     $scope.addBureau = function (event) {
         removeStyleOfAllSelectedOffice();
-        var x = event.offsetX;
-        var y = event.offsetY;
-        if (typeCreation == 1) {
-            swal({
-                    title: "Confirmation",
-                    text: "Etes vous sûr de vouloir placer un bureau à cet emplacement ?",
-                    type: "warning",
-                    showCancelButton: true,
-                    cancelButtonText: "Non, c'est une erreur !",
-                    confirmButtonColor: "#ff4500",
-                    confirmButtonText: "Oui",
-                    closeOnConfirm: false
-                },
-                function () {
-                    $scope.bureaux.push(new Bureau(null, "bureau", x, y));
+        if($scope.cmpBureaux <6){
+            var x = event.offsetX;
+            var y = event.offsetY;
+            if (typeCreation == 1) {
+                swal({
+                        title: "Confirmation",
+                        text: "Etes vous sûr de vouloir placer un bureau à cet emplacement ?",
+                        type: "warning",
+                        showCancelButton: true,
+                        cancelButtonText: "Non, c'est une erreur !",
+                        confirmButtonColor: "#ff4500",
+                        confirmButtonText: "Oui",
+                        closeOnConfirm: false
+                    },
+                    function () {
+                        $scope.bureaux.push(new Bureau(null, "bureau", x, y));
 
-                    var heightOfOfficeImg = 100;
-                    var widthOfOfficeImg = 200;
+                        var heightOfOfficeImg = 76;
+                        var widthOfOfficeImg = 150;
 
-                    var heightOfMap = 750;
+                        var heightOfMap = 750;
 
                     var leftPositionRelative = -(($scope.cmpBureaux) * widthOfOfficeImg) + x - (widthOfOfficeImg / 2);
                     var topPositionRelative = -heightOfMap + y - (heightOfOfficeImg / 2);
@@ -88,6 +89,9 @@ app.controller('modificationPlanController', function ($scope, $http, $routePara
                     $(".bureaux-container").html($(".bureaux-container").html() + imgBureau);
                     swal("Ajouté !", "Le bureau a bien été ajouté à votre plan.", "success");
                 });
+        }
+        else {
+            swal("Attention","Vous ne pouvez pas ajouter plus de 6 bureaux sur un plan.")
         }
     };
 

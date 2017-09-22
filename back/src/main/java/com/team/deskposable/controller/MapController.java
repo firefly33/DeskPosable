@@ -64,7 +64,8 @@ public class MapController {
             String randomKey = String.valueOf((int) (Math.random() * (100000)));
             SimpleDateFormat formatDate = new SimpleDateFormat("yyyyMMddHHmmssSSS");
             Date now = new Date();
-            filename = randomKey + formatDate.format(now) + "." + ext;
+            //filename = randomKey + formatDate.format(now) + "." + ext;
+            filename = "plan1.png";
             String imgPath = String.valueOf(this.getClass().getResource(UPLOADED_FOLDER + filename));
             File newFile = new File(imgPath);
             if (!newFile.exists()) {
