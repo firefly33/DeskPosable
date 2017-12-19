@@ -76,19 +76,20 @@ app.controller('modificationPlanController', function ($scope, $http, $routePara
 
                         var heightOfMap = 750;
 
-                    var leftPositionRelative = -(($scope.cmpBureaux) * widthOfOfficeImg) + x - (widthOfOfficeImg / 2);
-                    var topPositionRelative = -heightOfMap + y - (heightOfOfficeImg / 2);
-                    var imgBureau = '<a href="#"  class="modal-trigger" style="position: relative; top: ' + topPositionRelative + 'px; left: ' + leftPositionRelative + 'px;" onclick="event.preventDefault();">' +
-                        '           <img data-id="' + $scope.cmpBureaux + '" src="../images/bureau.png" class="bureau-style createdOffice" id="bureau-' + $scope.cmpBureaux + '" style="opacity: 0.9;"/>' +
-                        '           </a>';
-                    var content = $compile(imgBureau)($scope);
-                    $scope.cmpBureaux++;
-                    $timeout(function () {
-                        $scope.outputContainer += content.innerHTML;
+                        var leftPositionRelative = -(($scope.cmpBureaux) * widthOfOfficeImg) + x - (widthOfOfficeImg / 2);
+                        var topPositionRelative = -heightOfMap + y - (heightOfOfficeImg / 2);
+                        var imgBureau = '<a href="#"  class="modal-trigger" style="position: relative; top: ' + topPositionRelative + 'px; left: ' + leftPositionRelative + 'px;" onclick="event.preventDefault();">' +
+                            '           <img data-id="' + $scope.cmpBureaux + '" src="../images/bureau.png" class="bureau-style createdOffice" id="bureau-' + $scope.cmpBureaux + '" style="opacity: 0.9;"/>' +
+                            '           </a>';
+                        var content = $compile(imgBureau)($scope);
+                        $scope.cmpBureaux++;
+                        $timeout(function () {
+                            $scope.outputContainer += content.innerHTML;
+                        });
+                        $(".bureaux-container").html($(".bureaux-container").html() + imgBureau);
+                        swal("Ajouté !", "Le bureau a bien été ajouté à votre plan.", "success");
                     });
-                    $(".bureaux-container").html($(".bureaux-container").html() + imgBureau);
-                    swal("Ajouté !", "Le bureau a bien été ajouté à votre plan.", "success");
-                });
+            }
         }
         else {
             swal("Attention","Vous ne pouvez pas ajouter plus de 6 bureaux sur un plan.")
